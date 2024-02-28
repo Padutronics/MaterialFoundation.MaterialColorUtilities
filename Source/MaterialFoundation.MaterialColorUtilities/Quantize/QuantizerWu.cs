@@ -37,9 +37,9 @@ public sealed class QuantizerWu : Quantizer
     /// cube. The cube would be too large if it contained all 16 million colors:
     /// historical best practice is to use 5 bits  of the 8 in each channel,
     /// reducing the histogram to a volume of ~32,000.</summary>
-    private const int INDEX_BITS = 5;
-    private const int INDEX_COUNT = 33; // ((1 << INDEX_BITS) + 1)
-    private const int TOTAL_SIZE = 35937; // INDEX_COUNT * INDEX_COUNT * INDEX_COUNT
+    private const int IndexBits = 5;
+    private const int IndexCount = 33; // ((1 << IndexBits) + 1)
+    private const int TotalSize = 35937; // IndexCount * IndexCount * IndexCount
 
     public QuantizerResult Quantize(int[] pixels, int colorCount)
     {
@@ -58,16 +58,16 @@ public sealed class QuantizerWu : Quantizer
 
     private static int GetIndex(int r, int g, int b)
     {
-        return (r << (INDEX_BITS * 2)) + (r << (INDEX_BITS + 1)) + r + (g << INDEX_BITS) + g + b;
+        return (r << (IndexBits * 2)) + (r << (IndexBits + 1)) + r + (g << IndexBits) + g + b;
     }
 
     private void ConstructHistogram(IDictionary<int, int> pixels)
     {
-        weights = new int[TOTAL_SIZE];
-        momentsR = new int[TOTAL_SIZE];
-        momentsG = new int[TOTAL_SIZE];
-        momentsB = new int[TOTAL_SIZE];
-        moments = new double[TOTAL_SIZE];
+        weights = new int[TotalSize];
+        momentsR = new int[TotalSize];
+        momentsG = new int[TotalSize];
+        momentsB = new int[TotalSize];
+        moments = new double[TotalSize];
 
         foreach (KeyValuePair<int, int> pair in pixels)
         {
@@ -76,7 +76,7 @@ public sealed class QuantizerWu : Quantizer
             int red = ColorUtils.RedFromArgb(pixel);
             int green = ColorUtils.GreenFromArgb(pixel);
             int blue = ColorUtils.BlueFromArgb(pixel);
-            int bitsToRemove = 8 - INDEX_BITS;
+            int bitsToRemove = 8 - IndexBits;
             int iR = (red >> bitsToRemove) + 1;
             int iG = (green >> bitsToRemove) + 1;
             int iB = (blue >> bitsToRemove) + 1;
@@ -91,22 +91,22 @@ public sealed class QuantizerWu : Quantizer
 
     private void CreateMoments()
     {
-        for (int r = 1; r < INDEX_COUNT; ++r)
+        for (int r = 1; r < IndexCount; ++r)
         {
-            int[] area = new int[INDEX_COUNT];
-            int[] areaR = new int[INDEX_COUNT];
-            int[] areaG = new int[INDEX_COUNT];
-            int[] areaB = new int[INDEX_COUNT];
-            double[] area2 = new double[INDEX_COUNT];
+            int[] area = new int[IndexCount];
+            int[] areaR = new int[IndexCount];
+            int[] areaG = new int[IndexCount];
+            int[] areaB = new int[IndexCount];
+            double[] area2 = new double[IndexCount];
 
-            for (int g = 1; g < INDEX_COUNT; ++g)
+            for (int g = 1; g < IndexCount; ++g)
             {
                 int line = 0;
                 int lineR = 0;
                 int lineG = 0;
                 int lineB = 0;
                 double line2 = 0.0;
-                for (int b = 1; b < INDEX_COUNT; ++b)
+                for (int b = 1; b < IndexCount; ++b)
                 {
                     int index = GetIndex(r, g, b);
                     line += weights[index];
@@ -141,9 +141,9 @@ public sealed class QuantizerWu : Quantizer
         }
         double[] volumeVariance = new double[maxColorCount];
         Box firstBox = cubes[0];
-        firstBox.r1 = INDEX_COUNT - 1;
-        firstBox.g1 = INDEX_COUNT - 1;
-        firstBox.b1 = INDEX_COUNT - 1;
+        firstBox.r1 = IndexCount - 1;
+        firstBox.g1 = IndexCount - 1;
+        firstBox.b1 = IndexCount - 1;
 
         int generatedColorCount = maxColorCount;
         int next = 0;

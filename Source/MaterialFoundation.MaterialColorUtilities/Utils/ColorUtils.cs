@@ -24,21 +24,21 @@ namespace MaterialFoundation.MaterialColorUtilities.Utils;
 /// CAM16.</para></summary>
 public static class ColorUtils
 {
-    private static readonly double[][] SRGB_TO_XYZ = new double[][]
+    private static readonly double[][] SrgbToXyz = new double[][]
     {
         new double[] { 0.41233895, 0.35762064, 0.18051042 },
         new double[] { 0.2126, 0.7152, 0.0722 },
         new double[] { 0.01932141, 0.11916382, 0.95034478 },
     };
 
-    private static readonly double[][] XYZ_TO_SRGB = new double[][]
+    private static readonly double[][] XyzToSrgb = new double[][]
     {
         new double[] { 3.2413774792388685, -1.5376652402851851, -0.49885366846268053, },
         new double[] { -0.9691452513005321, 1.8758853451067872, 0.04156585616912061, },
         new double[] { 0.05562093689691305, -0.20395524564742123, 1.0571799111220335, },
     };
 
-    private static readonly double[] WHITE_POINT_D65 = new double[] { 95.047, 100.0, 108.883 };
+    private static readonly double[] WhitePointD65 = new double[] { 95.047, 100.0, 108.883 };
 
     /// <summary>Converts a color from RGB components to ARGB format.</summary>
     public static int ArgbFromRgb(int red, int green, int blue)
@@ -88,7 +88,7 @@ public static class ColorUtils
     /// <summary>Converts a color from ARGB to XYZ.</summary>
     public static int ArgbFromXyz(double x, double y, double z)
     {
-        double[][] matrix = XYZ_TO_SRGB;
+        double[][] matrix = XyzToSrgb;
         double linearR = matrix[0][0] * x + matrix[0][1] * y + matrix[0][2] * z;
         double linearG = matrix[1][0] * x + matrix[1][1] * y + matrix[1][2] * z;
         double linearB = matrix[2][0] * x + matrix[2][1] * y + matrix[2][2] * z;
@@ -104,13 +104,13 @@ public static class ColorUtils
         double r = Linearized(RedFromArgb(argb));
         double g = Linearized(GreenFromArgb(argb));
         double b = Linearized(BlueFromArgb(argb));
-        return MathUtils.MatrixMultiply(new double[] { r, g, b }, SRGB_TO_XYZ);
+        return MathUtils.MatrixMultiply(new double[] { r, g, b }, SrgbToXyz);
     }
 
     /// <summary>Converts a color represented in Lab color space into an ARGB integer.</summary>
     public static int ArgbFromLab(double l, double a, double b)
     {
-        double[] whitePoint = WHITE_POINT_D65;
+        double[] whitePoint = WhitePointD65;
         double fy = (l + 16.0) / 116.0;
         double fx = a / 500.0 + fy;
         double fz = fy - b / 200.0;
@@ -131,11 +131,11 @@ public static class ColorUtils
         double linearR = Linearized(RedFromArgb(argb));
         double linearG = Linearized(GreenFromArgb(argb));
         double linearB = Linearized(BlueFromArgb(argb));
-        double[][] matrix = SRGB_TO_XYZ;
+        double[][] matrix = SrgbToXyz;
         double x = matrix[0][0] * linearR + matrix[0][1] * linearG + matrix[0][2] * linearB;
         double y = matrix[1][0] * linearR + matrix[1][1] * linearG + matrix[1][2] * linearB;
         double z = matrix[2][0] * linearR + matrix[2][1] * linearG + matrix[2][2] * linearB;
-        double[] whitePoint = WHITE_POINT_D65;
+        double[] whitePoint = WhitePointD65;
         double xNormalized = x / whitePoint[0];
         double yNormalized = y / whitePoint[1];
         double zNormalized = z / whitePoint[2];
@@ -229,9 +229,9 @@ public static class ColorUtils
 
     /// <summary>Returns the standard white point; white on a sunny day.</summary>
     /// <returns>The white point</returns>
-    public static double[] WhitePointD65()
+    public static double[] GetWhitePointD65()
     {
-        return WHITE_POINT_D65;
+        return WhitePointD65;
     }
 
     private static double LabF(double t)

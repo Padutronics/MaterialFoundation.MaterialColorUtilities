@@ -35,14 +35,14 @@ namespace MaterialFoundation.MaterialColorUtilities.Hct;
 public sealed class Cam16
 {
     /// <summary>Transforms XYZ color space coordinates to 'cone'/'RGB' responses in CAM16.</summary>
-    public static readonly double[][] XYZ_TO_CAM16RGB = [
+    public static readonly double[][] XyzToCam16Rgb = [
         [0.401288, 0.650173, -0.051461],
         [-0.250268, 1.204414, 0.045854],
         [-0.002079, 0.048952, 0.953127]
     ];
 
     /// <summary>Transforms 'cone'/'RGB' responses in CAM16 to XYZ color space coordinates.</summary>
-    private static readonly double[][] CAM16RGB_TO_XYZ = [
+    private static readonly double[][] Cam16RgbToXyz = [
         [1.8620678, -1.0112547, 0.14918678],
         [0.38752654, 0.62144744, -0.00897398],
         [-0.01584150, -0.03412294, 1.0499644]
@@ -172,7 +172,7 @@ public sealed class Cam16
     /// <param name="argb">ARGB representation of a color.</param>
     public static Cam16 FromInt(int argb)
     {
-        return FromIntInViewingConditions(argb, ViewingConditions.DEFAULT);
+        return FromIntInViewingConditions(argb, ViewingConditions.Default);
     }
 
     /// <summary>Create a CAM16 color from a color in defined viewing conditions.</summary>
@@ -200,7 +200,7 @@ public sealed class Cam16
     public static Cam16 FromXyzInViewingConditions(double x, double y, double z, ViewingConditions viewingConditions)
     {
         // Transform XYZ to 'cone'/'rgb' responses
-        double[][] matrix = XYZ_TO_CAM16RGB;
+        double[][] matrix = XyzToCam16Rgb;
         double rT = (x * matrix[0][0]) + (y * matrix[0][1]) + (z * matrix[0][2]);
         double gT = (x * matrix[1][0]) + (y * matrix[1][1]) + (z * matrix[1][2]);
         double bT = (x * matrix[2][0]) + (y * matrix[2][1]) + (z * matrix[2][2]);
@@ -267,7 +267,7 @@ public sealed class Cam16
     /// <param name="h">CAM16 hue</param>
     private static Cam16 FromJch(double j, double c, double h)
     {
-        return FromJchInViewingConditions(j, c, h, ViewingConditions.DEFAULT);
+        return FromJchInViewingConditions(j, c, h, ViewingConditions.Default);
     }
 
     /// <param name="j">CAM16 lightness</param>
@@ -297,7 +297,7 @@ public sealed class Cam16
     /// axis.</param>
     public static Cam16 FromUcs(double jstar, double astar, double bstar)
     {
-        return FromUcsInViewingConditions(jstar, astar, bstar, ViewingConditions.DEFAULT);
+        return FromUcsInViewingConditions(jstar, astar, bstar, ViewingConditions.Default);
     }
 
     /// <summary>Create a CAM16 color from CAM16-UCS coordinates in defined viewing conditions.</summary>
@@ -325,7 +325,7 @@ public sealed class Cam16
     /// which are near-identical to the default viewing conditions for sRGB.</summary>
     public int ToInt()
     {
-        return Viewed(ViewingConditions.DEFAULT);
+        return Viewed(ViewingConditions.Default);
     }
 
     /// <summary>ARGB representation of the color, in defined viewing conditions.</summary>
@@ -369,7 +369,7 @@ public sealed class Cam16
         double gF = gC / viewingConditions.GetRgbD()[1];
         double bF = bC / viewingConditions.GetRgbD()[2];
 
-        double[][] matrix = CAM16RGB_TO_XYZ;
+        double[][] matrix = Cam16RgbToXyz;
         double x = (rF * matrix[0][0]) + (gF * matrix[0][1]) + (bF * matrix[0][2]);
         double y = (rF * matrix[1][0]) + (gF * matrix[1][1]) + (bF * matrix[1][2]);
         double z = (rF * matrix[2][0]) + (gF * matrix[2][1]) + (bF * matrix[2][2]);

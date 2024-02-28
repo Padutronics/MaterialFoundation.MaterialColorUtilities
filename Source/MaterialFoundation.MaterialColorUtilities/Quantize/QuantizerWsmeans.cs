@@ -50,8 +50,8 @@ public sealed class QuantizerWsmeans
         }
     }
 
-    private const int MAX_ITERATIONS = 10;
-    private const double MIN_MOVEMENT_DISTANCE = 3.0;
+    private const int MaxIterations = 10;
+    private const double MinMovementDistance = 3.0;
 
     /// <summary>Reduce the number of colors needed to represented the input, minimizing the difference between
     /// the original image and the recolored image.</summary>
@@ -143,7 +143,7 @@ public sealed class QuantizerWsmeans
         }
 
         int[] pixelCountSums = new int[clusterCount];
-        for (int iteration = 0; iteration < MAX_ITERATIONS; iteration++)
+        for (int iteration = 0; iteration < MaxIterations; iteration++)
         {
             for (int i = 0; i < clusterCount; i++)
             {
@@ -188,7 +188,7 @@ public sealed class QuantizerWsmeans
                 if (newClusterIndex != -1)
                 {
                     double distanceChange = Math.Abs(Math.Sqrt(minimumDistance) - Math.Sqrt(previousDistance));
-                    if (distanceChange > MIN_MOVEMENT_DISTANCE)
+                    if (distanceChange > MinMovementDistance)
                     {
                         pointsMoved++;
                         clusterIndices[i] = newClusterIndex;

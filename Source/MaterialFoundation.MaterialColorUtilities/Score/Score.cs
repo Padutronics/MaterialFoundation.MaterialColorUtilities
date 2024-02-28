@@ -27,12 +27,12 @@ namespace MaterialFoundation.MaterialColorUtilities.Score;
 /// muddied, while curating the high cluster count to a much smaller number of appropriate choices.</para></summary>
 public static class Score
 {
-    private const double TARGET_CHROMA = 48.0; // A1 Chroma
-    private const double WEIGHT_PROPORTION = 0.7;
-    private const double WEIGHT_CHROMA_ABOVE = 0.3;
-    private const double WEIGHT_CHROMA_BELOW = 0.1;
-    private const double CUTOFF_CHROMA = 5.0;
-    private const double CUTOFF_EXCITED_PROPORTION = 0.01;
+    private const double TargetChroma = 48.0; // A1 Chroma
+    private const double WeightProportion = 0.7;
+    private const double WeightChromaAbove = 0.3;
+    private const double WeightChromaBelow = 0.1;
+    private const double CutoffChroma = 5.0;
+    private const double CutoffExcitedProportion = 0.01;
 
     public static ICollection<int> GetScore(IDictionary<int, int> colorsToPopulation)
     {
@@ -96,14 +96,14 @@ public static class Score
         {
             int hue = MathUtils.SanitizeDegreesInt((int)Math.Round(hct.GetHue()));
             double proportion = hueExcitedProportions[hue];
-            if (filter && (hct.GetChroma() < CUTOFF_CHROMA || proportion <= CUTOFF_EXCITED_PROPORTION))
+            if (filter && (hct.GetChroma() < CutoffChroma || proportion <= CutoffExcitedProportion))
             {
                 continue;
             }
 
-            double proportionScore = proportion * 100.0 * WEIGHT_PROPORTION;
-            double chromaWeight = hct.GetChroma() < TARGET_CHROMA ? WEIGHT_CHROMA_BELOW : WEIGHT_CHROMA_ABOVE;
-            double chromaScore = (hct.GetChroma() - TARGET_CHROMA) * chromaWeight;
+            double proportionScore = proportion * 100.0 * WeightProportion;
+            double chromaWeight = hct.GetChroma() < TargetChroma ? WeightChromaBelow : WeightChromaAbove;
+            double chromaScore = (hct.GetChroma() - TargetChroma) * chromaWeight;
             double score = proportionScore + chromaScore;
             scoredHcts.Add(new ScoredHCT(hct, score));
         }

@@ -127,7 +127,7 @@ public sealed class Hct
         double[] viewedInVc = cam16.XyzInViewingConditions(vc, null);
 
         // 2. Create CAM16 of those XYZ coordinates in default VC.
-        Cam16 recastInVc = Cam16.FromXyzInViewingConditions(viewedInVc[0], viewedInVc[1], viewedInVc[2], ViewingConditions.DEFAULT);
+        Cam16 recastInVc = Cam16.FromXyzInViewingConditions(viewedInVc[0], viewedInVc[1], viewedInVc[2], ViewingConditions.Default);
 
         // 3. Create HCT from:
         // - CAM16 using default VC with XYZ coordinates in specified VC.

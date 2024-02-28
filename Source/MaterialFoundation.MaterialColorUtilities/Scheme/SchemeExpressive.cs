@@ -23,9 +23,9 @@ namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 public class SchemeExpressive : DynamicScheme
 {
     // NOMUTANTS--arbitrary increments/decrements, correctly, still passes tests.
-    private static readonly double[] HUES = { 0, 21, 51, 121, 151, 191, 271, 321, 360 };
-    private static readonly double[] SECONDARY_ROTATIONS = { 45, 95, 45, 20, 45, 90, 45, 45, 45 };
-    private static readonly double[] TERTIARY_ROTATIONS = { 120, 120, 20, 45, 20, 15, 20, 120, 120 };
+    private static readonly double[] Hues = { 0, 21, 51, 121, 151, 191, 271, 321, 360 };
+    private static readonly double[] SecondaryRotations = { 45, 95, 45, 20, 45, 90, 45, 45, 45 };
+    private static readonly double[] TertiaryRotations = { 120, 120, 20, 45, 20, 15, 20, 120, 120 };
 
     public SchemeExpressive(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
         base(
@@ -34,8 +34,8 @@ public class SchemeExpressive : DynamicScheme
             isDark,
             contrastLevel,
             TonalPalette.FromHueAndChroma(MathUtils.SanitizeDegreesDouble(sourceColorHct.GetHue() + 240.0), 40.0),
-            TonalPalette.FromHueAndChroma(DynamicScheme.GetRotatedHue(sourceColorHct, HUES, SECONDARY_ROTATIONS), 24.0),
-            TonalPalette.FromHueAndChroma(DynamicScheme.GetRotatedHue(sourceColorHct, HUES, TERTIARY_ROTATIONS), 32.0),
+            TonalPalette.FromHueAndChroma(DynamicScheme.GetRotatedHue(sourceColorHct, Hues, SecondaryRotations), 24.0),
+            TonalPalette.FromHueAndChroma(DynamicScheme.GetRotatedHue(sourceColorHct, Hues, TertiaryRotations), 32.0),
             TonalPalette.FromHueAndChroma(MathUtils.SanitizeDegreesDouble(sourceColorHct.GetHue() + 15.0), 8.0),
             TonalPalette.FromHueAndChroma(MathUtils.SanitizeDegreesDouble(sourceColorHct.GetHue() + 15.0), 12.0)
         )

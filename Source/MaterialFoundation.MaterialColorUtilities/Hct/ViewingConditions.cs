@@ -31,7 +31,7 @@ namespace MaterialFoundation.MaterialColorUtilities.Hct;
 public sealed class ViewingConditions
 {
     /// <summary>sRGB-like viewing conditions.</summary>
-    public static readonly ViewingConditions DEFAULT = ViewingConditions.DefaultWithBackgroundLstar(50.0);
+    public static readonly ViewingConditions Default = ViewingConditions.DefaultWithBackgroundLstar(50.0);
 
     private readonly double aw;
     private readonly double nbb;
@@ -115,7 +115,7 @@ public sealed class ViewingConditions
         // that any color viewed in pure black can't be seen.
         backgroundLstar = Math.Max(0.1, backgroundLstar);
         // Transform white point XYZ to 'cone'/'rgb' responses
-        double[][] matrix = Cam16.XYZ_TO_CAM16RGB;
+        double[][] matrix = Cam16.XyzToCam16Rgb;
         double[] xyz = whitePoint;
         double rW = (xyz[0] * matrix[0][0]) + (xyz[1] * matrix[0][1]) + (xyz[2] * matrix[0][2]);
         double gW = (xyz[0] * matrix[1][0]) + (xyz[1] * matrix[1][1]) + (xyz[2] * matrix[1][2]);
@@ -161,7 +161,7 @@ public sealed class ViewingConditions
     /// <para>Default viewing conditions have a lstar of 50, midgray.</para></summary>
     public static ViewingConditions DefaultWithBackgroundLstar(double lstar)
     {
-        return ViewingConditions.Make(ColorUtils.WhitePointD65(), (200.0 / Math.PI * ColorUtils.YFromLstar(50.0) / 100.0), lstar, 2.0, false);
+        return ViewingConditions.Make(ColorUtils.GetWhitePointD65(), (200.0 / Math.PI * ColorUtils.YFromLstar(50.0) / 100.0), lstar, 2.0, false);
     }
 
     /// <summary>Parameters are intermediate values of the CAM16 conversion process. Their names are shorthand

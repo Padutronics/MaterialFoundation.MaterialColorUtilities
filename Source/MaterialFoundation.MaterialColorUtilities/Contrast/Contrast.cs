@@ -30,15 +30,15 @@ public static class Contrast
 {
     /// <summary>The minimum contrast ratio of two colors.
     /// Contrast ratio equation = lighter + 5 / darker + 5, if lighter == darker, ratio == 1.</summary>
-    public const double RATIO_MIN = 1.0;
+    public const double RatioMin = 1.0;
 
     /// <summary>The maximum contrast ratio of two colors.
     /// Contrast ratio equation = lighter + 5 / darker + 5. Lighter and darker scale from 0 to 100.
     /// If lighter == 100, darker = 0, ratio == 21.</summary>
-    public const double RATIO_MAX = 21.0;
-    public const double RATIO_30 = 3.0;
-    public const double RATIO_45 = 4.5;
-    public const double RATIO_70 = 7.0;
+    public const double RatioMax = 21.0;
+    public const double Ratio3_0 = 3.0;
+    public const double Ratio4_5 = 4.5;
+    public const double Ratio7_0 = 7.0;
 
     /// <summary>Given a color and a contrast ratio to reach, the luminance of a color that reaches that ratio
     /// with the color can be calculated. However, that luminance may not contrast as desired, i.e. the
@@ -50,7 +50,7 @@ public static class Contrast
     /// it will return a valid luminance but that luminance may not meet the requested contrast ratio.
     ///
     /// 0.04 selected because it ensures the resulting ratio rounds to the same tenth.</summary>
-    private const double CONTRAST_RATIO_EPSILON = 0.04;
+    private const double ConstantRatioEpsilon = 0.04;
 
     /// <summary>Color spaces that measure luminance, such as Y in XYZ, L* in L*a*b*, or T in HCT, are known as
     /// perceptually accurate color spaces.
@@ -75,7 +75,7 @@ public static class Contrast
     /// 0.4 is generous, ex. HCT requires much less delta. It was chosen because it provides a rough
     /// guarantee that as long as a perceptual color space gamut maps lightness such that the resulting
     /// lightness rounds to the same as the requested, the desired contrast ratio will be reached.</summary>
-    private const double LUMINANCE_GAMUT_MAP_TOLERANCE = 0.4;
+    private const double LuminanceGamutMapTolerance = 0.4;
 
     /// <summary>Contrast ratio is a measure of legibility, its used to compare the lightness of two colors.
     /// This method is used commonly in industry due to its use by WCAG.
@@ -128,12 +128,12 @@ public static class Contrast
         }
         double realContrast = RatioOfYs(lightY, darkY);
         double delta = Math.Abs(realContrast - ratio);
-        if (realContrast < ratio && delta > CONTRAST_RATIO_EPSILON)
+        if (realContrast < ratio && delta > ConstantRatioEpsilon)
         {
             return -1.0;
         }
 
-        double returnValue = ColorUtils.LstarFromY(lightY) + LUMINANCE_GAMUT_MAP_TOLERANCE;
+        double returnValue = ColorUtils.LstarFromY(lightY) + LuminanceGamutMapTolerance;
         // NOMUTANTS--important validation step; functions it is calling may change implementation.
         if (returnValue < 0 || returnValue > 100)
         {
@@ -173,13 +173,13 @@ public static class Contrast
         }
         double realContrast = RatioOfYs(lightY, darkY);
         double delta = Math.Abs(realContrast - ratio);
-        if (realContrast < ratio && delta > CONTRAST_RATIO_EPSILON)
+        if (realContrast < ratio && delta > ConstantRatioEpsilon)
         {
             return -1.0;
         }
 
         // For information on 0.4 constant, see comment in lighter(tone, ratio).
-        double returnValue = ColorUtils.LstarFromY(darkY) - LUMINANCE_GAMUT_MAP_TOLERANCE;
+        double returnValue = ColorUtils.LstarFromY(darkY) - LuminanceGamutMapTolerance;
         // NOMUTANTS--important validation step; functions it is calling may change implementation.
         if (returnValue < 0 || returnValue > 100)
         {

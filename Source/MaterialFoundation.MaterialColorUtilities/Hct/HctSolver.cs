@@ -22,23 +22,23 @@ namespace MaterialFoundation.MaterialColorUtilities.Hct;
 /// <summary>A class that solves the HCT equation.</summary>
 public static class HctSolver
 {
-    private static readonly double[][] SCALED_DISCOUNT_FROM_LINRGB = new double[][]
+    private static readonly double[][] ScaledDiscountFfromLinRgb = new double[][]
     {
         new double[] { 0.001200833568784504, 0.002389694492170889, 0.0002795742885861124, },
         new double[] { 0.0005891086651375999, 0.0029785502573438758, 0.0003270666104008398, },
         new double[] { 0.00010146692491640572, 0.0005364214359186694, 0.0032979401770712076, },
     };
 
-    private static readonly double[][] LINRGB_FROM_SCALED_DISCOUNT = new double[][]
+    private static readonly double[][] LinRgbFromScaledDiscount = new double[][]
     {
         new double[] { 1373.2198709594231, -1100.4251190754821, -7.278681089101213, },
         new double[] { -271.815969077903, 559.6580465940733, -32.46047482791194, },
         new double[] { 1.9622899599665666, -57.173814538844006, 308.7233197812385, },
     };
 
-    private static readonly double[] Y_FROM_LINRGB = new double[] { 0.2126, 0.7152, 0.0722 };
+    private static readonly double[] YFromLinRgb = new double[] { 0.2126, 0.7152, 0.0722 };
 
-    private static readonly double[] CRITICAL_PLANES = new double[]
+    private static readonly double[] CriticalPlanes = new double[]
     {
         0.015176349177441876,
         0.045529047532325624,
@@ -334,7 +334,7 @@ public static class HctSolver
     /// <returns>The hue of the color in CAM16, in radians.</returns>
     private static double HueOf(double[] linrgb)
     {
-        double[] scaledDiscount = MathUtils.MatrixMultiply(linrgb, SCALED_DISCOUNT_FROM_LINRGB);
+        double[] scaledDiscount = MathUtils.MatrixMultiply(linrgb, ScaledDiscountFfromLinRgb);
         double rA = ChromaticAdaptation(scaledDiscount[0]);
         double gA = ChromaticAdaptation(scaledDiscount[1]);
         double bA = ChromaticAdaptation(scaledDiscount[2]);
@@ -398,9 +398,9 @@ public static class HctSolver
     /// [-1.0, -1.0, -1.0] is returned.</returns>
     private static double[] NthVertex(double y, int n)
     {
-        double kR = Y_FROM_LINRGB[0];
-        double kG = Y_FROM_LINRGB[1];
-        double kB = Y_FROM_LINRGB[2];
+        double kR = YFromLinRgb[0];
+        double kG = YFromLinRgb[1];
+        double kB = YFromLinRgb[2];
         double coordA = n % 4 <= 1 ? 0.0 : 100.0;
         double coordB = n % 2 == 0 ? 0.0 : 100.0;
         if (n < 4)
@@ -545,7 +545,7 @@ public static class HctSolver
                     else
                     {
                         int mPlane = (int)Math.Floor((lPlane + rPlane) / 2.0);
-                        double midPlaneCoordinate = CRITICAL_PLANES[mPlane];
+                        double midPlaneCoordinate = CriticalPlanes[mPlane];
                         double[] mid = SetCoordinate(left, midPlaneCoordinate, right, axis);
                         double midHue = HueOf(mid);
                         if (AreInCyclicOrder(leftHue, targetHue, midHue))
@@ -585,7 +585,7 @@ public static class HctSolver
         // ===========================================================
         // Operations inlined from Cam16 to avoid repeated calculation
         // ===========================================================
-        ViewingConditions viewingConditions = ViewingConditions.DEFAULT;
+        ViewingConditions viewingConditions = ViewingConditions.Default;
         double tInnerCoeff = 1 / Math.Pow(1.64 - Math.Pow(0.29, viewingConditions.GetN()), 0.73);
         double eHue = 0.25 * (Math.Cos(hueRadians + 2.0) + 3.8);
         double p1 = eHue * (50000.0 / 13.0) * viewingConditions.GetNc() * viewingConditions.GetNcb();
@@ -610,7 +610,7 @@ public static class HctSolver
             double rCScaled = InverseChromaticAdaptation(rA);
             double gCScaled = InverseChromaticAdaptation(gA);
             double bCScaled = InverseChromaticAdaptation(bA);
-            double[] linrgb = MathUtils.MatrixMultiply(new double[] { rCScaled, gCScaled, bCScaled }, LINRGB_FROM_SCALED_DISCOUNT);
+            double[] linrgb = MathUtils.MatrixMultiply(new double[] { rCScaled, gCScaled, bCScaled }, LinRgbFromScaledDiscount);
             // ===========================================================
             // Operations inlined from Cam16 to avoid repeated calculation
             // ===========================================================
@@ -618,9 +618,9 @@ public static class HctSolver
             {
                 return 0;
             }
-            double kR = Y_FROM_LINRGB[0];
-            double kG = Y_FROM_LINRGB[1];
-            double kB = Y_FROM_LINRGB[2];
+            double kR = YFromLinRgb[0];
+            double kG = YFromLinRgb[1];
+            double kB = YFromLinRgb[2];
             double fnj = kR * linrgb[0] + kG * linrgb[1] + kB * linrgb[2];
             if (fnj <= 0)
             {
