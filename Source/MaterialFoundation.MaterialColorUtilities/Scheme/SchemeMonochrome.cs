@@ -22,7 +22,8 @@ namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 public class SchemeMonochrome : DynamicScheme
 {
     public SchemeMonochrome(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
-        base(sourceColorHct,
+        base(
+            sourceColorHct,
             Variant.MONOCHROME,
             isDark,
             contrastLevel,
@@ -30,7 +31,8 @@ public class SchemeMonochrome : DynamicScheme
             TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 0.0),
             TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 0.0),
             TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 0.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 0.0))
+            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 0.0)
+        )
     {
     }
 }

@@ -79,7 +79,9 @@ public sealed class Contrast
     // lightness rounds to the same as the requested, the desired contrast ratio will be reached.
     private const double LUMINANCE_GAMUT_MAP_TOLERANCE = 0.4;
 
-    private Contrast() { }
+    private Contrast()
+    {
+    }
 
     /**
      * Contrast ratio is a measure of legibility, its used to compare the lightness of two colors.

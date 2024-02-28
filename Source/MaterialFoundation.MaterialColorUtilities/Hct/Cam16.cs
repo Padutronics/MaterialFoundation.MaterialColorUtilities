@@ -168,16 +168,7 @@ public sealed class Cam16
      * @param astar CAM16-UCS a coordinate
      * @param bstar CAM16-UCS b coordinate
      */
-    private Cam16(
-        double hue,
-        double chroma,
-        double j,
-        double q,
-        double m,
-        double s,
-        double jstar,
-        double astar,
-        double bstar)
+    private Cam16(double hue, double chroma, double j, double q, double m, double s, double jstar, double astar, double bstar)
     {
         this.hue = hue;
         this.chroma = chroma;
@@ -225,8 +216,7 @@ public sealed class Cam16
         return fromXyzInViewingConditions(x, y, z, viewingConditions);
     }
 
-    public static Cam16 fromXyzInViewingConditions(
-        double x, double y, double z, ViewingConditions viewingConditions)
+    public static Cam16 fromXyzInViewingConditions(double x, double y, double z, ViewingConditions viewingConditions)
     {
         // Transform XYZ to 'cone'/'rgb' responses
         double[][] matrix = XYZ_TO_CAM16RGB;
@@ -259,40 +249,28 @@ public sealed class Cam16
         // hue
         double atan2 = Math.Atan2(b, a);
         double atanDegrees = MathUtils.toDegrees(atan2);
-        double hue =
-            atanDegrees < 0
-                ? atanDegrees + 360.0
-                : atanDegrees >= 360 ? atanDegrees - 360.0 : atanDegrees;
+        double hue = atanDegrees < 0
+            ? atanDegrees + 360.0
+            : atanDegrees >= 360 ? atanDegrees - 360.0 : atanDegrees;
         double hueRadians = MathUtils.toRadians(hue);
 
         // achromatic response to color
         double ac = p2 * viewingConditions.getNbb();
 
         // CAM16 lightness and brightness
-        double j =
-            100.0
-                * Math.Pow(
-                    ac / viewingConditions.getAw(),
-                    viewingConditions.getC() * viewingConditions.getZ());
-        double q =
-            4.0
-                / viewingConditions.getC()
-                * Math.Sqrt(j / 100.0)
-                * (viewingConditions.getAw() + 4.0)
-                * viewingConditions.getFlRoot();
+        double j = 100.0 * Math.Pow(ac / viewingConditions.getAw(), viewingConditions.getC() * viewingConditions.getZ());
+        double q = 4.0 / viewingConditions.getC() * Math.Sqrt(j / 100.0) * (viewingConditions.getAw() + 4.0) * viewingConditions.getFlRoot();
 
         // CAM16 chroma, colorfulness, and saturation.
         double huePrime = (hue < 20.14) ? hue + 360 : hue;
         double eHue = 0.25 * (Math.Cos(MathUtils.toRadians(huePrime) + 2.0) + 3.8);
         double p1 = 50000.0 / 13.0 * eHue * viewingConditions.getNc() * viewingConditions.getNcb();
         double t = p1 * double.Hypot(a, b) / (u + 0.305);
-        double alpha =
-            Math.Pow(1.64 - Math.Pow(0.29, viewingConditions.getN()), 0.73) * Math.Pow(t, 0.9);
+        double alpha = Math.Pow(1.64 - Math.Pow(0.29, viewingConditions.getN()), 0.73) * Math.Pow(t, 0.9);
         // CAM16 chroma, colorfulness, saturation
         double c = alpha * Math.Sqrt(j / 100.0);
         double m = c * viewingConditions.getFlRoot();
-        double s =
-            50.0 * Math.Sqrt((alpha * viewingConditions.getC()) / (viewingConditions.getAw() + 4.0));
+        double s = 50.0 * Math.Sqrt((alpha * viewingConditions.getC()) / (viewingConditions.getAw() + 4.0));
 
         // CAM16-UCS components
         double jstar = (1.0 + 100.0 * 0.007) * j / (1.0 + 0.007 * j);
@@ -319,19 +297,12 @@ public sealed class Cam16
      * @param h CAM16 hue
      * @param viewingConditions Information about the environment where the color was observed.
      */
-    private static Cam16 fromJchInViewingConditions(
-        double j, double c, double h, ViewingConditions viewingConditions)
+    private static Cam16 fromJchInViewingConditions(double j, double c, double h, ViewingConditions viewingConditions)
     {
-        double q =
-            4.0
-                / viewingConditions.getC()
-                * Math.Sqrt(j / 100.0)
-                * (viewingConditions.getAw() + 4.0)
-                * viewingConditions.getFlRoot();
+        double q = 4.0 / viewingConditions.getC() * Math.Sqrt(j / 100.0) * (viewingConditions.getAw() + 4.0) * viewingConditions.getFlRoot();
         double m = c * viewingConditions.getFlRoot();
         double alpha = c / Math.Sqrt(j / 100.0);
-        double s =
-            50.0 * Math.Sqrt((alpha * viewingConditions.getC()) / (viewingConditions.getAw() + 4.0));
+        double s = 50.0 * Math.Sqrt((alpha * viewingConditions.getC()) / (viewingConditions.getAw() + 4.0));
 
         double hueRadians = MathUtils.toRadians(h);
         double jstar = (1.0 + 100.0 * 0.007) * j / (1.0 + 0.007 * j);
@@ -366,8 +337,7 @@ public sealed class Cam16
      *     axis.
      * @param viewingConditions Information about the environment where the color was observed.
      */
-    public static Cam16 fromUcsInViewingConditions(
-        double jstar, double astar, double bstar, ViewingConditions viewingConditions)
+    public static Cam16 fromUcsInViewingConditions(double jstar, double astar, double bstar, ViewingConditions viewingConditions)
     {
 
         double m = double.Hypot(astar, bstar);
@@ -405,18 +375,13 @@ public sealed class Cam16
 
     public double[] xyzInViewingConditions(ViewingConditions viewingConditions, double[]? returnArray)
     {
-        double alpha =
-            (getChroma() == 0.0 || getJ() == 0.0) ? 0.0 : getChroma() / Math.Sqrt(getJ() / 100.0);
+        double alpha = (getChroma() == 0.0 || getJ() == 0.0) ? 0.0 : getChroma() / Math.Sqrt(getJ() / 100.0);
 
-        double t =
-            Math.Pow(
-                alpha / Math.Pow(1.64 - Math.Pow(0.29, viewingConditions.getN()), 0.73), 1.0 / 0.9);
+        double t = Math.Pow(alpha / Math.Pow(1.64 - Math.Pow(0.29, viewingConditions.getN()), 0.73), 1.0 / 0.9);
         double hRad = MathUtils.toRadians(getHue());
 
         double eHue = 0.25 * (Math.Cos(hRad + 2.0) + 3.8);
-        double ac =
-            viewingConditions.getAw()
-                * Math.Pow(getJ() / 100.0, 1.0 / viewingConditions.getC() / viewingConditions.getZ());
+        double ac = viewingConditions.getAw() * Math.Pow(getJ() / 100.0, 1.0 / viewingConditions.getC() / viewingConditions.getZ());
         double p1 = eHue * (50000.0 / 13.0) * viewingConditions.getNc() * viewingConditions.getNcb();
         double p2 = (ac / viewingConditions.getNbb());
 
@@ -431,14 +396,11 @@ public sealed class Cam16
         double bA = (460.0 * p2 - 220.0 * a - 6300.0 * b) / 1403.0;
 
         double rCBase = Math.Max(0, (27.13 * Math.Abs(rA)) / (400.0 - Math.Abs(rA)));
-        double rC =
-            Math.Sign(rA) * (100.0 / viewingConditions.getFl()) * Math.Pow(rCBase, 1.0 / 0.42);
+        double rC = Math.Sign(rA) * (100.0 / viewingConditions.getFl()) * Math.Pow(rCBase, 1.0 / 0.42);
         double gCBase = Math.Max(0, (27.13 * Math.Abs(gA)) / (400.0 - Math.Abs(gA)));
-        double gC =
-            Math.Sign(gA) * (100.0 / viewingConditions.getFl()) * Math.Pow(gCBase, 1.0 / 0.42);
+        double gC = Math.Sign(gA) * (100.0 / viewingConditions.getFl()) * Math.Pow(gCBase, 1.0 / 0.42);
         double bCBase = Math.Max(0, (27.13 * Math.Abs(bA)) / (400.0 - Math.Abs(bA)));
-        double bC =
-            Math.Sign(bA) * (100.0 / viewingConditions.getFl()) * Math.Pow(bCBase, 1.0 / 0.42);
+        double bC = Math.Sign(bA) * (100.0 / viewingConditions.getFl()) * Math.Pow(bCBase, 1.0 / 0.42);
         double rF = rC / viewingConditions.getRgbD()[0];
         double gF = gC / viewingConditions.getRgbD()[1];
         double bF = bC / viewingConditions.getRgbD()[2];

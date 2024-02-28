@@ -36,7 +36,9 @@ public sealed class Score
     private const double CUTOFF_CHROMA = 5.0;
     private const double CUTOFF_EXCITED_PROPORTION = 0.01;
 
-    private Score() { }
+    private Score()
+    {
+    }
 
     public static ICollection<int> score(IDictionary<int, int> colorsToPopulation)
     {
@@ -49,8 +51,7 @@ public sealed class Score
         return score(colorsToPopulation, desired, unchecked((int)0xff4285f4), true);
     }
 
-    public static ICollection<int> score(
-        IDictionary<int, int> colorsToPopulation, int desired, int fallbackColorArgb)
+    public static ICollection<int> score(IDictionary<int, int> colorsToPopulation, int desired, int fallbackColorArgb)
     {
         return score(colorsToPopulation, desired, fallbackColorArgb, true);
     }
@@ -69,11 +70,7 @@ public sealed class Score
      *     the input colors were not suitable for a theme, a default fallback color will be provided,
      *     Google Blue.
      */
-    public static ICollection<int> score(
-        IDictionary<int, int> colorsToPopulation,
-        int desired,
-        int fallbackColorArgb,
-        bool filter)
+    public static ICollection<int> score(IDictionary<int, int> colorsToPopulation, int desired, int fallbackColorArgb, bool filter)
     {
 
         // Get the HCT color for each Argb value, while finding the per hue count and
@@ -115,8 +112,7 @@ public sealed class Score
             }
 
             double proportionScore = proportion * 100.0 * WEIGHT_PROPORTION;
-            double chromaWeight =
-                hct.getChroma() < TARGET_CHROMA ? WEIGHT_CHROMA_BELOW : WEIGHT_CHROMA_ABOVE;
+            double chromaWeight = hct.getChroma() < TARGET_CHROMA ? WEIGHT_CHROMA_BELOW : WEIGHT_CHROMA_ABOVE;
             double chromaScore = (hct.getChroma() - TARGET_CHROMA) * chromaWeight;
             double score = proportionScore + chromaScore;
             scoredHcts.Add(new ScoredHCT(hct, score));
@@ -184,7 +180,9 @@ public sealed class Score
 
     private sealed class ScoredComparator : IComparer<ScoredHCT>
     {
-        public ScoredComparator() { }
+        public ScoredComparator()
+        {
+        }
 
         public int Compare(ScoredHCT? entry1, ScoredHCT? entry2)
         {

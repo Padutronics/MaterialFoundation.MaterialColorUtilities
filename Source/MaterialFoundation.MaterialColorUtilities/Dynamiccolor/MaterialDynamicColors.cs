@@ -55,7 +55,8 @@ public sealed class MaterialDynamicColors
         return DynamicColor.fromPalette(
             /* name= */ "primary_palette_key_color",
             /* palette= */ (s) => s.primaryPalette,
-            /* tone= */ (s) => s.primaryPalette.getKeyColor().getTone());
+            /* tone= */ (s) => s.primaryPalette.getKeyColor().getTone()
+        );
     }
 
     public DynamicColor secondaryPaletteKeyColor()
@@ -63,7 +64,8 @@ public sealed class MaterialDynamicColors
         return DynamicColor.fromPalette(
             /* name= */ "secondary_palette_key_color",
             /* palette= */ (s) => s.secondaryPalette,
-            /* tone= */ (s) => s.secondaryPalette.getKeyColor().getTone());
+            /* tone= */ (s) => s.secondaryPalette.getKeyColor().getTone()
+        );
     }
 
     public DynamicColor tertiaryPaletteKeyColor()
@@ -71,7 +73,8 @@ public sealed class MaterialDynamicColors
         return DynamicColor.fromPalette(
             /* name= */ "tertiary_palette_key_color",
             /* palette= */ (s) => s.tertiaryPalette,
-            /* tone= */ (s) => s.tertiaryPalette.getKeyColor().getTone());
+            /* tone= */ (s) => s.tertiaryPalette.getKeyColor().getTone()
+        );
     }
 
     public DynamicColor neutralPaletteKeyColor()
@@ -79,7 +82,8 @@ public sealed class MaterialDynamicColors
         return DynamicColor.fromPalette(
             /* name= */ "neutral_palette_key_color",
             /* palette= */ (s) => s.neutralPalette,
-            /* tone= */ (s) => s.neutralPalette.getKeyColor().getTone());
+            /* tone= */ (s) => s.neutralPalette.getKeyColor().getTone()
+        );
     }
 
     public DynamicColor neutralVariantPaletteKeyColor()
@@ -87,7 +91,8 @@ public sealed class MaterialDynamicColors
         return DynamicColor.fromPalette(
             /* name= */ "neutral_variant_palette_key_color",
             /* palette= */ (s) => s.neutralVariantPalette,
-            /* tone= */ (s) => s.neutralVariantPalette.getKeyColor().getTone());
+            /* tone= */ (s) => s.neutralVariantPalette.getKeyColor().getTone()
+        );
     }
 
     public DynamicColor background()
@@ -100,7 +105,8 @@ public sealed class MaterialDynamicColors
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor onBackground()
@@ -113,7 +119,8 @@ public sealed class MaterialDynamicColors
             /* background= */ (s) => background(),
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(3.0, 3.0, 4.5, 7.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor surface()
@@ -126,7 +133,8 @@ public sealed class MaterialDynamicColors
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor surfaceDim()
@@ -134,13 +142,13 @@ public sealed class MaterialDynamicColors
         return new DynamicColor(
             /* name= */ "surface_dim",
             /* palette= */ (s) => s.neutralPalette,
-            /* tone= */ (s) =>
-                s.isDark ? 6.0 : new ContrastCurve(87.0, 87.0, 80.0, 75.0).get(s.contrastLevel),
+            /* tone= */ (s) => s.isDark ? 6.0 : new ContrastCurve(87.0, 87.0, 80.0, 75.0).get(s.contrastLevel),
             /* isBackground= */ true,
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor surfaceBright()
@@ -148,13 +156,13 @@ public sealed class MaterialDynamicColors
         return new DynamicColor(
             /* name= */ "surface_bright",
             /* palette= */ (s) => s.neutralPalette,
-            /* tone= */ (s) =>
-                s.isDark ? new ContrastCurve(24.0, 24.0, 29.0, 34.0).get(s.contrastLevel) : 98.0,
+            /* tone= */ (s) => s.isDark ? new ContrastCurve(24.0, 24.0, 29.0, 34.0).get(s.contrastLevel) : 98.0,
             /* isBackground= */ true,
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor surfaceContainerLowest()
@@ -162,13 +170,13 @@ public sealed class MaterialDynamicColors
         return new DynamicColor(
             /* name= */ "surface_container_lowest",
             /* palette= */ (s) => s.neutralPalette,
-            /* tone= */ (s) =>
-                s.isDark ? new ContrastCurve(4.0, 4.0, 2.0, 0.0).get(s.contrastLevel) : 100.0,
+            /* tone= */ (s) => s.isDark ? new ContrastCurve(4.0, 4.0, 2.0, 0.0).get(s.contrastLevel) : 100.0,
             /* isBackground= */ true,
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor surfaceContainerLow()
@@ -176,15 +184,15 @@ public sealed class MaterialDynamicColors
         return new DynamicColor(
             /* name= */ "surface_container_low",
             /* palette= */ (s) => s.neutralPalette,
-            /* tone= */ (s) =>
-                s.isDark
-                    ? new ContrastCurve(10.0, 10.0, 11.0, 12.0).get(s.contrastLevel)
-                    : new ContrastCurve(96.0, 96.0, 96.0, 95.0).get(s.contrastLevel),
+            /* tone= */ (s) => s.isDark
+                ? new ContrastCurve(10.0, 10.0, 11.0, 12.0).get(s.contrastLevel)
+                : new ContrastCurve(96.0, 96.0, 96.0, 95.0).get(s.contrastLevel),
             /* isBackground= */ true,
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor surfaceContainer()
@@ -192,15 +200,15 @@ public sealed class MaterialDynamicColors
         return new DynamicColor(
             /* name= */ "surface_container",
             /* palette= */ (s) => s.neutralPalette,
-            /* tone= */ (s) =>
-                s.isDark
-                    ? new ContrastCurve(12.0, 12.0, 16.0, 20.0).get(s.contrastLevel)
-                    : new ContrastCurve(94.0, 94.0, 92.0, 90.0).get(s.contrastLevel),
+            /* tone= */ (s) => s.isDark
+                ? new ContrastCurve(12.0, 12.0, 16.0, 20.0).get(s.contrastLevel)
+                : new ContrastCurve(94.0, 94.0, 92.0, 90.0).get(s.contrastLevel),
             /* isBackground= */ true,
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor surfaceContainerHigh()
@@ -208,15 +216,15 @@ public sealed class MaterialDynamicColors
         return new DynamicColor(
             /* name= */ "surface_container_high",
             /* palette= */ (s) => s.neutralPalette,
-            /* tone= */ (s) =>
-                s.isDark
-                    ? new ContrastCurve(17.0, 17.0, 21.0, 25.0).get(s.contrastLevel)
-                    : new ContrastCurve(92.0, 92.0, 88.0, 85.0).get(s.contrastLevel),
+            /* tone= */ (s) => s.isDark
+                ? new ContrastCurve(17.0, 17.0, 21.0, 25.0).get(s.contrastLevel)
+                : new ContrastCurve(92.0, 92.0, 88.0, 85.0).get(s.contrastLevel),
             /* isBackground= */ true,
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor surfaceContainerHighest()
@@ -224,15 +232,15 @@ public sealed class MaterialDynamicColors
         return new DynamicColor(
             /* name= */ "surface_container_highest",
             /* palette= */ (s) => s.neutralPalette,
-            /* tone= */ (s) =>
-                s.isDark
-                    ? new ContrastCurve(22.0, 22.0, 26.0, 30.0).get(s.contrastLevel)
-                    : new ContrastCurve(90.0, 90.0, 84.0, 80.0).get(s.contrastLevel),
+            /* tone= */ (s) => s.isDark
+                ? new ContrastCurve(22.0, 22.0, 26.0, 30.0).get(s.contrastLevel)
+                : new ContrastCurve(90.0, 90.0, 84.0, 80.0).get(s.contrastLevel),
             /* isBackground= */ true,
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor onSurface()
@@ -245,7 +253,8 @@ public sealed class MaterialDynamicColors
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(4.5, 7.0, 11.0, 21.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor surfaceVariant()
@@ -258,7 +267,8 @@ public sealed class MaterialDynamicColors
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor onSurfaceVariant()
@@ -271,7 +281,8 @@ public sealed class MaterialDynamicColors
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(3.0, 4.5, 7.0, 11.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor inverseSurface()
@@ -284,7 +295,8 @@ public sealed class MaterialDynamicColors
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor inverseOnSurface()
@@ -297,7 +309,8 @@ public sealed class MaterialDynamicColors
             /* background= */ (s) => inverseSurface(),
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(4.5, 7.0, 11.0, 21.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor outline()
@@ -310,7 +323,8 @@ public sealed class MaterialDynamicColors
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(1.5, 3.0, 4.5, 7.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor outlineVariant()
@@ -323,7 +337,8 @@ public sealed class MaterialDynamicColors
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor shadow()
@@ -336,7 +351,8 @@ public sealed class MaterialDynamicColors
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor scrim()
@@ -349,7 +365,8 @@ public sealed class MaterialDynamicColors
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor surfaceTint()
@@ -362,7 +379,8 @@ public sealed class MaterialDynamicColors
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor primary()
@@ -371,19 +389,19 @@ public sealed class MaterialDynamicColors
             /* name= */ "primary",
             /* palette= */ (s) => s.primaryPalette,
             /* tone= */ (s) =>
-                        {
-                            if (isMonochrome(s))
-                            {
-                                return s.isDark ? 100.0 : 0.0;
-                            }
-                            return s.isDark ? 80.0 : 40.0;
-                        },
-        /* isBackground= */ true,
-        /* background= */ highestSurface,
-        /* secondBackground= */ null,
-        /* contrastCurve= */ new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-        /* toneDeltaPair= */ (s) =>
-            new ToneDeltaPair(primaryContainer(), primary(), 10.0, TonePolarity.NEARER, false));
+            {
+                if (isMonochrome(s))
+                {
+                    return s.isDark ? 100.0 : 0.0;
+                }
+                return s.isDark ? 80.0 : 40.0;
+            },
+            /* isBackground= */ true,
+            /* background= */ highestSurface,
+            /* secondBackground= */ null,
+            /* contrastCurve= */ new ContrastCurve(3.0, 4.5, 7.0, 7.0),
+            /* toneDeltaPair= */ (s) => new ToneDeltaPair(primaryContainer(), primary(), 10.0, TonePolarity.NEARER, false)
+        );
     }
 
     public DynamicColor onPrimary()
@@ -392,18 +410,19 @@ public sealed class MaterialDynamicColors
             /* name= */ "on_primary",
             /* palette= */ (s) => s.primaryPalette,
             /* tone= */ (s) =>
-                        {
-                            if (isMonochrome(s))
-                            {
-                                return s.isDark ? 10.0 : 90.0;
-                            }
-                            return s.isDark ? 20.0 : 100.0;
-                        },
+            {
+                if (isMonochrome(s))
+                {
+                    return s.isDark ? 10.0 : 90.0;
+                }
+                return s.isDark ? 20.0 : 100.0;
+            },
             /* isBackground= */ false,
             /* background= */ (s) => primary(),
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(4.5, 7.0, 11.0, 21.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor primaryContainer()
@@ -412,23 +431,23 @@ public sealed class MaterialDynamicColors
             /* name= */ "primary_container",
             /* palette= */ (s) => s.primaryPalette,
             /* tone= */ (s) =>
-                        {
-                            if (isFidelity(s))
-                            {
-                                return s.sourceColorHct.getTone();
-                            }
-                            if (isMonochrome(s))
-                            {
-                                return s.isDark ? 85.0 : 25.0;
-                            }
-                            return s.isDark ? 30.0 : 90.0;
-                        },
+            {
+                if (isFidelity(s))
+                {
+                    return s.sourceColorHct.getTone();
+                }
+                if (isMonochrome(s))
+                {
+                    return s.isDark ? 85.0 : 25.0;
+                }
+                return s.isDark ? 30.0 : 90.0;
+            },
             /* isBackground= */ true,
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            /* toneDeltaPair= */ (s) =>
-                new ToneDeltaPair(primaryContainer(), primary(), 10.0, TonePolarity.NEARER, false));
+            /* toneDeltaPair= */ (s) => new ToneDeltaPair(primaryContainer(), primary(), 10.0, TonePolarity.NEARER, false)
+        );
     }
 
     public DynamicColor onPrimaryContainer()
@@ -437,22 +456,23 @@ public sealed class MaterialDynamicColors
             /* name= */ "on_primary_container",
             /* palette= */ (s) => s.primaryPalette,
             /* tone= */ (s) =>
-                        {
-                            if (isFidelity(s))
-                            {
-                                return DynamicColor.foregroundTone(primaryContainer().tone(s), 4.5);
-                            }
-                            if (isMonochrome(s))
-                            {
-                                return s.isDark ? 0.0 : 100.0;
-                            }
-                            return s.isDark ? 90.0 : 10.0;
-                        },
+            {
+                if (isFidelity(s))
+                {
+                    return DynamicColor.foregroundTone(primaryContainer().tone(s), 4.5);
+                }
+                if (isMonochrome(s))
+                {
+                    return s.isDark ? 0.0 : 100.0;
+                }
+                return s.isDark ? 90.0 : 10.0;
+            },
             /* isBackground= */ false,
             /* background= */ (s) => primaryContainer(),
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(4.5, 7.0, 11.0, 21.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor inversePrimary()
@@ -465,7 +485,8 @@ public sealed class MaterialDynamicColors
             /* background= */ (s) => inverseSurface(),
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor secondary()
@@ -478,8 +499,8 @@ public sealed class MaterialDynamicColors
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            /* toneDeltaPair= */ (s) =>
-                new ToneDeltaPair(secondaryContainer(), secondary(), 10.0, TonePolarity.NEARER, false));
+            /* toneDeltaPair= */ (s) => new ToneDeltaPair(secondaryContainer(), secondary(), 10.0, TonePolarity.NEARER, false)
+        );
     }
 
     public DynamicColor onSecondary()
@@ -488,21 +509,22 @@ public sealed class MaterialDynamicColors
             /* name= */ "on_secondary",
             /* palette= */ (s) => s.secondaryPalette,
             /* tone= */ (s) =>
-                        {
-                            if (isMonochrome(s))
-                            {
-                                return s.isDark ? 10.0 : 100.0;
-                            }
-                            else
-                            {
-                                return s.isDark ? 20.0 : 100.0;
-                            }
-                        },
+            {
+                if (isMonochrome(s))
+                {
+                    return s.isDark ? 10.0 : 100.0;
+                }
+                else
+                {
+                    return s.isDark ? 20.0 : 100.0;
+                }
+            },
             /* isBackground= */ false,
             /* background= */ (s) => secondary(),
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(4.5, 7.0, 11.0, 21.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor secondaryContainer()
@@ -511,25 +533,24 @@ public sealed class MaterialDynamicColors
             /* name= */ "secondary_container",
             /* palette= */ (s) => s.secondaryPalette,
             /* tone= */ (s) =>
-                        {
-                            double initialTone = s.isDark ? 30.0 : 90.0;
-                            if (isMonochrome(s))
-                            {
-                                return s.isDark ? 30.0 : 85.0;
-                            }
-                            if (!isFidelity(s))
-                            {
-                                return initialTone;
-                            }
-                            return findDesiredChromaByTone(
-                            s.secondaryPalette.getHue(), s.secondaryPalette.getChroma(), initialTone, !s.isDark);
-                        },
+            {
+                double initialTone = s.isDark ? 30.0 : 90.0;
+                if (isMonochrome(s))
+                {
+                    return s.isDark ? 30.0 : 85.0;
+                }
+                if (!isFidelity(s))
+                {
+                    return initialTone;
+                }
+                return findDesiredChromaByTone(s.secondaryPalette.getHue(), s.secondaryPalette.getChroma(), initialTone, !s.isDark);
+            },
             /* isBackground= */ true,
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            /* toneDeltaPair= */ (s) =>
-                new ToneDeltaPair(secondaryContainer(), secondary(), 10.0, TonePolarity.NEARER, false));
+            /* toneDeltaPair= */ (s) => new ToneDeltaPair(secondaryContainer(), secondary(), 10.0, TonePolarity.NEARER, false)
+        );
     }
 
     public DynamicColor onSecondaryContainer()
@@ -538,18 +559,19 @@ public sealed class MaterialDynamicColors
             /* name= */ "on_secondary_container",
             /* palette= */ (s) => s.secondaryPalette,
             /* tone= */ (s) =>
-                        {
-                            if (!isFidelity(s))
-                            {
-                                return s.isDark ? 90.0 : 10.0;
-                            }
-                            return DynamicColor.foregroundTone(secondaryContainer().tone(s), 4.5);
-                        },
+            {
+                if (!isFidelity(s))
+                {
+                    return s.isDark ? 90.0 : 10.0;
+                }
+                return DynamicColor.foregroundTone(secondaryContainer().tone(s), 4.5);
+            },
             /* isBackground= */ false,
             /* background= */ (s) => secondaryContainer(),
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(4.5, 7.0, 11.0, 21.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor tertiary()
@@ -558,19 +580,19 @@ public sealed class MaterialDynamicColors
             /* name= */ "tertiary",
             /* palette= */ (s) => s.tertiaryPalette,
             /* tone= */ (s) =>
-                        {
-                            if (isMonochrome(s))
-                            {
-                                return s.isDark ? 90.0 : 25.0;
-                            }
-                            return s.isDark ? 80.0 : 40.0;
-                        },
+            {
+                if (isMonochrome(s))
+                {
+                    return s.isDark ? 90.0 : 25.0;
+                }
+                return s.isDark ? 80.0 : 40.0;
+            },
             /* isBackground= */ true,
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            /* toneDeltaPair= */ (s) =>
-                new ToneDeltaPair(tertiaryContainer(), tertiary(), 10.0, TonePolarity.NEARER, false));
+            /* toneDeltaPair= */ (s) => new ToneDeltaPair(tertiaryContainer(), tertiary(), 10.0, TonePolarity.NEARER, false)
+        );
     }
 
     public DynamicColor onTertiary()
@@ -579,18 +601,19 @@ public sealed class MaterialDynamicColors
             /* name= */ "on_tertiary",
             /* palette= */ (s) => s.tertiaryPalette,
             /* tone= */ (s) =>
-                        {
-                            if (isMonochrome(s))
-                            {
-                                return s.isDark ? 10.0 : 90.0;
-                            }
-                            return s.isDark ? 20.0 : 100.0;
-                        },
+            {
+                if (isMonochrome(s))
+                {
+                    return s.isDark ? 10.0 : 90.0;
+                }
+                return s.isDark ? 20.0 : 100.0;
+            },
             /* isBackground= */ false,
             /* background= */ (s) => tertiary(),
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(4.5, 7.0, 11.0, 21.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor tertiaryContainer()
@@ -599,24 +622,24 @@ public sealed class MaterialDynamicColors
             /* name= */ "tertiary_container",
             /* palette= */ (s) => s.tertiaryPalette,
             /* tone= */ (s) =>
-                        {
-                            if (isMonochrome(s))
-                            {
-                                return s.isDark ? 60.0 : 49.0;
-                            }
-                            if (!isFidelity(s))
-                            {
-                                return s.isDark ? 30.0 : 90.0;
-                            }
-                            Hct.Hct proposedHct = s.tertiaryPalette.getHct(s.sourceColorHct.getTone());
-                            return DislikeAnalyzer.fixIfDisliked(proposedHct).getTone();
-                        },
+            {
+                if (isMonochrome(s))
+                {
+                    return s.isDark ? 60.0 : 49.0;
+                }
+                if (!isFidelity(s))
+                {
+                    return s.isDark ? 30.0 : 90.0;
+                }
+                Hct.Hct proposedHct = s.tertiaryPalette.getHct(s.sourceColorHct.getTone());
+                return DislikeAnalyzer.fixIfDisliked(proposedHct).getTone();
+            },
             /* isBackground= */ true,
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            /* toneDeltaPair= */ (s) =>
-                new ToneDeltaPair(tertiaryContainer(), tertiary(), 10.0, TonePolarity.NEARER, false));
+            /* toneDeltaPair= */ (s) => new ToneDeltaPair(tertiaryContainer(), tertiary(), 10.0, TonePolarity.NEARER, false)
+        );
     }
 
     public DynamicColor onTertiaryContainer()
@@ -625,22 +648,23 @@ public sealed class MaterialDynamicColors
             /* name= */ "on_tertiary_container",
             /* palette= */ (s) => s.tertiaryPalette,
             /* tone= */ (s) =>
-                        {
-                            if (isMonochrome(s))
-                            {
-                                return s.isDark ? 0.0 : 100.0;
-                            }
-                            if (!isFidelity(s))
-                            {
-                                return s.isDark ? 90.0 : 10.0;
-                            }
-                            return DynamicColor.foregroundTone(tertiaryContainer().tone(s), 4.5);
-                        },
+            {
+                if (isMonochrome(s))
+                {
+                    return s.isDark ? 0.0 : 100.0;
+                }
+                if (!isFidelity(s))
+                {
+                    return s.isDark ? 90.0 : 10.0;
+                }
+                return DynamicColor.foregroundTone(tertiaryContainer().tone(s), 4.5);
+            },
             /* isBackground= */ false,
             /* background= */ (s) => tertiaryContainer(),
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(4.5, 7.0, 11.0, 21.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor error()
@@ -653,8 +677,8 @@ public sealed class MaterialDynamicColors
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            /* toneDeltaPair= */ (s) =>
-                new ToneDeltaPair(errorContainer(), error(), 10.0, TonePolarity.NEARER, false));
+            /* toneDeltaPair= */ (s) => new ToneDeltaPair(errorContainer(), error(), 10.0, TonePolarity.NEARER, false)
+        );
     }
 
     public DynamicColor onError()
@@ -667,7 +691,8 @@ public sealed class MaterialDynamicColors
             /* background= */ (s) => error(),
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(4.5, 7.0, 11.0, 21.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor errorContainer()
@@ -680,8 +705,8 @@ public sealed class MaterialDynamicColors
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            /* toneDeltaPair= */ (s) =>
-                new ToneDeltaPair(errorContainer(), error(), 10.0, TonePolarity.NEARER, false));
+            /* toneDeltaPair= */ (s) => new ToneDeltaPair(errorContainer(), error(), 10.0, TonePolarity.NEARER, false)
+        );
     }
 
     public DynamicColor onErrorContainer()
@@ -694,7 +719,8 @@ public sealed class MaterialDynamicColors
             /* background= */ (s) => errorContainer(),
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(4.5, 7.0, 11.0, 21.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor primaryFixed()
@@ -707,8 +733,8 @@ public sealed class MaterialDynamicColors
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            /* toneDeltaPair= */ (s) =>
-                new ToneDeltaPair(primaryFixed(), primaryFixedDim(), 10.0, TonePolarity.LIGHTER, true));
+            /* toneDeltaPair= */ (s) => new ToneDeltaPair(primaryFixed(), primaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+        );
     }
 
     public DynamicColor primaryFixedDim()
@@ -721,8 +747,8 @@ public sealed class MaterialDynamicColors
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            /* toneDeltaPair= */ (s) =>
-                new ToneDeltaPair(primaryFixed(), primaryFixedDim(), 10.0, TonePolarity.LIGHTER, true));
+            /* toneDeltaPair= */ (s) => new ToneDeltaPair(primaryFixed(), primaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+        );
     }
 
     public DynamicColor onPrimaryFixed()
@@ -735,7 +761,8 @@ public sealed class MaterialDynamicColors
             /* background= */ (s) => primaryFixedDim(),
             /* secondBackground= */ (s) => primaryFixed(),
             /* contrastCurve= */ new ContrastCurve(4.5, 7.0, 11.0, 21.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor onPrimaryFixedVariant()
@@ -748,7 +775,8 @@ public sealed class MaterialDynamicColors
             /* background= */ (s) => primaryFixedDim(),
             /* secondBackground= */ (s) => primaryFixed(),
             /* contrastCurve= */ new ContrastCurve(3.0, 4.5, 7.0, 11.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor secondaryFixed()
@@ -761,9 +789,8 @@ public sealed class MaterialDynamicColors
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            /* toneDeltaPair= */ (s) =>
-                new ToneDeltaPair(
-                    secondaryFixed(), secondaryFixedDim(), 10.0, TonePolarity.LIGHTER, true));
+            /* toneDeltaPair= */ (s) => new ToneDeltaPair(secondaryFixed(), secondaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+        );
     }
 
     public DynamicColor secondaryFixedDim()
@@ -776,9 +803,8 @@ public sealed class MaterialDynamicColors
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            /* toneDeltaPair= */ (s) =>
-                new ToneDeltaPair(
-                    secondaryFixed(), secondaryFixedDim(), 10.0, TonePolarity.LIGHTER, true));
+            /* toneDeltaPair= */ (s) => new ToneDeltaPair(secondaryFixed(), secondaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+        );
     }
 
     public DynamicColor onSecondaryFixed()
@@ -791,7 +817,8 @@ public sealed class MaterialDynamicColors
             /* background= */ (s) => secondaryFixedDim(),
             /* secondBackground= */ (s) => secondaryFixed(),
             /* contrastCurve= */ new ContrastCurve(4.5, 7.0, 11.0, 21.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor onSecondaryFixedVariant()
@@ -804,7 +831,8 @@ public sealed class MaterialDynamicColors
             /* background= */ (s) => secondaryFixedDim(),
             /* secondBackground= */ (s) => secondaryFixed(),
             /* contrastCurve= */ new ContrastCurve(3.0, 4.5, 7.0, 11.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor tertiaryFixed()
@@ -817,9 +845,8 @@ public sealed class MaterialDynamicColors
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            /* toneDeltaPair= */ (s) =>
-                new ToneDeltaPair(
-                    tertiaryFixed(), tertiaryFixedDim(), 10.0, TonePolarity.LIGHTER, true));
+            /* toneDeltaPair= */ (s) => new ToneDeltaPair(tertiaryFixed(), tertiaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+        );
     }
 
     public DynamicColor tertiaryFixedDim()
@@ -832,9 +859,8 @@ public sealed class MaterialDynamicColors
             /* background= */ highestSurface,
             /* secondBackground= */ null,
             /* contrastCurve= */ new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            /* toneDeltaPair= */ (s) =>
-                new ToneDeltaPair(
-                    tertiaryFixed(), tertiaryFixedDim(), 10.0, TonePolarity.LIGHTER, true));
+            /* toneDeltaPair= */ (s) => new ToneDeltaPair(tertiaryFixed(), tertiaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+        );
     }
 
     public DynamicColor onTertiaryFixed()
@@ -847,7 +873,8 @@ public sealed class MaterialDynamicColors
             /* background= */ (s) => tertiaryFixedDim(),
             /* secondBackground= */ (s) => tertiaryFixed(),
             /* contrastCurve= */ new ContrastCurve(4.5, 7.0, 11.0, 21.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     public DynamicColor onTertiaryFixedVariant()
@@ -860,7 +887,8 @@ public sealed class MaterialDynamicColors
             /* background= */ (s) => tertiaryFixedDim(),
             /* secondBackground= */ (s) => tertiaryFixed(),
             /* contrastCurve= */ new ContrastCurve(3.0, 4.5, 7.0, 11.0),
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     /**
@@ -878,8 +906,7 @@ public sealed class MaterialDynamicColors
     // Therefore, this is a duplicated version of Primary Container.
     public DynamicColor controlActivated()
     {
-        return DynamicColor.fromPalette(
-            "control_activated", (s) => s.primaryPalette, (s) => s.isDark ? 30.0 : 90.0);
+        return DynamicColor.fromPalette("control_activated", (s) => s.primaryPalette, (s) => s.isDark ? 30.0 : 90.0);
     }
 
     // colorControlNormal documented as textColorSecondary in M3 & GM3.
@@ -887,8 +914,7 @@ public sealed class MaterialDynamicColors
     // which is Neutral Variant T30/80 in light/dark.
     public DynamicColor controlNormal()
     {
-        return DynamicColor.fromPalette(
-            "control_normal", (s) => s.neutralVariantPalette, (s) => s.isDark ? 80.0 : 30.0);
+        return DynamicColor.fromPalette("control_normal", (s) => s.neutralVariantPalette, (s) => s.isDark ? 80.0 : 30.0);
     }
 
     // colorControlHighlight documented, in both M3 & GM3:
@@ -910,14 +936,14 @@ public sealed class MaterialDynamicColors
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
             /* toneDeltaPair= */ null,
-            /* opacity= */ s => s.isDark ? 0.20 : 0.12);
+            /* opacity= */ s => s.isDark ? 0.20 : 0.12
+        );
     }
 
     // textColorPrimaryInverse documented, in both M3 & GM3, documented as N10/N90.
     public DynamicColor textPrimaryInverse()
     {
-        return DynamicColor.fromPalette(
-            "text_primary_inverse", (s) => s.neutralPalette, (s) => s.isDark ? 10.0 : 90.0);
+        return DynamicColor.fromPalette("text_primary_inverse", (s) => s.neutralPalette, (s) => s.isDark ? 10.0 : 90.0);
     }
 
     // textColorSecondaryInverse and textColorTertiaryInverse both documented, in both M3 & GM3, as
@@ -927,7 +953,8 @@ public sealed class MaterialDynamicColors
         return DynamicColor.fromPalette(
             "text_secondary_and_tertiary_inverse",
             (s) => s.neutralVariantPalette,
-            (s) => s.isDark ? 30.0 : 80.0);
+            (s) => s.isDark ? 30.0 : 80.0
+        );
     }
 
     // textColorPrimaryInverseDisableOnly documented, in both M3 & GM3, as N10/N90
@@ -936,7 +963,8 @@ public sealed class MaterialDynamicColors
         return DynamicColor.fromPalette(
             "text_primary_inverse_disable_only",
             (s) => s.neutralPalette,
-            (s) => s.isDark ? 10.0 : 90.0);
+            (s) => s.isDark ? 10.0 : 90.0
+        );
     }
 
     // textColorSecondaryInverse and textColorTertiaryInverse in disabled state both documented,
@@ -946,21 +974,19 @@ public sealed class MaterialDynamicColors
         return DynamicColor.fromPalette(
             "text_secondary_and_tertiary_inverse_disabled",
             (s) => s.neutralPalette,
-            (s) => s.isDark ? 10.0 : 90.0);
+            (s) => s.isDark ? 10.0 : 90.0
+        );
     }
 
     // textColorHintInverse documented, in both M3 & GM3, as N10/N90
     public DynamicColor textHintInverse()
     {
-        return DynamicColor.fromPalette(
-            "text_hint_inverse", (s) => s.neutralPalette, (s) => s.isDark ? 10.0 : 90.0);
+        return DynamicColor.fromPalette("text_hint_inverse", (s) => s.neutralPalette, (s) => s.isDark ? 10.0 : 90.0);
     }
 
     private bool isFidelity(DynamicScheme scheme)
     {
-        if (this.isExtendedFidelity
-            && scheme.variant != Variant.MONOCHROME
-            && scheme.variant != Variant.NEUTRAL)
+        if (this.isExtendedFidelity && scheme.variant != Variant.MONOCHROME && scheme.variant != Variant.NEUTRAL)
         {
             return true;
         }
@@ -972,8 +998,7 @@ public sealed class MaterialDynamicColors
         return scheme.variant == Variant.MONOCHROME;
     }
 
-    static double findDesiredChromaByTone(
-        double hue, double chroma, double tone, bool byDecreasingTone)
+    static double findDesiredChromaByTone(double hue, double chroma, double tone, bool byDecreasingTone)
     {
         double answer = tone;
 

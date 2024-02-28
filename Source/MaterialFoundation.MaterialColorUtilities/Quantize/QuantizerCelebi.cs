@@ -29,7 +29,9 @@ namespace MaterialFoundation.MaterialColorUtilities.Quantize;
  */
 public sealed class QuantizerCelebi
 {
-    private QuantizerCelebi() { }
+    private QuantizerCelebi()
+    {
+    }
 
     /**
      * Reduce the number of colors needed to represented the input, minimizing the difference between

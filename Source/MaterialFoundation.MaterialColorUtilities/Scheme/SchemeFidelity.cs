@@ -34,19 +34,17 @@ namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 public class SchemeFidelity : DynamicScheme
 {
     public SchemeFidelity(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
-        base(sourceColorHct,
+        base(
+            sourceColorHct,
             Variant.FIDELITY,
             isDark,
             contrastLevel,
             TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), sourceColorHct.getChroma()),
-            TonalPalette.fromHueAndChroma(
-                sourceColorHct.getHue(),
-                Math.Max(sourceColorHct.getChroma() - 32.0, sourceColorHct.getChroma() * 0.5)),
-            TonalPalette.fromHct(
-                DislikeAnalyzer.fixIfDisliked(new TemperatureCache(sourceColorHct).getComplement())),
+            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), Math.Max(sourceColorHct.getChroma() - 32.0, sourceColorHct.getChroma() * 0.5)),
+            TonalPalette.fromHct(DislikeAnalyzer.fixIfDisliked(new TemperatureCache(sourceColorHct).getComplement())),
             TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), sourceColorHct.getChroma() / 8.0),
-            TonalPalette.fromHueAndChroma(
-                sourceColorHct.getHue(), (sourceColorHct.getChroma() / 8.0) + 4.0))
+            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), (sourceColorHct.getChroma() / 8.0) + 4.0)
+        )
     {
     }
 }

@@ -39,16 +39,7 @@ public class DynamicScheme
     public readonly TonalPalette neutralVariantPalette;
     public readonly TonalPalette errorPalette;
 
-    public DynamicScheme(
-        Hct.Hct sourceColorHct,
-        Variant variant,
-        bool isDark,
-        double contrastLevel,
-        TonalPalette primaryPalette,
-        TonalPalette secondaryPalette,
-        TonalPalette tertiaryPalette,
-        TonalPalette neutralPalette,
-        TonalPalette neutralVariantPalette)
+    public DynamicScheme(Hct.Hct sourceColorHct, Variant variant, bool isDark, double contrastLevel, TonalPalette primaryPalette, TonalPalette secondaryPalette, TonalPalette tertiaryPalette, TonalPalette neutralPalette, TonalPalette neutralVariantPalette)
     {
         this.sourceColorArgb = sourceColorHct.toInt();
         this.sourceColorHct = sourceColorHct;

@@ -23,17 +23,17 @@ namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 public class SchemeFruitSalad : DynamicScheme
 {
     public SchemeFruitSalad(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
-        base(sourceColorHct,
+        base(
+            sourceColorHct,
             Variant.FRUIT_SALAD,
             isDark,
             contrastLevel,
-            TonalPalette.fromHueAndChroma(
-                MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() - 50.0), 48.0),
-            TonalPalette.fromHueAndChroma(
-                MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() - 50.0), 36.0),
+            TonalPalette.fromHueAndChroma(MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() - 50.0), 48.0),
+            TonalPalette.fromHueAndChroma(MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() - 50.0), 36.0),
             TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 36.0),
             TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 10.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 16.0))
+            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 16.0)
+        )
     {
     }
 }

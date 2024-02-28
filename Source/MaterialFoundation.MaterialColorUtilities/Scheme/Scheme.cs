@@ -51,38 +51,11 @@ public class Scheme
     private int inverseOnSurface;
     private int inversePrimary;
 
-    public Scheme() { }
+    public Scheme()
+    {
+    }
 
-    public Scheme(
-        int primary,
-        int onPrimary,
-        int primaryContainer,
-        int onPrimaryContainer,
-        int secondary,
-        int onSecondary,
-        int secondaryContainer,
-        int onSecondaryContainer,
-        int tertiary,
-        int onTertiary,
-        int tertiaryContainer,
-        int onTertiaryContainer,
-        int error,
-        int onError,
-        int errorContainer,
-        int onErrorContainer,
-        int background,
-        int onBackground,
-        int surface,
-        int onSurface,
-        int surfaceVariant,
-        int onSurfaceVariant,
-        int outline,
-        int outlineVariant,
-        int shadow,
-        int scrim,
-        int inverseSurface,
-        int inverseOnSurface,
-        int inversePrimary)
+    public Scheme(int primary, int onPrimary, int primaryContainer, int onPrimaryContainer, int secondary, int onSecondary, int secondaryContainer, int onSecondaryContainer, int tertiary, int onTertiary, int tertiaryContainer, int onTertiaryContainer, int error, int onError, int errorContainer, int onErrorContainer, int background, int onBackground, int surface, int onSurface, int surfaceVariant, int onSurfaceVariant, int outline, int outlineVariant, int shadow, int scrim, int inverseSurface, int inverseOnSurface, int inversePrimary)
     {
         this.primary = primary;
         this.onPrimary = onPrimary;
@@ -673,66 +646,66 @@ public class Scheme
 
     public string toString()
     {
-        return "Scheme{"
-            + "primary="
-            + primary
-            + ", onPrimary="
-            + onPrimary
-            + ", primaryContainer="
-            + primaryContainer
-            + ", onPrimaryContainer="
-            + onPrimaryContainer
-            + ", secondary="
-            + secondary
-            + ", onSecondary="
-            + onSecondary
-            + ", secondaryContainer="
-            + secondaryContainer
-            + ", onSecondaryContainer="
-            + onSecondaryContainer
-            + ", tertiary="
-            + tertiary
-            + ", onTertiary="
-            + onTertiary
-            + ", tertiaryContainer="
-            + tertiaryContainer
-            + ", onTertiaryContainer="
-            + onTertiaryContainer
-            + ", error="
-            + error
-            + ", onError="
-            + onError
-            + ", errorContainer="
-            + errorContainer
-            + ", onErrorContainer="
-            + onErrorContainer
-            + ", background="
-            + background
-            + ", onBackground="
-            + onBackground
-            + ", surface="
-            + surface
-            + ", onSurface="
-            + onSurface
-            + ", surfaceVariant="
-            + surfaceVariant
-            + ", onSurfaceVariant="
-            + onSurfaceVariant
-            + ", outline="
-            + outline
-            + ", outlineVariant="
-            + outlineVariant
-            + ", shadow="
-            + shadow
-            + ", scrim="
-            + scrim
-            + ", inverseSurface="
-            + inverseSurface
-            + ", inverseOnSurface="
-            + inverseOnSurface
-            + ", inversePrimary="
-            + inversePrimary
-            + '}';
+        return "Scheme{" +
+            "primary=" +
+            primary +
+            ", onPrimary=" +
+            onPrimary +
+            ", primaryContainer=" +
+            primaryContainer +
+            ", onPrimaryContainer=" +
+            onPrimaryContainer +
+            ", secondary=" +
+            secondary +
+            ", onSecondary=" +
+            onSecondary +
+            ", secondaryContainer=" +
+            secondaryContainer +
+            ", onSecondaryContainer=" +
+            onSecondaryContainer +
+            ", tertiary=" +
+            tertiary +
+            ", onTertiary=" +
+            onTertiary +
+            ", tertiaryContainer=" +
+            tertiaryContainer +
+            ", onTertiaryContainer=" +
+            onTertiaryContainer +
+            ", error=" +
+            error +
+            ", onError=" +
+            onError +
+            ", errorContainer=" +
+            errorContainer +
+            ", onErrorContainer=" +
+            onErrorContainer +
+            ", background=" +
+            background +
+            ", onBackground=" +
+            onBackground +
+            ", surface=" +
+            surface +
+            ", onSurface=" +
+            onSurface +
+            ", surfaceVariant=" +
+            surfaceVariant +
+            ", onSurfaceVariant=" +
+            onSurfaceVariant +
+            ", outline=" +
+            outline +
+            ", outlineVariant=" +
+            outlineVariant +
+            ", shadow=" +
+            shadow +
+            ", scrim=" +
+            scrim +
+            ", inverseSurface=" +
+            inverseSurface +
+            ", inverseOnSurface=" +
+            inverseOnSurface +
+            ", inversePrimary=" +
+            inversePrimary +
+            '}';
     }
 
     public override bool Equals(object? @object)

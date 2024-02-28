@@ -22,7 +22,8 @@ namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 public class SchemeNeutral : DynamicScheme
 {
     public SchemeNeutral(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
-        base(sourceColorHct,
+        base(
+            sourceColorHct,
             Variant.NEUTRAL,
             isDark,
             contrastLevel,
@@ -30,7 +31,8 @@ public class SchemeNeutral : DynamicScheme
             TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 8.0),
             TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 16.0),
             TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 2.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 2.0))
+            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 2.0)
+        )
     {
     }
 }

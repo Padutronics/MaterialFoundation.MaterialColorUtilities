@@ -23,7 +23,9 @@ namespace MaterialFoundation.MaterialColorUtilities.Blend;
 /** Functions for blending in HCT and CAM16. */
 public class Blend
 {
-    private Blend() { }
+    private Blend()
+    {
+    }
 
     /**
      * Blend the design color's HCT hue towards the key color's HCT hue, in a way that leaves the
@@ -40,10 +42,7 @@ public class Blend
         Hct.Hct toHct = Hct.Hct.fromInt(sourceColor);
         double differenceDegrees = MathUtils.differenceDegrees(fromHct.getHue(), toHct.getHue());
         double rotationDegrees = Math.Min(differenceDegrees * 0.5, 15.0);
-        double outputHue =
-            MathUtils.sanitizeDegreesDouble(
-                fromHct.getHue()
-                    + rotationDegrees * MathUtils.rotationDirection(fromHct.getHue(), toHct.getHue()));
+        double outputHue = MathUtils.sanitizeDegreesDouble(fromHct.getHue() + rotationDegrees * MathUtils.rotationDirection(fromHct.getHue(), toHct.getHue()));
         return Hct.Hct.from(outputHue, fromHct.getChroma(), fromHct.getTone()).toInt();
     }
 

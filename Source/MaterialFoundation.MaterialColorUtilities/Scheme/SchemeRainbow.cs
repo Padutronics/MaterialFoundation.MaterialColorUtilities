@@ -23,16 +23,17 @@ namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 public class SchemeRainbow : DynamicScheme
 {
     public SchemeRainbow(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
-        base(sourceColorHct,
+        base(
+            sourceColorHct,
             Variant.RAINBOW,
             isDark,
             contrastLevel,
             TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 48.0),
             TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 16.0),
-            TonalPalette.fromHueAndChroma(
-                MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() + 60.0), 24.0),
+            TonalPalette.fromHueAndChroma(MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() + 60.0), 24.0),
             TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 0.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 0.0))
+            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 0.0)
+        )
     {
     }
 }

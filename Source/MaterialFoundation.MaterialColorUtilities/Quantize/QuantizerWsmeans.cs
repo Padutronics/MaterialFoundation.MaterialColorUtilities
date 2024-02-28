@@ -31,7 +31,9 @@ namespace MaterialFoundation.MaterialColorUtilities.Quantize;
  */
 public sealed class QuantizerWsmeans
 {
-    private QuantizerWsmeans() { }
+    private QuantizerWsmeans()
+    {
+    }
 
     private sealed class Distance : IComparable<Distance>
     {
@@ -67,8 +69,7 @@ public sealed class QuantizerWsmeans
      * @return Map with keys of colors in ARGB format, values of how many of the input pixels belong
      *     to the color.
      */
-    public static IDictionary<int, int> quantize(
-        int[] inputPixels, int[] startingClusters, int maxColors)
+    public static IDictionary<int, int> quantize(int[] inputPixels, int[] startingClusters, int maxColors)
     {
         // Uses a seeded random number generator to ensure consistent results.
         var random = new Random(0x42688);
@@ -191,8 +192,7 @@ public sealed class QuantizerWsmeans
                 }
                 if (newClusterIndex != -1)
                 {
-                    double distanceChange =
-                        Math.Abs(Math.Sqrt(minimumDistance) - Math.Sqrt(previousDistance));
+                    double distanceChange = Math.Abs(Math.Sqrt(minimumDistance) - Math.Sqrt(previousDistance));
                     if (distanceChange > MIN_MOVEMENT_DISTANCE)
                     {
                         pointsMoved++;

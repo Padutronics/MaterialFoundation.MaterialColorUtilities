@@ -22,38 +22,28 @@ namespace MaterialFoundation.MaterialColorUtilities.Hct;
 /** A class that solves the HCT equation. */
 public class HctSolver
 {
-    private HctSolver() { }
+    private HctSolver()
+    {
+    }
 
-    private static readonly double[][] SCALED_DISCOUNT_FROM_LINRGB =
-        new double[][] {
-        new double[] {
-          0.001200833568784504, 0.002389694492170889, 0.0002795742885861124,
-        },
-        new double[] {
-          0.0005891086651375999, 0.0029785502573438758, 0.0003270666104008398,
-        },
-        new double[] {
-          0.00010146692491640572, 0.0005364214359186694, 0.0032979401770712076,
-        },
-        };
+    private static readonly double[][] SCALED_DISCOUNT_FROM_LINRGB = new double[][]
+    {
+        new double[] { 0.001200833568784504, 0.002389694492170889, 0.0002795742885861124, },
+        new double[] { 0.0005891086651375999, 0.0029785502573438758, 0.0003270666104008398, },
+        new double[] { 0.00010146692491640572, 0.0005364214359186694, 0.0032979401770712076, },
+    };
 
-    private static readonly double[][] LINRGB_FROM_SCALED_DISCOUNT =
-        new double[][] {
-        new double[] {
-          1373.2198709594231, -1100.4251190754821, -7.278681089101213,
-        },
-        new double[] {
-          -271.815969077903, 559.6580465940733, -32.46047482791194,
-        },
-        new double[] {
-          1.9622899599665666, -57.173814538844006, 308.7233197812385,
-        },
-        };
+    private static readonly double[][] LINRGB_FROM_SCALED_DISCOUNT = new double[][]
+    {
+        new double[] { 1373.2198709594231, -1100.4251190754821, -7.278681089101213, },
+        new double[] { -271.815969077903, 559.6580465940733, -32.46047482791194, },
+        new double[] { 1.9622899599665666, -57.173814538844006, 308.7233197812385, },
+    };
 
     private static readonly double[] Y_FROM_LINRGB = new double[] { 0.2126, 0.7152, 0.0722 };
 
-    private static readonly double[] CRITICAL_PLANES =
-        new double[] {
+    private static readonly double[] CRITICAL_PLANES = new double[]
+    {
         0.015176349177441876,
         0.045529047532325624,
         0.07588174588720938,
@@ -309,7 +299,7 @@ public class HctSolver
         97.78421388448044,
         98.6670533535366,
         99.55452497210776,
-        };
+    };
 
     /**
      * Sanitizes a small enough angle in radians.
@@ -390,11 +380,12 @@ public class HctSolver
 
     static double[] lerpPoint(double[] source, double t, double[] target)
     {
-        return new double[] {
-      source[0] + (target[0] - source[0]) * t,
-      source[1] + (target[1] - source[1]) * t,
-      source[2] + (target[2] - source[2]) * t,
-    };
+        return new double[]
+        {
+            source[0] + (target[0] - source[0]) * t,
+            source[1] + (target[1] - source[1]) * t,
+            source[2] + (target[2] - source[2]) * t,
+        };
     }
 
     /**
@@ -531,9 +522,7 @@ public class HctSolver
 
     static double[] midpoint(double[] a, double[] b)
     {
-        return new double[] {
-      (a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2,
-    };
+        return new double[] { (a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2, };
     }
 
     static int criticalPlaneBelow(double x)
@@ -641,9 +630,7 @@ public class HctSolver
             double jNormalized = j / 100.0;
             double alpha = chroma == 0.0 || j == 0.0 ? 0.0 : chroma / Math.Sqrt(jNormalized);
             double t = Math.Pow(alpha * tInnerCoeff, 1.0 / 0.9);
-            double ac =
-                viewingConditions.getAw()
-                    * Math.Pow(jNormalized, 1.0 / viewingConditions.getC() / viewingConditions.getZ());
+            double ac = viewingConditions.getAw() * Math.Pow(jNormalized, 1.0 / viewingConditions.getC() / viewingConditions.getZ());
             double p2 = ac / viewingConditions.getNbb();
             double gamma = 23.0 * (p2 + 0.305) * t / (23.0 * p1 + 11 * t * hCos + 108.0 * t * hSin);
             double a = gamma * hCos;
@@ -654,9 +641,7 @@ public class HctSolver
             double rCScaled = inverseChromaticAdaptation(rA);
             double gCScaled = inverseChromaticAdaptation(gA);
             double bCScaled = inverseChromaticAdaptation(bA);
-            double[] linrgb =
-                MathUtils.matrixMultiply(
-                    new double[] { rCScaled, gCScaled, bCScaled }, LINRGB_FROM_SCALED_DISCOUNT);
+            double[] linrgb = MathUtils.matrixMultiply(new double[] { rCScaled, gCScaled, bCScaled }, LINRGB_FROM_SCALED_DISCOUNT);
             // ===========================================================
             // Operations inlined from Cam16 to avoid repeated calculation
             // ===========================================================

@@ -21,7 +21,9 @@ namespace MaterialFoundation.MaterialColorUtilities.Utils;
 /** Utility methods for mathematical operations. */
 public class MathUtils
 {
-    private MathUtils() { }
+    private MathUtils()
+    {
+    }
 
     /**
      * The signum function.

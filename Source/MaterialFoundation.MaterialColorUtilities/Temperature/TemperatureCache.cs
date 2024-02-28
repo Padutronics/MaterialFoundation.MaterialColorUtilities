@@ -84,15 +84,13 @@ public sealed class TemperatureCache
         // of the input color. This is the complement.
         for (double hueAddend = 0.0; hueAddend <= 360.0; hueAddend += 1.0)
         {
-            double hue = MathUtils.sanitizeDegreesDouble(
-                startHue + directionOfRotation * hueAddend);
+            double hue = MathUtils.sanitizeDegreesDouble(startHue + directionOfRotation * hueAddend);
             if (!isBetween(hue, startHue, endHue))
             {
                 continue;
             }
             Hct.Hct possibleAnswer = getHctsByHue()[(int)Math.Round(hue)];
-            double relativeTemp =
-                (getTempsByHct()[possibleAnswer] - coldestTemp) / range;
+            double relativeTemp = (getTempsByHct()[possibleAnswer] - coldestTemp) / range;
             double error = Math.Abs(complementRelativeTemp - relativeTemp);
             if (error < smallestError)
             {
@@ -234,8 +232,7 @@ public sealed class TemperatureCache
     public double getRelativeTemperature(Hct.Hct hct)
     {
         double range = getTempsByHct()[getWarmest()] - getTempsByHct()[getColdest()];
-        double differenceFromColdest =
-            getTempsByHct()[hct] - getTempsByHct()[getColdest()];
+        double differenceFromColdest = getTempsByHct()[hct] - getTempsByHct()[getColdest()];
         // Handle when there's no difference in temperature between warmest and
         // coldest: for example, at T100, only one color is available, white.
         if (range == 0.0)
@@ -264,10 +261,7 @@ public sealed class TemperatureCache
         double[] lab = ColorUtils.labFromArgb(color.toInt());
         double hue = MathUtils.sanitizeDegreesDouble(MathUtils.toDegrees(Math.Atan2(lab[2], lab[1])));
         double chroma = double.Hypot(lab[1], lab[2]);
-        return -0.5
-            + 0.02
-                * Math.Pow(chroma, 1.07)
-                * Math.Cos(MathUtils.toRadians(MathUtils.sanitizeDegreesDouble(hue - 50.0)));
+        return -0.5 + 0.02 * Math.Pow(chroma, 1.07) * Math.Cos(MathUtils.toRadians(MathUtils.sanitizeDegreesDouble(hue - 50.0)));
     }
 
     /** Coldest color with same chroma and tone as input. */

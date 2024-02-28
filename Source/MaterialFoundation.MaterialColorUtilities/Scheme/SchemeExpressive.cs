@@ -28,20 +28,17 @@ public class SchemeExpressive : DynamicScheme
     private static readonly double[] TERTIARY_ROTATIONS = { 120, 120, 20, 45, 20, 15, 20, 120, 120 };
 
     public SchemeExpressive(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
-        base(sourceColorHct,
+        base(
+            sourceColorHct,
             Variant.EXPRESSIVE,
             isDark,
             contrastLevel,
-            TonalPalette.fromHueAndChroma(
-                MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() + 240.0), 40.0),
-            TonalPalette.fromHueAndChroma(
-                DynamicScheme.getRotatedHue(sourceColorHct, HUES, SECONDARY_ROTATIONS), 24.0),
-            TonalPalette.fromHueAndChroma(
-                DynamicScheme.getRotatedHue(sourceColorHct, HUES, TERTIARY_ROTATIONS), 32.0),
-            TonalPalette.fromHueAndChroma(
-                MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() + 15.0), 8.0),
-            TonalPalette.fromHueAndChroma(
-                MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() + 15.0), 12.0))
+            TonalPalette.fromHueAndChroma(MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() + 240.0), 40.0),
+            TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, HUES, SECONDARY_ROTATIONS), 24.0),
+            TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, HUES, TERTIARY_ROTATIONS), 32.0),
+            TonalPalette.fromHueAndChroma(MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() + 15.0), 8.0),
+            TonalPalette.fromHueAndChroma(MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() + 15.0), 12.0)
+        )
     {
     }
 }

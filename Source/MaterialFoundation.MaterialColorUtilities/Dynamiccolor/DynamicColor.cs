@@ -90,15 +90,7 @@ public sealed class DynamicColor
      * @param toneDeltaPair A `ToneDeltaPair` object specifying a tone delta constraint between two
      *     colors. One of them must be the color being constructed.
      */
-    public DynamicColor(
-        string name,
-        Func<DynamicScheme, TonalPalette> palette,
-        Func<DynamicScheme, double> tone,
-        bool isBackground,
-        Func<DynamicScheme, DynamicColor>? background,
-        Func<DynamicScheme, DynamicColor>? secondBackground,
-        ContrastCurve? contrastCurve,
-        Func<DynamicScheme, ToneDeltaPair>? toneDeltaPair)
+    public DynamicColor(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone, bool isBackground, Func<DynamicScheme, DynamicColor>? background, Func<DynamicScheme, DynamicColor>? secondBackground, ContrastCurve? contrastCurve, Func<DynamicScheme, ToneDeltaPair>? toneDeltaPair)
     {
 
         this.name = name;
@@ -142,16 +134,7 @@ public sealed class DynamicColor
      *     colors. One of them must be the color being constructed.
      * @param opacity A function returning the opacity of a color, as a number between 0 and 1.
      */
-    public DynamicColor(
-        string name,
-        Func<DynamicScheme, TonalPalette> palette,
-        Func<DynamicScheme, double> tone,
-        bool isBackground,
-        Func<DynamicScheme, DynamicColor>? background,
-        Func<DynamicScheme, DynamicColor>? secondBackground,
-        ContrastCurve? contrastCurve,
-        Func<DynamicScheme, ToneDeltaPair>? toneDeltaPair,
-        Func<DynamicScheme, double>? opacity)
+    public DynamicColor(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone, bool isBackground, Func<DynamicScheme, DynamicColor>? background, Func<DynamicScheme, DynamicColor>? secondBackground, ContrastCurve? contrastCurve, Func<DynamicScheme, ToneDeltaPair>? toneDeltaPair, Func<DynamicScheme, double>? opacity)
     {
         this.name = name;
         this.palette = palette;
@@ -185,10 +168,7 @@ public sealed class DynamicColor
      *     a tonal palette, when contrast adjustments are made, intended chroma can be preserved.
      * @param tone Function that provides a tone, given a DynamicScheme.
      */
-    public static DynamicColor fromPalette(
-        string name,
-        Func<DynamicScheme, TonalPalette> palette,
-        Func<DynamicScheme, double> tone)
+    public static DynamicColor fromPalette(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone)
     {
         return new DynamicColor(
             name,
@@ -198,7 +178,8 @@ public sealed class DynamicColor
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     /**
@@ -224,11 +205,7 @@ public sealed class DynamicColor
      * @param isBackground Whether this dynamic color is a background, with some other color as the
      *     foreground.
      */
-    public static DynamicColor fromPalette(
-        string name,
-        Func<DynamicScheme, TonalPalette> palette,
-        Func<DynamicScheme, double> tone,
-        bool isBackground)
+    public static DynamicColor fromPalette(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone, bool isBackground)
     {
         return new DynamicColor(
             name,
@@ -238,7 +215,8 @@ public sealed class DynamicColor
             /* background= */ null,
             /* secondBackground= */ null,
             /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null);
+            /* toneDeltaPair= */ null
+        );
     }
 
     /**
@@ -322,10 +300,7 @@ public sealed class DynamicColor
             DynamicColor bg = background!(scheme);
             double bgTone = bg.getTone(scheme);
 
-            bool aIsNearer =
-                (polarity == TonePolarity.NEARER
-                    || (polarity == TonePolarity.LIGHTER && !scheme.isDark)
-                    || (polarity == TonePolarity.DARKER && scheme.isDark));
+            bool aIsNearer = (polarity == TonePolarity.NEARER || (polarity == TonePolarity.LIGHTER && !scheme.isDark) || (polarity == TonePolarity.DARKER && scheme.isDark));
             DynamicColor nearer = aIsNearer ? roleA : roleB;
             DynamicColor farther = aIsNearer ? roleB : roleA;
             bool amNearer = name.Equals(nearer.name);
@@ -339,15 +314,13 @@ public sealed class DynamicColor
             // Initial and adjusted tones for `nearer`
             double nInitialTone = nearer.tone(scheme);
 
-            double nTone =
-            Contrast.Contrast.ratioOfTones(bgTone, nInitialTone) >= nContrast
+            double nTone = Contrast.Contrast.ratioOfTones(bgTone, nInitialTone) >= nContrast
                 ? nInitialTone
                 : DynamicColor.foregroundTone(bgTone, nContrast);
             // Initial and adjusted tones for `farther`
             double fInitialTone = farther.tone(scheme);
 
-            double fTone =
-            Contrast.Contrast.ratioOfTones(bgTone, fInitialTone) >= fContrast
+            double fTone = Contrast.Contrast.ratioOfTones(bgTone, fInitialTone) >= fContrast
                 ? fInitialTone
                 : DynamicColor.foregroundTone(bgTone, fContrast);
 
@@ -474,8 +447,7 @@ public sealed class DynamicColor
                 double upper = Math.Max(bgTone1, bgTone2);
                 double lower = Math.Min(bgTone1, bgTone2);
 
-                if (Contrast.Contrast.ratioOfTones(upper, answer) >= desiredRatio
-                    && Contrast.Contrast.ratioOfTones(lower, answer) >= desiredRatio)
+                if (Contrast.Contrast.ratioOfTones(upper, answer) >= desiredRatio && Contrast.Contrast.ratioOfTones(lower, answer) >= desiredRatio)
                 {
                     return answer;
                 }
@@ -499,9 +471,7 @@ public sealed class DynamicColor
                     availables.Add(darkOption);
                 }
 
-                bool prefersLight =
-                    DynamicColor.tonePrefersLightForeground(bgTone1)
-                        || DynamicColor.tonePrefersLightForeground(bgTone2);
+                bool prefersLight = DynamicColor.tonePrefersLightForeground(bgTone1) || DynamicColor.tonePrefersLightForeground(bgTone2);
                 if (prefersLight)
                 {
                     return (lightOption == -1) ? 100 : lightOption;
@@ -538,8 +508,7 @@ public sealed class DynamicColor
             // This was observed with Tonal Spot's On Primary Container turning black momentarily between
             // high and max contrast in light mode. PC's standard tone was T90, OPC's was T10, it was
             // light mode, and the contrast level was 0.6568521221032331.
-            bool negligibleDifference =
-                Math.Abs(lighterRatio - darkerRatio) < 0.1 && lighterRatio < ratio && darkerRatio < ratio;
+            bool negligibleDifference = Math.Abs(lighterRatio - darkerRatio) < 0.1 && lighterRatio < ratio && darkerRatio < ratio;
             if (lighterRatio >= ratio || lighterRatio >= darkerRatio || negligibleDifference)
             {
                 return lighterTone;
