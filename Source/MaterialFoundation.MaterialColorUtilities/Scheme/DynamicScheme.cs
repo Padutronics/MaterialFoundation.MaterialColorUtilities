@@ -68,7 +68,7 @@ public class DynamicScheme
             return MathUtils.SanitizeDegreesDouble(sourceHue + rotations[0]);
         }
         int size = hues.Length;
-        for (int i = 0; i <= (size - 2); i++)
+        for (int i = 0; i <= size - 2; i++)
         {
             double thisHue = hues[i];
             double nextHue = hues[i + 1];

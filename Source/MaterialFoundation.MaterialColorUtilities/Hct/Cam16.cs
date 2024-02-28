@@ -186,7 +186,7 @@ public sealed class Cam16
         // Transform ARGB int to XYZ
         int red = (argb & 0x00ff0000) >> 16;
         int green = (argb & 0x0000ff00) >> 8;
-        int blue = (argb & 0x000000ff);
+        int blue = argb & 0x000000ff;
         double redL = ColorUtils.Linearized(red);
         double greenL = ColorUtils.Linearized(green);
         double blueL = ColorUtils.Linearized(blue);
@@ -201,9 +201,9 @@ public sealed class Cam16
     {
         // Transform XYZ to 'cone'/'rgb' responses
         double[][] matrix = XyzToCam16Rgb;
-        double rT = (x * matrix[0][0]) + (y * matrix[0][1]) + (z * matrix[0][2]);
-        double gT = (x * matrix[1][0]) + (y * matrix[1][1]) + (z * matrix[1][2]);
-        double bT = (x * matrix[2][0]) + (y * matrix[2][1]) + (z * matrix[2][2]);
+        double rT = x * matrix[0][0] + y * matrix[0][1] + z * matrix[0][2];
+        double gT = x * matrix[1][0] + y * matrix[1][1] + z * matrix[1][2];
+        double bT = x * matrix[2][0] + y * matrix[2][1] + z * matrix[2][2];
 
         // Discount illuminant
         double rD = viewingConditions.GetRgbD()[0] * rT;
@@ -251,7 +251,7 @@ public sealed class Cam16
         // CAM16 chroma, colorfulness, saturation
         double c = alpha * Math.Sqrt(j / 100.0);
         double m = c * viewingConditions.GetFlRoot();
-        double s = 50.0 * Math.Sqrt((alpha * viewingConditions.GetC()) / (viewingConditions.GetAw() + 4.0));
+        double s = 50.0 * Math.Sqrt(alpha * viewingConditions.GetC() / (viewingConditions.GetAw() + 4.0));
 
         // CAM16-UCS components
         double jstar = (1.0 + 100.0 * 0.007) * j / (1.0 + 0.007 * j);
@@ -279,7 +279,7 @@ public sealed class Cam16
         double q = 4.0 / viewingConditions.GetC() * Math.Sqrt(j / 100.0) * (viewingConditions.GetAw() + 4.0) * viewingConditions.GetFlRoot();
         double m = c * viewingConditions.GetFlRoot();
         double alpha = c / Math.Sqrt(j / 100.0);
-        double s = 50.0 * Math.Sqrt((alpha * viewingConditions.GetC()) / (viewingConditions.GetAw() + 4.0));
+        double s = 50.0 * Math.Sqrt(alpha * viewingConditions.GetC() / (viewingConditions.GetAw() + 4.0));
 
         double hueRadians = MathUtils.ToRadians(h);
         double jstar = (1.0 + 100.0 * 0.007) * j / (1.0 + 0.007 * j);
@@ -347,7 +347,7 @@ public sealed class Cam16
         double eHue = 0.25 * (Math.Cos(hRad + 2.0) + 3.8);
         double ac = viewingConditions.GetAw() * Math.Pow(GetJ() / 100.0, 1.0 / viewingConditions.GetC() / viewingConditions.GetZ());
         double p1 = eHue * (50000.0 / 13.0) * viewingConditions.GetNc() * viewingConditions.GetNcb();
-        double p2 = (ac / viewingConditions.GetNbb());
+        double p2 = ac / viewingConditions.GetNbb();
 
         double hSin = Math.Sin(hRad);
         double hCos = Math.Cos(hRad);
@@ -359,20 +359,20 @@ public sealed class Cam16
         double gA = (460.0 * p2 - 891.0 * a - 261.0 * b) / 1403.0;
         double bA = (460.0 * p2 - 220.0 * a - 6300.0 * b) / 1403.0;
 
-        double rCBase = Math.Max(0, (27.13 * Math.Abs(rA)) / (400.0 - Math.Abs(rA)));
+        double rCBase = Math.Max(0, 27.13 * Math.Abs(rA) / (400.0 - Math.Abs(rA)));
         double rC = Math.Sign(rA) * (100.0 / viewingConditions.GetFl()) * Math.Pow(rCBase, 1.0 / 0.42);
-        double gCBase = Math.Max(0, (27.13 * Math.Abs(gA)) / (400.0 - Math.Abs(gA)));
+        double gCBase = Math.Max(0, 27.13 * Math.Abs(gA) / (400.0 - Math.Abs(gA)));
         double gC = Math.Sign(gA) * (100.0 / viewingConditions.GetFl()) * Math.Pow(gCBase, 1.0 / 0.42);
-        double bCBase = Math.Max(0, (27.13 * Math.Abs(bA)) / (400.0 - Math.Abs(bA)));
+        double bCBase = Math.Max(0, 27.13 * Math.Abs(bA) / (400.0 - Math.Abs(bA)));
         double bC = Math.Sign(bA) * (100.0 / viewingConditions.GetFl()) * Math.Pow(bCBase, 1.0 / 0.42);
         double rF = rC / viewingConditions.GetRgbD()[0];
         double gF = gC / viewingConditions.GetRgbD()[1];
         double bF = bC / viewingConditions.GetRgbD()[2];
 
         double[][] matrix = Cam16RgbToXyz;
-        double x = (rF * matrix[0][0]) + (gF * matrix[0][1]) + (bF * matrix[0][2]);
-        double y = (rF * matrix[1][0]) + (gF * matrix[1][1]) + (bF * matrix[1][2]);
-        double z = (rF * matrix[2][0]) + (gF * matrix[2][1]) + (bF * matrix[2][2]);
+        double x = rF * matrix[0][0] + gF * matrix[0][1] + bF * matrix[0][2];
+        double y = rF * matrix[1][0] + gF * matrix[1][1] + bF * matrix[1][2];
+        double z = rF * matrix[2][0] + gF * matrix[2][1] + bF * matrix[2][2];
 
         if (returnArray != null)
         {

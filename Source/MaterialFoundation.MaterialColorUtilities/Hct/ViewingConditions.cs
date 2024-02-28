@@ -117,24 +117,24 @@ public sealed class ViewingConditions
         // Transform white point XYZ to 'cone'/'rgb' responses
         double[][] matrix = Cam16.XyzToCam16Rgb;
         double[] xyz = whitePoint;
-        double rW = (xyz[0] * matrix[0][0]) + (xyz[1] * matrix[0][1]) + (xyz[2] * matrix[0][2]);
-        double gW = (xyz[0] * matrix[1][0]) + (xyz[1] * matrix[1][1]) + (xyz[2] * matrix[1][2]);
-        double bW = (xyz[0] * matrix[2][0]) + (xyz[1] * matrix[2][1]) + (xyz[2] * matrix[2][2]);
-        double f = 0.8 + (surround / 10.0);
+        double rW = xyz[0] * matrix[0][0] + xyz[1] * matrix[0][1] + xyz[2] * matrix[0][2];
+        double gW = xyz[0] * matrix[1][0] + xyz[1] * matrix[1][1] + xyz[2] * matrix[1][2];
+        double bW = xyz[0] * matrix[2][0] + xyz[1] * matrix[2][1] + xyz[2] * matrix[2][2];
+        double f = 0.8 + surround / 10.0;
         double c = (f >= 0.9)
-            ? MathUtils.Lerp(0.59, 0.69, ((f - 0.9) * 10.0))
-            : MathUtils.Lerp(0.525, 0.59, ((f - 0.8) * 10.0));
+            ? MathUtils.Lerp(0.59, 0.69, (f - 0.9) * 10.0)
+            : MathUtils.Lerp(0.525, 0.59, (f - 0.8) * 10.0);
         double d = discountingIlluminant
             ? 1.0
-            : f * (1.0 - ((1.0 / 3.6) * Math.Exp((-adaptingLuminance - 42.0) / 92.0)));
+            : f * (1.0 - 1.0 / 3.6 * Math.Exp((-adaptingLuminance - 42.0) / 92.0));
         d = MathUtils.ClampDouble(0.0, 1.0, d);
         double nc = f;
         double[] rgbD = new double[] { d * (100.0 / rW) + 1.0 - d, d * (100.0 / gW) + 1.0 - d, d * (100.0 / bW) + 1.0 - d };
         double k = 1.0 / (5.0 * adaptingLuminance + 1.0);
         double k4 = k * k * k * k;
         double k4F = 1.0 - k4;
-        double fl = (k4 * adaptingLuminance) + (0.1 * k4F * k4F * Math.Cbrt(5.0 * adaptingLuminance));
-        double n = (ColorUtils.YFromLstar(backgroundLstar) / whitePoint[1]);
+        double fl = k4 * adaptingLuminance + 0.1 * k4F * k4F * Math.Cbrt(5.0 * adaptingLuminance);
+        double n = ColorUtils.YFromLstar(backgroundLstar) / whitePoint[1];
         double z = 1.48 + Math.Sqrt(n);
         double nbb = 0.725 / Math.Pow(n, 0.2);
         double ncb = nbb;
@@ -147,12 +147,12 @@ public sealed class ViewingConditions
 
         double[] rgbA = new double[]
         {
-            (400.0 * rgbAFactors[0]) / (rgbAFactors[0] + 27.13),
-            (400.0 * rgbAFactors[1]) / (rgbAFactors[1] + 27.13),
-            (400.0 * rgbAFactors[2]) / (rgbAFactors[2] + 27.13)
+            400.0 * rgbAFactors[0] / (rgbAFactors[0] + 27.13),
+            400.0 * rgbAFactors[1] / (rgbAFactors[1] + 27.13),
+            400.0 * rgbAFactors[2] / (rgbAFactors[2] + 27.13)
         };
 
-        double aw = ((2.0 * rgbA[0]) + rgbA[1] + (0.05 * rgbA[2])) * nbb;
+        double aw = (2.0 * rgbA[0] + rgbA[1] + 0.05 * rgbA[2]) * nbb;
         return new ViewingConditions(n, aw, nbb, ncb, c, nc, rgbD, fl, Math.Pow(fl, 0.25), z);
     }
 
@@ -161,7 +161,7 @@ public sealed class ViewingConditions
     /// <para>Default viewing conditions have a lstar of 50, midgray.</para></summary>
     public static ViewingConditions DefaultWithBackgroundLstar(double lstar)
     {
-        return ViewingConditions.Make(ColorUtils.GetWhitePointD65(), (200.0 / Math.PI * ColorUtils.YFromLstar(50.0) / 100.0), lstar, 2.0, false);
+        return ViewingConditions.Make(ColorUtils.GetWhitePointD65(), 200.0 / Math.PI * ColorUtils.YFromLstar(50.0) / 100.0, lstar, 2.0, false);
     }
 
     /// <summary>Parameters are intermediate values of the CAM16 conversion process. Their names are shorthand

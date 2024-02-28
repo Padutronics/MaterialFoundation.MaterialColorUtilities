@@ -67,7 +67,7 @@ public sealed class TemperatureCache
         double smallestError = 1000.0;
         Hct.Hct answer = GetHctsByHue()[(int)Math.Round(input.GetHue())];
 
-        double complementRelativeTemp = (1.0 - GetRelativeTemperature(input));
+        double complementRelativeTemp = 1.0 - GetRelativeTemperature(input);
         // Find the color in the other section, closest to the inverse percentile
         // of the input color. This is the complement.
         for (double hueAddend = 0.0; hueAddend <= 360.0; hueAddend += 1.0)
@@ -139,7 +139,7 @@ public sealed class TemperatureCache
             double tempDelta = Math.Abs(temp - lastTemp);
             totalTempDelta += tempDelta;
 
-            double desiredTotalTempDeltaForIndex = (allColors.Count * tempStep);
+            double desiredTotalTempDeltaForIndex = allColors.Count * tempStep;
             bool indexSatisfied = totalTempDelta >= desiredTotalTempDeltaForIndex;
             int indexAddend = 1;
             // Keep adding this hue to the answers until its temperature is
@@ -153,7 +153,7 @@ public sealed class TemperatureCache
             while (indexSatisfied && allColors.Count < divisions)
             {
                 allColors.Add(hct);
-                desiredTotalTempDeltaForIndex = ((allColors.Count + indexAddend) * tempStep);
+                desiredTotalTempDeltaForIndex = (allColors.Count + indexAddend) * tempStep;
                 indexSatisfied = totalTempDelta >= desiredTotalTempDeltaForIndex;
                 indexAddend++;
             }
@@ -174,7 +174,7 @@ public sealed class TemperatureCache
         answers.Add(input);
 
         int ccwCount = (int)Math.Floor(((double)count - 1.0) / 2.0);
-        for (int i = 1; i < (ccwCount + 1); i++)
+        for (int i = 1; i < ccwCount + 1; i++)
         {
             int index = 0 - i;
             while (index < 0)
@@ -189,7 +189,7 @@ public sealed class TemperatureCache
         }
 
         int cwCount = count - ccwCount - 1;
-        for (int i = 1; i < (cwCount + 1); i++)
+        for (int i = 1; i < cwCount + 1; i++)
         {
             int index = i;
             while (index < 0)

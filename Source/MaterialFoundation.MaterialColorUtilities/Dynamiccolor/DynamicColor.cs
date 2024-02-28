@@ -271,7 +271,7 @@ public sealed class DynamicColor
             DynamicColor bg = background!(scheme);
             double bgTone = bg.GetTone(scheme);
 
-            bool aIsNearer = (polarity == TonePolarity.Nearer || (polarity == TonePolarity.Lighter && !scheme.isDark) || (polarity == TonePolarity.Darker && scheme.isDark));
+            bool aIsNearer = polarity == TonePolarity.Nearer || polarity == TonePolarity.Lighter && !scheme.isDark || polarity == TonePolarity.Darker && scheme.isDark;
             DynamicColor nearer = aIsNearer ? roleA : roleB;
             DynamicColor farther = aIsNearer ? roleB : roleA;
             bool amNearer = name.Equals(nearer.name);

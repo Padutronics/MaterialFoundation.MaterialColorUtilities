@@ -43,7 +43,7 @@ public class SchemeContent : DynamicScheme
             TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), Math.Max(sourceColorHct.GetChroma() - 32.0, sourceColorHct.GetChroma() * 0.5)),
             TonalPalette.FromHct(DislikeAnalyzer.FixIfDisliked(new TemperatureCache(sourceColorHct).GetAnalogousColors(count: 3, divisions: 6)[2])),
             TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), sourceColorHct.GetChroma() / 8.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), (sourceColorHct.GetChroma() / 8.0) + 4.0)
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), sourceColorHct.GetChroma() / 8.0 + 4.0)
         )
     {
     }

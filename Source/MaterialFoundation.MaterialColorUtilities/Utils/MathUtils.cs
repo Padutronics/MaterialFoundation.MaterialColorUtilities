@@ -138,6 +138,6 @@ public static class MathUtils
 
     public static double ToRadians(double degrees)
     {
-        return (Math.PI / 180) * degrees;
+        return Math.PI / 180 * degrees;
     }
 }

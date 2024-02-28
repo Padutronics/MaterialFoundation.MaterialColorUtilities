@@ -166,7 +166,7 @@ public static class Contrast
         }
         // Invert the contrast ratio equation to determine darker Y given a ratio and lighter Y.
         double lightY = ColorUtils.YFromLstar(tone);
-        double darkY = ((lightY + 5.0) / ratio) - 5.0;
+        double darkY = (lightY + 5.0) / ratio - 5.0;
         if (darkY < 0.0 || darkY > 100.0)
         {
             return -1.0;

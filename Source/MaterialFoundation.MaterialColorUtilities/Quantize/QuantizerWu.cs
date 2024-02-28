@@ -82,10 +82,10 @@ public sealed class QuantizerWu : Quantizer
             int iB = (blue >> bitsToRemove) + 1;
             int index = GetIndex(iR, iG, iB);
             weights[index] += count;
-            momentsR[index] += (red * count);
-            momentsG[index] += (green * count);
-            momentsB[index] += (blue * count);
-            moments[index] += (count * ((red * red) + (green * green) + (blue * blue)));
+            momentsR[index] += red * count;
+            momentsG[index] += green * count;
+            momentsB[index] += blue * count;
+            moments[index] += count * (red * red + green * green + blue * blue);
         }
     }
 
@@ -216,7 +216,7 @@ public sealed class QuantizerWu : Quantizer
 
         int hypotenuse = dr * dr + dg * dg + db * db;
         int volume = QuantizerWu.Volume(cube, weights);
-        return xx - hypotenuse / ((double)volume);
+        return xx - hypotenuse / (double)volume;
     }
 
     private bool Cut(Box one, Box two)
@@ -322,7 +322,7 @@ public sealed class QuantizerWu : Quantizer
 
             tempNumerator = halfR * halfR + halfG * halfG + halfB * halfB;
             tempDenominator = halfW;
-            temp += (tempNumerator / tempDenominator);
+            temp += tempNumerator / tempDenominator;
 
             if (temp > max)
             {
@@ -335,14 +335,14 @@ public sealed class QuantizerWu : Quantizer
 
     private static int Volume(Box cube, int[] moment)
     {
-        return (moment[GetIndex(cube.r1, cube.g1, cube.b1)] -
+        return moment[GetIndex(cube.r1, cube.g1, cube.b1)] -
             moment[GetIndex(cube.r1, cube.g1, cube.b0)] -
             moment[GetIndex(cube.r1, cube.g0, cube.b1)] +
             moment[GetIndex(cube.r1, cube.g0, cube.b0)] -
             moment[GetIndex(cube.r0, cube.g1, cube.b1)] +
             moment[GetIndex(cube.r0, cube.g1, cube.b0)] +
             moment[GetIndex(cube.r0, cube.g0, cube.b1)] -
-            moment[GetIndex(cube.r0, cube.g0, cube.b0)]);
+            moment[GetIndex(cube.r0, cube.g0, cube.b0)];
     }
 
     private static int Bottom(Box cube, Direction direction, int[] moment)
@@ -373,20 +373,20 @@ public sealed class QuantizerWu : Quantizer
         switch (direction)
         {
             case Direction.Red:
-                return (moment[GetIndex(position, cube.g1, cube.b1)] -
+                return moment[GetIndex(position, cube.g1, cube.b1)] -
                     moment[GetIndex(position, cube.g1, cube.b0)] -
                     moment[GetIndex(position, cube.g0, cube.b1)] +
-                    moment[GetIndex(position, cube.g0, cube.b0)]);
+                    moment[GetIndex(position, cube.g0, cube.b0)];
             case Direction.Green:
-                return (moment[GetIndex(cube.r1, position, cube.b1)] -
+                return moment[GetIndex(cube.r1, position, cube.b1)] -
                     moment[GetIndex(cube.r1, position, cube.b0)] -
                     moment[GetIndex(cube.r0, position, cube.b1)] +
-                    moment[GetIndex(cube.r0, position, cube.b0)]);
+                    moment[GetIndex(cube.r0, position, cube.b0)];
             case Direction.Blue:
-                return (moment[GetIndex(cube.r1, cube.g1, position)] -
+                return moment[GetIndex(cube.r1, cube.g1, position)] -
                     moment[GetIndex(cube.r1, cube.g0, position)] -
                     moment[GetIndex(cube.r0, cube.g1, position)] +
-                    moment[GetIndex(cube.r0, cube.g0, position)]);
+                    moment[GetIndex(cube.r0, cube.g0, position)];
         }
         throw new ArgumentException("unexpected direction " + direction);
     }

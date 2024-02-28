@@ -41,7 +41,7 @@ public class SchemeFidelity : DynamicScheme
             TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), Math.Max(sourceColorHct.GetChroma() - 32.0, sourceColorHct.GetChroma() * 0.5)),
             TonalPalette.FromHct(DislikeAnalyzer.FixIfDisliked(new TemperatureCache(sourceColorHct).GetComplement())),
             TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), sourceColorHct.GetChroma() / 8.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), (sourceColorHct.GetChroma() / 8.0) + 4.0)
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), sourceColorHct.GetChroma() / 8.0 + 4.0)
         )
     {
     }

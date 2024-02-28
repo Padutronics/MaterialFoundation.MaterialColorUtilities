@@ -211,9 +211,9 @@ public sealed class QuantizerWsmeans
                 double[] point = points[i];
                 int count = counts[i];
                 pixelCountSums[clusterIndex] += count;
-                componentASums[clusterIndex] += (point[0] * count);
-                componentBSums[clusterIndex] += (point[1] * count);
-                componentCSums[clusterIndex] += (point[2] * count);
+                componentASums[clusterIndex] += point[0] * count;
+                componentBSums[clusterIndex] += point[1] * count;
+                componentCSums[clusterIndex] += point[2] * count;
             }
 
             for (int i = 0; i < clusterCount; i++)
