@@ -2,6 +2,9 @@
 .vscode/*
 !.vscode/tasks.json
 
+# Visual Studio.
+.vs/
+
 # Build results.
 bin/
 obj/

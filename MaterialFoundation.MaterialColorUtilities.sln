@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{10909638-97AB-435F-9191-A44F8BD2E7B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialFoundation.MaterialColorUtilities", "Source\MaterialFoundation.MaterialColorUtilities\MaterialFoundation.MaterialColorUtilities.csproj", "{AC81C0C0-E817-4A6C-8A42-6E3CAF10A168}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC81C0C0-E817-4A6C-8A42-6E3CAF10A168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC81C0C0-E817-4A6C-8A42-6E3CAF10A168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC81C0C0-E817-4A6C-8A42-6E3CAF10A168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC81C0C0-E817-4A6C-8A42-6E3CAF10A168}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AC81C0C0-E817-4A6C-8A42-6E3CAF10A168} = {10909638-97AB-435F-9191-A44F8BD2E7B2}
+	EndGlobalSection
+EndGlobal
