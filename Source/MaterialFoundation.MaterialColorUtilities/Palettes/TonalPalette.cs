@@ -24,10 +24,10 @@ namespace MaterialFoundation.MaterialColorUtilities.Palettes;
  */
 public sealed class TonalPalette
 {
-    IDictionary<int, int> cache;
-    Hct.Hct keyColor;
-    double hue;
-    double chroma;
+    private IDictionary<int, int> cache;
+    private Hct.Hct keyColor;
+    private double hue;
+    private double chroma;
 
     /**
      * Create tones using the HCT hue and chroma from a color.

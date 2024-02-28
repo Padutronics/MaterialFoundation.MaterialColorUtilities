@@ -200,7 +200,7 @@ public sealed class Cam16
     // The RGB => XYZ conversion matrix elements are derived scientific constants. While the values
     // may differ at runtime due to floating point imprecision, keeping the values the same, and
     // accurate, across implementations takes precedence.
-    static Cam16 fromIntInViewingConditions(int argb, ViewingConditions viewingConditions)
+    private static Cam16 fromIntInViewingConditions(int argb, ViewingConditions viewingConditions)
     {
         // Transform ARGB int to XYZ
         int red = (argb & 0x00ff0000) >> 16;
@@ -286,7 +286,7 @@ public sealed class Cam16
      * @param c CAM16 chroma
      * @param h CAM16 hue
      */
-    static Cam16 fromJch(double j, double c, double h)
+    private static Cam16 fromJch(double j, double c, double h)
     {
         return fromJchInViewingConditions(j, c, h, ViewingConditions.DEFAULT);
     }
@@ -367,7 +367,7 @@ public sealed class Cam16
      * @param viewingConditions Information about the environment where the color will be viewed.
      * @return ARGB representation of color
      */
-    int viewed(ViewingConditions viewingConditions)
+    private int viewed(ViewingConditions viewingConditions)
     {
         double[] xyz = xyzInViewingConditions(viewingConditions, tempArray);
         return ColorUtils.argbFromXyz(xyz[0], xyz[1], xyz[2]);

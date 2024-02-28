@@ -28,12 +28,12 @@ namespace MaterialFoundation.MaterialColorUtilities.Quantize;
  */
 public sealed class QuantizerWu : Quantizer
 {
-    int[] weights = [];
-    int[] momentsR = [];
-    int[] momentsG = [];
-    int[] momentsB = [];
-    double[] moments = [];
-    Box[] cubes = [];
+    private int[] weights = [];
+    private int[] momentsR = [];
+    private int[] momentsG = [];
+    private int[] momentsB = [];
+    private double[] moments = [];
+    private Box[] cubes = [];
 
     // A histogram of all the input colors is constructed. It has the shape of a
     // cube. The cube would be too large if it contained all 16 million colors:
@@ -58,12 +58,12 @@ public sealed class QuantizerWu : Quantizer
         return new QuantizerResult(resultMap);
     }
 
-    static int getIndex(int r, int g, int b)
+    private static int getIndex(int r, int g, int b)
     {
         return (r << (INDEX_BITS * 2)) + (r << (INDEX_BITS + 1)) + r + (g << INDEX_BITS) + g + b;
     }
 
-    void constructHistogram(IDictionary<int, int> pixels)
+    private void constructHistogram(IDictionary<int, int> pixels)
     {
         weights = new int[TOTAL_SIZE];
         momentsR = new int[TOTAL_SIZE];
@@ -91,7 +91,7 @@ public sealed class QuantizerWu : Quantizer
         }
     }
 
-    void createMoments()
+    private void createMoments()
     {
         for (int r = 1; r < INDEX_COUNT; ++r)
         {
@@ -134,7 +134,7 @@ public sealed class QuantizerWu : Quantizer
         }
     }
 
-    CreateBoxesResult createBoxes(int maxColorCount)
+    private CreateBoxesResult createBoxes(int maxColorCount)
     {
         cubes = new Box[maxColorCount];
         for (int i = 0; i < maxColorCount; i++)
@@ -183,7 +183,7 @@ public sealed class QuantizerWu : Quantizer
         return new CreateBoxesResult(maxColorCount, generatedColorCount);
     }
 
-    ICollection<int> createResult(int colorCount)
+    private ICollection<int> createResult(int colorCount)
     {
         var colors = new List<int>();
         for (int i = 0; i < colorCount; ++i)
@@ -202,7 +202,7 @@ public sealed class QuantizerWu : Quantizer
         return colors;
     }
 
-    double variance(Box cube)
+    private double variance(Box cube)
     {
         int dr = QuantizerWu.volume(cube, momentsR);
         int dg = QuantizerWu.volume(cube, momentsG);
@@ -221,7 +221,7 @@ public sealed class QuantizerWu : Quantizer
         return xx - hypotenuse / ((double)volume);
     }
 
-    bool cut(Box one, Box two)
+    private bool cut(Box one, Box two)
     {
         int wholeR = volume(one, momentsR);
         int wholeG = volume(one, momentsG);
@@ -284,7 +284,7 @@ public sealed class QuantizerWu : Quantizer
         return true;
     }
 
-    MaximizeResult maximize(Box cube, Direction direction, int first, int last, int wholeR, int wholeG, int wholeB, int wholeW)
+    private MaximizeResult maximize(Box cube, Direction direction, int first, int last, int wholeR, int wholeG, int wholeB, int wholeW)
     {
         int bottomR = bottom(cube, direction, momentsR);
         int bottomG = bottom(cube, direction, momentsG);
@@ -335,7 +335,7 @@ public sealed class QuantizerWu : Quantizer
         return new MaximizeResult(cut, max);
     }
 
-    static int volume(Box cube, int[] moment)
+    private static int volume(Box cube, int[] moment)
     {
         return (moment[getIndex(cube.r1, cube.g1, cube.b1)] -
             moment[getIndex(cube.r1, cube.g1, cube.b0)] -
@@ -347,7 +347,7 @@ public sealed class QuantizerWu : Quantizer
             moment[getIndex(cube.r0, cube.g0, cube.b0)]);
     }
 
-    static int bottom(Box cube, Direction direction, int[] moment)
+    private static int bottom(Box cube, Direction direction, int[] moment)
     {
         switch (direction)
         {
@@ -370,7 +370,7 @@ public sealed class QuantizerWu : Quantizer
         throw new ArgumentException("unexpected direction " + direction);
     }
 
-    static int top(Box cube, Direction direction, int position, int[] moment)
+    private static int top(Box cube, Direction direction, int position, int[] moment)
     {
         switch (direction)
         {

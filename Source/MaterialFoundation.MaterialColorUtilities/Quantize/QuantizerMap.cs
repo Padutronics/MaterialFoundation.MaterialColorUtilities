@@ -21,7 +21,7 @@ namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 /** Creates a dictionary with keys of colors, and values of count of the color */
 public sealed class QuantizerMap : Quantizer
 {
-    IDictionary<int, int>? colorToCount;
+    private IDictionary<int, int>? colorToCount;
 
     public QuantizerResult quantize(int[] pixels, int colorCount)
     {

@@ -998,7 +998,7 @@ public sealed class MaterialDynamicColors
         return scheme.variant == Variant.MONOCHROME;
     }
 
-    static double findDesiredChromaByTone(double hue, double chroma, double tone, bool byDecreasingTone)
+    private static double findDesiredChromaByTone(double hue, double chroma, double tone, bool byDecreasingTone)
     {
         double answer = tone;
 

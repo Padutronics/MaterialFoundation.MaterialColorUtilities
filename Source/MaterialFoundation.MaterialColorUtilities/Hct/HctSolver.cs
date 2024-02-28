@@ -307,7 +307,7 @@ public class HctSolver
      * @param angle An angle in radians; must not deviate too much from 0.
      * @return A coterminal angle between 0 and 2pi.
      */
-    static double sanitizeRadians(double angle)
+    private static double sanitizeRadians(double angle)
     {
         return (angle + Math.PI * 8) % (Math.PI * 2);
     }
@@ -318,7 +318,7 @@ public class HctSolver
      * @param rgbComponent 0.0 <= rgb_component <= 100.0, represents linear R/G/B channel
      * @return 0.0 <= output <= 255.0, color channel converted to regular RGB space
      */
-    static double trueDelinearized(double rgbComponent)
+    private static double trueDelinearized(double rgbComponent)
     {
         double normalized = rgbComponent / 100.0;
         double delinearized = 0.0;
@@ -333,7 +333,7 @@ public class HctSolver
         return delinearized * 255.0;
     }
 
-    static double chromaticAdaptation(double component)
+    private static double chromaticAdaptation(double component)
     {
         double af = Math.Pow(Math.Abs(component), 0.42);
         return MathUtils.signum(component) * 400.0 * af / (af + 27.13);
@@ -345,7 +345,7 @@ public class HctSolver
      * @param linrgb The linear RGB coordinates of a color.
      * @return The hue of the color in CAM16, in radians.
      */
-    static double hueOf(double[] linrgb)
+    private static double hueOf(double[] linrgb)
     {
         double[] scaledDiscount = MathUtils.matrixMultiply(linrgb, SCALED_DISCOUNT_FROM_LINRGB);
         double rA = chromaticAdaptation(scaledDiscount[0]);
@@ -358,7 +358,7 @@ public class HctSolver
         return Math.Atan2(b, a);
     }
 
-    static bool areInCyclicOrder(double a, double b, double c)
+    private static bool areInCyclicOrder(double a, double b, double c)
     {
         double deltaAB = sanitizeRadians(b - a);
         double deltaAC = sanitizeRadians(c - a);
@@ -373,12 +373,12 @@ public class HctSolver
      * @param target The ending number.
      * @return A number t such that lerp(source, target, t) = mid.
      */
-    static double intercept(double source, double mid, double target)
+    private static double intercept(double source, double mid, double target)
     {
         return (mid - source) / (target - source);
     }
 
-    static double[] lerpPoint(double[] source, double t, double[] target)
+    private static double[] lerpPoint(double[] source, double t, double[] target)
     {
         return new double[]
         {
@@ -398,13 +398,13 @@ public class HctSolver
      * @return The intersection point of the segment AB with the plane R=coordinate, G=coordinate, or
      *     B=coordinate
      */
-    static double[] setCoordinate(double[] source, double coordinate, double[] target, int axis)
+    private static double[] setCoordinate(double[] source, double coordinate, double[] target, int axis)
     {
         double t = intercept(source[axis], coordinate, target[axis]);
         return lerpPoint(source, t, target);
     }
 
-    static bool isBounded(double x)
+    private static bool isBounded(double x)
     {
         return 0.0 <= x && x <= 100.0;
     }
@@ -418,7 +418,7 @@ public class HctSolver
      *     in linear RGB coordinates, if it exists. If this possible vertex lies outside of the cube,
      *     [-1.0, -1.0, -1.0] is returned.
      */
-    static double[] nthVertex(double y, int n)
+    private static double[] nthVertex(double y, int n)
     {
         double kR = Y_FROM_LINRGB[0];
         double kG = Y_FROM_LINRGB[1];
@@ -477,7 +477,7 @@ public class HctSolver
      * @return A list of two sets of linear RGB coordinates, each corresponding to an endpoint of the
      *     segment containing the desired color.
      */
-    static double[][] bisectToSegment(double y, double targetHue)
+    private static double[][] bisectToSegment(double y, double targetHue)
     {
         double[] left = new double[] { -1.0, -1.0, -1.0 };
         double[] right = left;
@@ -520,17 +520,17 @@ public class HctSolver
         return new double[][] { left, right };
     }
 
-    static double[] midpoint(double[] a, double[] b)
+    private static double[] midpoint(double[] a, double[] b)
     {
         return new double[] { (a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2, };
     }
 
-    static int criticalPlaneBelow(double x)
+    private static int criticalPlaneBelow(double x)
     {
         return (int)Math.Floor(x - 0.5);
     }
 
-    static int criticalPlaneAbove(double x)
+    private static int criticalPlaneAbove(double x)
     {
         return (int)Math.Ceiling(x - 0.5);
     }
@@ -542,7 +542,7 @@ public class HctSolver
      * @param targetHue The hue of the color.
      * @return The desired color, in linear RGB coordinates.
      */
-    static double[] bisectToLimit(double y, double targetHue)
+    private static double[] bisectToLimit(double y, double targetHue)
     {
         double[][] segment = bisectToSegment(y, targetHue);
         double[] left = segment[0];
@@ -594,7 +594,7 @@ public class HctSolver
         return midpoint(left, right);
     }
 
-    static double inverseChromaticAdaptation(double adapted)
+    private static double inverseChromaticAdaptation(double adapted)
     {
         double adaptedAbs = Math.Abs(adapted);
         double @base = Math.Max(0, 27.13 * adaptedAbs / (400.0 - adaptedAbs));
@@ -609,7 +609,7 @@ public class HctSolver
      * @param y The desired Y.
      * @return The desired color as a hexadecimal integer, if found; 0 otherwise.
      */
-    static int findResultByJ(double hueRadians, double chroma, double y)
+    private static int findResultByJ(double hueRadians, double chroma, double y)
     {
         // Initial estimate of j.
         double j = Math.Sqrt(y) * 11.0;

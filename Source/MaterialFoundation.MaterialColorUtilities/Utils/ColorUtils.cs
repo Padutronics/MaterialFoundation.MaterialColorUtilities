@@ -264,7 +264,7 @@ public class ColorUtils
         return WHITE_POINT_D65;
     }
 
-    static double labF(double t)
+    private static double labF(double t)
     {
         double e = 216.0 / 24389.0;
         double kappa = 24389.0 / 27.0;
@@ -278,7 +278,7 @@ public class ColorUtils
         }
     }
 
-    static double labInvf(double ft)
+    private static double labInvf(double ft)
     {
         double e = 216.0 / 24389.0;
         double kappa = 24389.0 / 27.0;
