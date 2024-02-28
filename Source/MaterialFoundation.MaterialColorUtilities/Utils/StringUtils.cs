@@ -26,6 +26,6 @@ public static class StringUtils
         int red = ColorUtils.RedFromArgb(argb);
         int blue = ColorUtils.BlueFromArgb(argb);
         int green = ColorUtils.GreenFromArgb(argb);
-        return string.Format("#%02x%02x%02x", red, green, blue);
+        return $"{red:x2}{green:x2}{blue:x2}";
     }
 }
