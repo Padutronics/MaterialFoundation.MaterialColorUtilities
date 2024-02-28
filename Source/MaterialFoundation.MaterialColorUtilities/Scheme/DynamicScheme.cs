@@ -19,11 +19,9 @@ using MaterialFoundation.MaterialColorUtilities.Utils;
 
 namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 
-/**
- * Provides important settings for creating colors dynamically, and 6 color palettes. Requires: 1. A
- * color. (source color) 2. A theme. (Variant) 3. Whether or not its dark mode. 4. Contrast level.
- * (-1 to 1, currently contrast ratio 3.0 and 7.0)
- */
+/// <summary>Provides important settings for creating colors dynamically, and 6 color palettes. Requires: 1. A
+/// color. (source color) 2. A theme. (Variant) 3. Whether or not its dark mode. 4. Contrast level.
+/// (-1 to 1, currently contrast ratio 3.0 and 7.0)</summary>
 public class DynamicScheme
 {
     public readonly int sourceColorArgb;
@@ -55,16 +53,13 @@ public class DynamicScheme
         this.errorPalette = TonalPalette.fromHueAndChroma(25.0, 84.0);
     }
 
-    /**
-     * Given a set of hues and set of hue rotations, locate which hues the source color's hue is
-     * between, apply the rotation at the same index as the first hue in the range, and return the
-     * rotated hue.
-     *
-     * @param sourceColorHct The color whose hue should be rotated.
-     * @param hues A set of hues.
-     * @param rotations A set of hue rotations.
-     * @return Color's hue with a rotation applied.
-     */
+    /// <summary>Given a set of hues and set of hue rotations, locate which hues the source color's hue is
+    /// between, apply the rotation at the same index as the first hue in the range, and return the
+    /// rotated hue.</summary>
+    /// <param name="sourceColorHct">The color whose hue should be rotated.</param>
+    /// <param name="hues">A set of hues.</param>
+    /// <param name="rotations">A set of hue rotations.</param>
+    /// <returns>Color's hue with a rotation applied.</returns>
     public static double getRotatedHue(Hct.Hct sourceColorHct, double[] hues, double[] rotations)
     {
         double sourceHue = sourceColorHct.getHue();

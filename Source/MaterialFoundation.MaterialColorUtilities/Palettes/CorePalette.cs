@@ -18,10 +18,8 @@ using System;
 
 namespace MaterialFoundation.MaterialColorUtilities.Palettes;
 
-/**
- * An intermediate concept between the key color for a UI theme, and a full color scheme. 5 sets of
- * tones are generated, all except one use the same hue as the key color, and all vary in chroma.
- */
+/// <summary>An intermediate concept between the key color for a UI theme, and a full color scheme. 5 sets of
+/// tones are generated, all except one use the same hue as the key color, and all vary in chroma.</summary>
 public sealed class CorePalette
 {
     public TonalPalette a1;
@@ -31,21 +29,15 @@ public sealed class CorePalette
     public TonalPalette n2;
     public TonalPalette error;
 
-    /**
-     * Create key tones from a color.
-     *
-     * @param argb ARGB representation of a color
-     */
+    /// <summary>Create key tones from a color.</summary>
+    /// <param name="argb">ARGB representation of a color</param>
     public static CorePalette of(int argb)
     {
         return new CorePalette(argb, false);
     }
 
-    /**
-     * Create content key tones from a color.
-     *
-     * @param argb ARGB representation of a color
-     */
+    /// <summary>Create content key tones from a color.</summary>
+    /// <param name="argb">ARGB representation of a color</param>
     public static CorePalette contentOf(int argb)
     {
         return new CorePalette(argb, true);

@@ -19,7 +19,7 @@ using MaterialFoundation.MaterialColorUtilities.Utils;
 
 namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 
-/** A playful theme - the source color's hue does not appear in the theme. */
+/// <summary>A playful theme - the source color's hue does not appear in the theme.</summary>
 public class SchemeExpressive : DynamicScheme
 {
     // NOMUTANTS--arbitrary increments/decrements, correctly, still passes tests.

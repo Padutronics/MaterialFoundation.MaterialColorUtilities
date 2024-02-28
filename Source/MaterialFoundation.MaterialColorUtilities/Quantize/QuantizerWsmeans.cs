@@ -19,16 +19,14 @@ using System.Collections.Generic;
 
 namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 
-/**
- * An image quantizer that improves on the speed of a standard K-Means algorithm by implementing
- * several optimizations, including deduping identical pixels and a triangle inequality rule that
- * reduces the number of comparisons needed to identify which cluster a point should be moved to.
- *
- * <p>Wsmeans stands for Weighted Square Means.
- *
- * <p>This algorithm was designed by M. Emre Celebi, and was found in their 2011 paper, Improving
- * the Performance of K-Means for Color Quantization. https://arxiv.org/abs/1101.0395
- */
+/// <summary>An image quantizer that improves on the speed of a standard K-Means algorithm by implementing
+/// several optimizations, including deduping identical pixels and a triangle inequality rule that
+/// reduces the number of comparisons needed to identify which cluster a point should be moved to.
+///
+/// <para>Wsmeans stands for Weighted Square Means.</para>
+///
+/// <para>This algorithm was designed by M. Emre Celebi, and was found in their 2011 paper, Improving
+/// the Performance of K-Means for Color Quantization. https://arxiv.org/abs/1101.0395</para></summary>
 public sealed class QuantizerWsmeans
 {
     private QuantizerWsmeans()
@@ -55,20 +53,17 @@ public sealed class QuantizerWsmeans
     private const int MAX_ITERATIONS = 10;
     private const double MIN_MOVEMENT_DISTANCE = 3.0;
 
-    /**
-     * Reduce the number of colors needed to represented the input, minimizing the difference between
-     * the original image and the recolored image.
-     *
-     * @param inputPixels Colors in ARGB format.
-     * @param startingClusters Defines the initial state of the quantizer. Passing an empty array is
-     *     fine, the implementation will create its own initial state that leads to reproducible
-     *     results for the same inputs. Passing an array that is the result of Wu quantization leads
-     *     to higher quality results.
-     * @param maxColors The number of colors to divide the image into. A lower number of colors may be
-     *     returned.
-     * @return Map with keys of colors in ARGB format, values of how many of the input pixels belong
-     *     to the color.
-     */
+    /// <summary>Reduce the number of colors needed to represented the input, minimizing the difference between
+    /// the original image and the recolored image.</summary>
+    /// <param name="inputPixels">Colors in ARGB format.</param>
+    /// <param name="startingClusters">Defines the initial state of the quantizer. Passing an empty array is
+    /// fine, the implementation will create its own initial state that leads to reproducible
+    /// results for the same inputs. Passing an array that is the result of Wu quantization leads
+    /// to higher quality results.</param>
+    /// <param name="maxColors">The number of colors to divide the image into. A lower number of colors may be
+    /// returned.</param>
+    /// <returns>Map with keys of colors in ARGB format, values of how many of the input pixels belong
+    /// to the color.</returns>
     public static IDictionary<int, int> quantize(int[] inputPixels, int[] startingClusters, int maxColors)
     {
         // Uses a seeded random number generator to ensure consistent results.

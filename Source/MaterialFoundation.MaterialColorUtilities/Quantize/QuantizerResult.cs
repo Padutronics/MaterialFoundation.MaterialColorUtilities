@@ -18,7 +18,7 @@ using System.Collections.Generic;
 
 namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 
-/** Represents result of a quantizer run */
+/// <summary>Represents result of a quantizer run</summary>
 public sealed class QuantizerResult
 {
     public readonly IDictionary<int, int> colorToCount;

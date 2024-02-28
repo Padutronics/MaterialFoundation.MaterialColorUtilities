@@ -20,15 +20,10 @@ using System;
 
 namespace MaterialFoundation.MaterialColorUtilities.Dynamiccolor;
 
-/** Named colors, otherwise known as tokens, or roles, in the Material Design system. */
-// Prevent lint for Function.apply not being available on Android before API level 14 (4.0.1).
-// "AndroidJdkLibsChecker" for Function, "NewApi" for Function.apply().
-// A java_library Bazel rule with an Android constraint cannot skip these warnings without this
-// annotation; another solution would be to create an android_library rule and supply
-// AndroidManifest with an SDK set higher than 14.
+/// <summary>Named colors, otherwise known as tokens, or roles, in the Material Design system.</summary>
 public sealed class MaterialDynamicColors
 {
-    /** Optionally use fidelity on most color schemes. */
+    /// <summary>Optionally use fidelity on most color schemes.</summary>
     private readonly bool isExtendedFidelity;
 
     public MaterialDynamicColors()
@@ -36,9 +31,6 @@ public sealed class MaterialDynamicColors
         this.isExtendedFidelity = false;
     }
 
-    // Temporary constructor to support extended fidelity experiment.
-    // TODO(b/291720794): Once schemes that will permanently use fidelity are identified,
-    // remove this and default to the decided behavior.
     public MaterialDynamicColors(bool isExtendedFidelity)
     {
         this.isExtendedFidelity = isExtendedFidelity;
@@ -49,7 +41,6 @@ public sealed class MaterialDynamicColors
         return s.isDark ? surfaceBright() : surfaceDim();
     }
 
-    // Compatibility Keys Colors for Android
     public DynamicColor primaryPaletteKeyColor()
     {
         return DynamicColor.fromPalette(
@@ -891,40 +882,38 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    /**
-     * These colors were present in Android framework before Android U, and used by MDC controls. They
-     * should be avoided, if possible. It's unclear if they're used on multiple backgrounds, and if
-     * they are, they can't be adjusted for contrast.* For now, they will be set with no background,
-     * and those won't adjust for contrast, avoiding issues.
-     *
-     * <p>* For example, if the same color is on a white background _and_ black background, there's no
-     * way to increase contrast with either without losing contrast with the other.
-     */
-    // colorControlActivated documented as colorAccent in M3 & GM3.
-    // colorAccent documented as colorSecondary in M3 and colorPrimary in GM3.
-    // Android used Material's Container as Primary/Secondary/Tertiary at launch.
-    // Therefore, this is a duplicated version of Primary Container.
+    /// <summary>These colors were present in Android framework before Android U, and used by MDC controls. They
+    /// should be avoided, if possible. It's unclear if they're used on multiple backgrounds, and if
+    /// they are, they can't be adjusted for contrast.* For now, they will be set with no background,
+    /// and those won't adjust for contrast, avoiding issues.
+    ///
+    /// <para>* For example, if the same color is on a white background _and_ black background, there's no
+    /// way to increase contrast with either without losing contrast with the other.</para></summary>
+    /// <remarks>colorControlActivated documented as colorAccent in M3 & GM3.
+    /// colorAccent documented as colorSecondary in M3 and colorPrimary in GM3.
+    /// Android used Material's Container as Primary/Secondary/Tertiary at launch.
+    /// Therefore, this is a duplicated version of Primary Container.</remarks>
     public DynamicColor controlActivated()
     {
         return DynamicColor.fromPalette("control_activated", (s) => s.primaryPalette, (s) => s.isDark ? 30.0 : 90.0);
     }
 
-    // colorControlNormal documented as textColorSecondary in M3 & GM3.
-    // In Material, textColorSecondary points to onSurfaceVariant in the non-disabled state,
-    // which is Neutral Variant T30/80 in light/dark.
+    /// <remarks>colorControlNormal documented as textColorSecondary in M3 & GM3.
+    /// In Material, textColorSecondary points to onSurfaceVariant in the non-disabled state,
+    /// which is Neutral Variant T30/80 in light/dark.</remarks>
     public DynamicColor controlNormal()
     {
         return DynamicColor.fromPalette("control_normal", (s) => s.neutralVariantPalette, (s) => s.isDark ? 80.0 : 30.0);
     }
 
-    // colorControlHighlight documented, in both M3 & GM3:
-    // Light mode: #1f000000 dark mode: #33ffffff.
-    // These are black and white with some alpha.
-    // 1F hex = 31 decimal; 31 / 255 = 12% alpha.
-    // 33 hex = 51 decimal; 51 / 255 = 20% alpha.
-    // DynamicColors do not support alpha currently, and _may_ not need it for this use case,
-    // depending on how MDC resolved alpha for the other cases.
-    // Returning black in dark mode, white in light mode.
+    /// <remarks>colorControlHighlight documented, in both M3 & GM3:
+    /// Light mode: #1f000000 dark mode: #33ffffff.
+    /// These are black and white with some alpha.
+    /// 1F hex = 31 decimal; 31 / 255 = 12% alpha.
+    /// 33 hex = 51 decimal; 51 / 255 = 20% alpha.
+    /// DynamicColors do not support alpha currently, and _may_ not need it for this use case,
+    /// depending on how MDC resolved alpha for the other cases.
+    /// Returning black in dark mode, white in light mode.</remarks>
     public DynamicColor controlHighlight()
     {
         return new DynamicColor(
@@ -940,14 +929,14 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    // textColorPrimaryInverse documented, in both M3 & GM3, documented as N10/N90.
+    /// <remarks>textColorPrimaryInverse documented, in both M3 & GM3, documented as N10/N90.</remarks>
     public DynamicColor textPrimaryInverse()
     {
         return DynamicColor.fromPalette("text_primary_inverse", (s) => s.neutralPalette, (s) => s.isDark ? 10.0 : 90.0);
     }
 
-    // textColorSecondaryInverse and textColorTertiaryInverse both documented, in both M3 & GM3, as
-    // NV30/NV80
+    /// <remarks>textColorSecondaryInverse and textColorTertiaryInverse both documented, in both M3 & GM3, as
+    /// NV30/NV80</remarks>
     public DynamicColor textSecondaryAndTertiaryInverse()
     {
         return DynamicColor.fromPalette(
@@ -957,7 +946,7 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    // textColorPrimaryInverseDisableOnly documented, in both M3 & GM3, as N10/N90
+    /// <remarks>textColorPrimaryInverseDisableOnly documented, in both M3 & GM3, as N10/N90</remarks>
     public DynamicColor textPrimaryInverseDisableOnly()
     {
         return DynamicColor.fromPalette(
@@ -967,8 +956,8 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    // textColorSecondaryInverse and textColorTertiaryInverse in disabled state both documented,
-    // in both M3 & GM3, as N10/N90
+    /// <remarks>textColorSecondaryInverse and textColorTertiaryInverse in disabled state both documented,
+    /// in both M3 & GM3, as N10/N90</remarks>
     public DynamicColor textSecondaryAndTertiaryInverseDisabled()
     {
         return DynamicColor.fromPalette(
@@ -978,7 +967,7 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    // textColorHintInverse documented, in both M3 & GM3, as N10/N90
+    /// <remarks>textColorHintInverse documented, in both M3 & GM3, as N10/N90</remarks>
     public DynamicColor textHintInverse()
     {
         return DynamicColor.fromPalette("text_hint_inverse", (s) => s.neutralPalette, (s) => s.isDark ? 10.0 : 90.0);

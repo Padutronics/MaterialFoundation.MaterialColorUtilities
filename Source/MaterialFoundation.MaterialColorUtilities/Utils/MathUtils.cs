@@ -18,14 +18,11 @@ using System;
 
 namespace MaterialFoundation.MaterialColorUtilities.Utils;
 
-/** Utility methods for mathematical operations. */
+/// <summary>Utility methods for mathematical operations.</summary>
 public static class MathUtils
 {
-    /**
-     * The signum function.
-     *
-     * @return 1 if num > 0, -1 if num < 0, and 0 if num = 0
-     */
+    /// <summary>The signum function.</summary>
+    /// <returns>1 if num > 0, -1 if num < 0, and 0 if num = 0</returns>
     public static int signum(double num)
     {
         if (num < 0)
@@ -42,21 +39,15 @@ public static class MathUtils
         }
     }
 
-    /**
-     * The linear interpolation function.
-     *
-     * @return start if amount = 0 and stop if amount = 1
-     */
+    /// <summary>The linear interpolation function.</summary>
+    /// <returns>start if amount = 0 and stop if amount = 1</returns>
     public static double lerp(double start, double stop, double amount)
     {
         return (1.0 - amount) * start + amount * stop;
     }
 
-    /**
-     * Clamps an integer between two integers.
-     *
-     * @return input when min <= input <= max, and either min or max otherwise.
-     */
+    /// <summary>Clamps an integer between two integers.</summary>
+    /// <returns>input when min <= input <= max, and either min or max otherwise.</returns>
     public static int clampInt(int min, int max, int input)
     {
         if (input < min)
@@ -71,11 +62,8 @@ public static class MathUtils
         return input;
     }
 
-    /**
-     * Clamps an integer between two floating-point numbers.
-     *
-     * @return input when min <= input <= max, and either min or max otherwise.
-     */
+    /// <summary>Clamps an integer between two floating-point numbers.</summary>
+    /// <returns>input when min <= input <= max, and either min or max otherwise.</returns>
     public static double clampDouble(double min, double max, double input)
     {
         if (input < min)
@@ -90,11 +78,8 @@ public static class MathUtils
         return input;
     }
 
-    /**
-     * Sanitizes a degree measure as an integer.
-     *
-     * @return a degree measure between 0 (inclusive) and 360 (exclusive).
-     */
+    /// <summary>Sanitizes a degree measure as an integer.</summary>
+    /// <returns>a degree measure between 0 (inclusive) and 360 (exclusive).</returns>
     public static int sanitizeDegreesInt(int degrees)
     {
         degrees = degrees % 360;
@@ -105,11 +90,8 @@ public static class MathUtils
         return degrees;
     }
 
-    /**
-     * Sanitizes a degree measure as a floating-point number.
-     *
-     * @return a degree measure between 0.0 (inclusive) and 360.0 (exclusive).
-     */
+    /// <summary>Sanitizes a degree measure as a floating-point number.</summary>
+    /// <returns>a degree measure between 0.0 (inclusive) and 360.0 (exclusive).</returns>
     public static double sanitizeDegreesDouble(double degrees)
     {
         degrees = degrees % 360.0;
@@ -120,30 +102,27 @@ public static class MathUtils
         return degrees;
     }
 
-    /**
-     * Sign of direction change needed to travel from one angle to another.
-     *
-     * <p>For angles that are 180 degrees apart from each other, both directions have the same travel
-     * distance, so either direction is shortest. The value 1.0 is returned in this case.
-     *
-     * @param from The angle travel starts from, in degrees.
-     * @param to The angle travel ends at, in degrees.
-     * @return -1 if decreasing from leads to the shortest travel distance, 1 if increasing from leads
-     *     to the shortest travel distance.
-     */
+    /// <summary>Sign of direction change needed to travel from one angle to another.
+    ///
+    /// <para>For angles that are 180 degrees apart from each other, both directions have the same travel
+    /// distance, so either direction is shortest. The value 1.0 is returned in this case.</para></summary>
+    /// <param name="from">The angle travel starts from, in degrees.</param>
+    /// <param name="to">The angle travel ends at, in degrees.</param>
+    /// <returns>-1 if decreasing from leads to the shortest travel distance, 1 if increasing from leads
+    /// to the shortest travel distance.</returns>
     public static double rotationDirection(double from, double to)
     {
         double increasingDifference = sanitizeDegreesDouble(to - from);
         return increasingDifference <= 180.0 ? 1.0 : -1.0;
     }
 
-    /** Distance of two points on a circle, represented using degrees. */
+    /// <summary>Distance of two points on a circle, represented using degrees.</summary>
     public static double differenceDegrees(double a, double b)
     {
         return 180.0 - Math.Abs(Math.Abs(a - b) - 180.0);
     }
 
-    /** Multiplies a 1x3 row vector with a 3x3 matrix. */
+    /// <summary>Multiplies a 1x3 row vector with a 3x3 matrix.</summary>
     public static double[] matrixMultiply(double[] row, double[][] matrix)
     {
         double a = row[0] * matrix[0][0] + row[1] * matrix[0][1] + row[2] * matrix[0][2];

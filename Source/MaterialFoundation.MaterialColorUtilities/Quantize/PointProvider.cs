@@ -16,18 +16,16 @@
 
 namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 
-/** An interface to allow use of different color spaces by quantizers. */
+/// <summary>An interface to allow use of different color spaces by quantizers.</summary>
 public interface PointProvider
 {
-    /** The four components in the color space of an sRGB color. */
+    /// <summary>The four components in the color space of an sRGB color.</summary>
     double[] fromInt(int argb);
 
-    /** The ARGB (i.e. hex code) representation of this color. */
+    /// <summary>The ARGB (i.e. hex code) representation of this color.</summary>
     int toInt(double[] point);
 
-    /**
-     * Squared distance between two colors. Distance is defined by scientific color spaces and
-     * referred to as delta E.
-     */
+    /// <summary>Squared distance between two colors. Distance is defined by scientific color spaces and
+    /// referred to as delta E.</summary>
     double distance(double[] a, double[] b);
 }

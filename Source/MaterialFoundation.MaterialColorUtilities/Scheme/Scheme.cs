@@ -18,7 +18,7 @@ using MaterialFoundation.MaterialColorUtilities.Palettes;
 
 namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 
-/** Represents a Material color scheme, a mapping of color roles to colors. */
+/// <summary>Represents a Material color scheme, a mapping of color roles to colors.</summary>
 public class Scheme
 {
     private int primary;
@@ -88,25 +88,25 @@ public class Scheme
         this.inversePrimary = inversePrimary;
     }
 
-    /** Creates a light theme Scheme from a source color in ARGB, i.e. a hex code. */
+    /// <summary>Creates a light theme Scheme from a source color in ARGB, i.e. a hex code.</summary>
     public static Scheme light(int argb)
     {
         return lightFromCorePalette(CorePalette.of(argb));
     }
 
-    /** Creates a dark theme Scheme from a source color in ARGB, i.e. a hex code. */
+    /// <summary>Creates a dark theme Scheme from a source color in ARGB, i.e. a hex code.</summary>
     public static Scheme dark(int argb)
     {
         return darkFromCorePalette(CorePalette.of(argb));
     }
 
-    /** Creates a light theme content-based Scheme from a source color in ARGB, i.e. a hex code. */
+    /// <summary>Creates a light theme content-based Scheme from a source color in ARGB, i.e. a hex code.</summary>
     public static Scheme lightContent(int argb)
     {
         return lightFromCorePalette(CorePalette.contentOf(argb));
     }
 
-    /** Creates a dark theme content-based Scheme from a source color in ARGB, i.e. a hex code. */
+    /// <summary>Creates a dark theme content-based Scheme from a source color in ARGB, i.e. a hex code.</summary>
     public static Scheme darkContent(int argb)
     {
         return darkFromCorePalette(CorePalette.contentOf(argb));

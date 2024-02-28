@@ -19,7 +19,7 @@ using MaterialFoundation.MaterialColorUtilities.Utils;
 
 namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 
-/** A calm theme, sedated colors that aren't particularly chromatic. */
+/// <summary>A calm theme, sedated colors that aren't particularly chromatic.</summary>
 public class SchemeTonalSpot : DynamicScheme
 {
     public SchemeTonalSpot(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :

@@ -18,7 +18,7 @@ using MaterialFoundation.MaterialColorUtilities.Palettes;
 
 namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 
-/** A monochrome theme, colors are purely black / white / gray. */
+/// <summary>A monochrome theme, colors are purely black / white / gray.</summary>
 public class SchemeMonochrome : DynamicScheme
 {
     public SchemeMonochrome(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :

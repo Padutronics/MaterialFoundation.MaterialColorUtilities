@@ -21,12 +21,10 @@ using System.Linq;
 
 namespace MaterialFoundation.MaterialColorUtilities.Temperature;
 
-/**
- * Design utilities using color temperature theory.
- *
- * <p>Analogous colors, complementary color, and cache to efficiently, lazily, generate data for
- * calculations when needed.
- */
+/// <summary>Design utilities using color temperature theory.
+///
+/// <para>Analogous colors, complementary color, and cache to efficiently, lazily, generate data for
+/// calculations when needed.</para></summary>
 public sealed class TemperatureCache
 {
     private readonly Hct.Hct input;
@@ -41,24 +39,19 @@ public sealed class TemperatureCache
         throw new NotSupportedException();
     }
 
-    /**
-     * Create a cache that allows calculation of ex. complementary and analogous colors.
-     *
-     * @param input Color to find complement/analogous colors of. Any colors will have the same tone,
-     * and chroma as the input color, modulo any restrictions due to the other hues having lower
-     * limits on chroma.
-     */
+    /// <summary>Create a cache that allows calculation of ex. complementary and analogous colors.</summary>
+    /// <param name="input">Color to find complement/analogous colors of. Any colors will have the same tone,
+    /// and chroma as the input color, modulo any restrictions due to the other hues having lower
+    /// limits on chroma.</param>
     public TemperatureCache(Hct.Hct input)
     {
         this.input = input;
     }
 
-    /**
-     * A color that complements the input color aesthetically.
-     *
-     * <p>In art, this is usually described as being across the color wheel. History of this shows
-     * intent as a color that is just as cool-warm as the input color is warm-cool.
-     */
+    /// <summary>A color that complements the input color aesthetically.
+    ///
+    /// <para>In art, this is usually described as being across the color wheel. History of this shows
+    /// intent as a color that is just as cool-warm as the input color is warm-cool.</para></summary>
     public Hct.Hct getComplement()
     {
         if (precomputedComplement != null)
@@ -102,27 +95,22 @@ public sealed class TemperatureCache
         return precomputedComplement;
     }
 
-    /**
-     * 5 colors that pair well with the input color.
-     *
-     * <p>The colors are equidistant in temperature and adjacent in hue.
-     */
+    /// <summary>5 colors that pair well with the input color.
+    ///
+    /// <para>The colors are equidistant in temperature and adjacent in hue.</para></summary>
     public List<Hct.Hct> getAnalogousColors()
     {
         return getAnalogousColors(5, 12);
     }
 
-    /**
-     * A set of colors with differing hues, equidistant in temperature.
-     *
-     * <p>In art, this is usually described as a set of 5 colors on a color wheel divided into 12
-     * sections. This method allows provision of either of those values.
-     *
-     * <p>Behavior is undefined when count or divisions is 0. When divisions < count, colors repeat.
-     *
-     * @param count The number of colors to return, includes the input color.
-     * @param divisions The number of divisions on the color wheel.
-     */
+    /// <summary>A set of colors with differing hues, equidistant in temperature.
+    ///
+    /// <para>In art, this is usually described as a set of 5 colors on a color wheel divided into 12
+    /// sections. This method allows provision of either of those values.</para>
+    ///
+    /// <para>Behavior is undefined when count or divisions is 0. When divisions < count, colors repeat.</para></summary>
+    /// <param name="count">The number of colors to return, includes the input color.</param>
+    /// <param name="divisions">The number of divisions on the color wheel.</param>
     public List<Hct.Hct> getAnalogousColors(int count, int divisions)
     {
         // The starting hue is the hue of the input color.
@@ -223,12 +211,9 @@ public sealed class TemperatureCache
         return answers;
     }
 
-    /**
-     * Temperature relative to all colors with the same chroma and tone.
-     *
-     * @param hct HCT to find the relative temperature of.
-     * @return Value on a scale from 0 to 1.
-     */
+    /// <summary>Temperature relative to all colors with the same chroma and tone.</summary>
+    /// <param name="hct">HCT to find the relative temperature of.</param>
+    /// <returns>Value on a scale from 0 to 1.</returns>
     public double getRelativeTemperature(Hct.Hct hct)
     {
         double range = getTempsByHct()[getWarmest()] - getTempsByHct()[getColdest()];
@@ -242,20 +227,18 @@ public sealed class TemperatureCache
         return differenceFromColdest / range;
     }
 
-    /**
-     * Value representing cool-warm factor of a color. Values below 0 are considered cool, above,
-     * warm.
-     *
-     * <p>Color science has researched emotion and harmony, which art uses to select colors. Warm-cool
-     * is the foundation of analogous and complementary colors. See: - Li-Chen Ou's Chapter 19 in
-     * Handbook of Color Psychology (2015). - Josef Albers' Interaction of Color chapters 19 and 21.
-     *
-     * <p>Implementation of Ou, Woodcock and Wright's algorithm, which uses Lab/LCH color space.
-     * Return value has these properties:<br>
-     * - Values below 0 are cool, above 0 are warm.<br>
-     * - Lower bound: -9.66. Chroma is infinite. Assuming max of Lab chroma 130.<br>
-     * - Upper bound: 8.61. Chroma is infinite. Assuming max of Lab chroma 130.
-     */
+    /// <summary>Value representing cool-warm factor of a color. Values below 0 are considered cool, above,
+    /// warm.
+    ///
+    /// <para>Color science has researched emotion and harmony, which art uses to select colors. Warm-cool
+    /// is the foundation of analogous and complementary colors. See: - Li-Chen Ou's Chapter 19 in
+    /// Handbook of Color Psychology (2015). - Josef Albers' Interaction of Color chapters 19 and 21.</para>
+    ///
+    /// <para>Implementation of Ou, Woodcock and Wright's algorithm, which uses Lab/LCH color space.
+    /// Return value has these properties:
+    /// - Values below 0 are cool, above 0 are warm.
+    /// - Lower bound: -9.66. Chroma is infinite. Assuming max of Lab chroma 130.
+    /// - Upper bound: 8.61. Chroma is infinite. Assuming max of Lab chroma 130.</para></summary>
     public static double rawTemperature(Hct.Hct color)
     {
         double[] lab = ColorUtils.labFromArgb(color.toInt());
@@ -264,17 +247,15 @@ public sealed class TemperatureCache
         return -0.5 + 0.02 * Math.Pow(chroma, 1.07) * Math.Cos(MathUtils.toRadians(MathUtils.sanitizeDegreesDouble(hue - 50.0)));
     }
 
-    /** Coldest color with same chroma and tone as input. */
+    /// <summary>Coldest color with same chroma and tone as input.</summary>
     private Hct.Hct getColdest()
     {
         return getHctsByTemp()[0];
     }
 
-    /**
-     * HCTs for all colors with the same chroma/tone as the input.
-     *
-     * <p>Sorted by hue, ex. index 0 is hue 0.
-     */
+    /// <summary>HCTs for all colors with the same chroma/tone as the input.
+    ///
+    /// <para>Sorted by hue, ex. index 0 is hue 0.</para></summary>
     private IList<Hct.Hct> getHctsByHue()
     {
         if (precomputedHctsByHue != null)
@@ -291,16 +272,9 @@ public sealed class TemperatureCache
         return precomputedHctsByHue;
     }
 
-    /**
-     * HCTs for all colors with the same chroma/tone as the input.
-     *
-     * <p>Sorted from coldest first to warmest last.
-     */
-    // Prevent lint for Comparator not being available on Android before API level 24, 7.0, 2016.
-    // "AndroidJdkLibsChecker" for one linter, "NewApi" for another.
-    // A java_library Bazel rule with an Android constraint cannot skip these warnings without this
-    // annotation; another solution would be to create an android_library rule and supply
-    // AndroidManifest with an SDK set higher than 23.
+    /// <summary>HCTs for all colors with the same chroma/tone as the input.
+    ///
+    /// <para>Sorted from coldest first to warmest last.</para></summary>
     private IList<Hct.Hct> getHctsByTemp()
     {
         if (precomputedHctsByTemp != null)
@@ -319,7 +293,7 @@ public sealed class TemperatureCache
         return precomputedHctsByTemp;
     }
 
-    /** Keys of HCTs in getHctsByTemp, values of raw temperature. */
+    /// <summary>Keys of HCTs in getHctsByTemp, values of raw temperature.</summary>
     private IDictionary<Hct.Hct, double> getTempsByHct()
     {
         if (precomputedTempsByHct != null)
@@ -340,13 +314,13 @@ public sealed class TemperatureCache
         return precomputedTempsByHct;
     }
 
-    /** Warmest color with same chroma and tone as input. */
+    /// <summary>Warmest color with same chroma and tone as input.</summary>
     private Hct.Hct getWarmest()
     {
         return getHctsByTemp()[getHctsByTemp().Count - 1];
     }
 
-    /** Determines if an angle is between two other angles, rotating clockwise. */
+    /// <summary>Determines if an angle is between two other angles, rotating clockwise.</summary>
     private static bool isBetween(double angle, double a, double b)
     {
         if (a < b)

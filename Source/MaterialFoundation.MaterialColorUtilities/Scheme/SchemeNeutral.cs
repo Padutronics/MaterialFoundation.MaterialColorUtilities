@@ -18,7 +18,7 @@ using MaterialFoundation.MaterialColorUtilities.Palettes;
 
 namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 
-/** A theme that's slightly more chromatic than monochrome, which is purely black / white / gray. */
+/// <summary>A theme that's slightly more chromatic than monochrome, which is purely black / white / gray.</summary>
 public class SchemeNeutral : DynamicScheme
 {
     public SchemeNeutral(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :

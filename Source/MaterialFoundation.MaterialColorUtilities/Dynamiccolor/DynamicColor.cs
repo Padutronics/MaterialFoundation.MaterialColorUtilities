@@ -22,30 +22,23 @@ using System.Collections.Generic;
 
 namespace MaterialFoundation.MaterialColorUtilities.Dynamiccolor;
 
-/**
- * A color that adjusts itself based on UI state, represented by DynamicScheme.
- *
- * <p>This color automatically adjusts to accommodate a desired contrast level, or other adjustments
- * such as differing in light mode versus dark mode, or what the theme is, or what the color that
- * produced the theme is, etc.
- *
- * <p>Colors without backgrounds do not change tone when contrast changes. Colors with backgrounds
- * become closer to their background as contrast lowers, and further when contrast increases.
- *
- * <p>Prefer the static constructors. They provide a much more simple interface, such as requiring
- * just a hexcode, or just a hexcode and a background.
- *
- * <p>Ultimately, each component necessary for calculating a color, adjusting it for a desired
- * contrast level, and ensuring it has a certain lightness/tone difference from another color, is
- * provided by a function that takes a DynamicScheme and returns a value. This ensures ultimate
- * flexibility, any desired behavior of a color for any design system, but it usually unnecessary.
- * See the default constructor for more information.
- */
-// Prevent lint for Function.apply not being available on Android before API level 14 (4.0.1).
-// "AndroidJdkLibsChecker" for Function, "NewApi" for Function.apply().
-// A java_library Bazel rule with an Android constraint cannot skip these warnings without this
-// annotation; another solution would be to create an android_library rule and supply
-// AndroidManifest with an SDK set higher than 14.
+/// <summary>A color that adjusts itself based on UI state, represented by DynamicScheme.
+///
+/// <para>This color automatically adjusts to accommodate a desired contrast level, or other adjustments
+/// such as differing in light mode versus dark mode, or what the theme is, or what the color that
+/// produced the theme is, etc.</para>
+///
+/// <para>Colors without backgrounds do not change tone when contrast changes. Colors with backgrounds
+/// become closer to their background as contrast lowers, and further when contrast increases.</para>
+///
+/// <para>Prefer the static constructors. They provide a much more simple interface, such as requiring
+/// just a hexcode, or just a hexcode and a background.</para>
+///
+/// <para>Ultimately, each component necessary for calculating a color, adjusting it for a desired
+/// contrast level, and ensuring it has a certain lightness/tone difference from another color, is
+/// provided by a function that takes a DynamicScheme and returns a value. This ensures ultimate
+/// flexibility, any desired behavior of a color for any design system, but it usually unnecessary.
+/// See the default constructor for more information.</para></summary>
 public sealed class DynamicColor
 {
     public readonly string name;
@@ -61,35 +54,32 @@ public sealed class DynamicColor
 
     private readonly IDictionary<DynamicScheme, Hct.Hct> hctCache = new Dictionary<DynamicScheme, Hct.Hct>();
 
-    /**
-     * A constructor for DynamicColor.
-     *
-     * <p>_Strongly_ prefer using one of the convenience constructors. This class is arguably too
-     * flexible to ensure it can support any scenario. Functional arguments allow overriding without
-     * risks that come with subclasses.
-     *
-     * <p>For example, the default behavior of adjust tone at max contrast to be at a 7.0 ratio with
-     * its background is principled and matches accessibility guidance. That does not mean it's the
-     * desired approach for _every_ design system, and every color pairing, always, in every case.
-     *
-     * <p>For opaque colors (colors with alpha = 100%).
-     *
-     * @param name The name of the dynamic color.
-     * @param palette Function that provides a TonalPalette given DynamicScheme. A TonalPalette is
-     *     defined by a hue and chroma, so this replaces the need to specify hue/chroma. By providing
-     *     a tonal palette, when contrast adjustments are made, intended chroma can be preserved.
-     * @param tone Function that provides a tone, given a DynamicScheme.
-     * @param isBackground Whether this dynamic color is a background, with some other color as the
-     *     foreground.
-     * @param background The background of the dynamic color (as a function of a `DynamicScheme`), if
-     *     it exists.
-     * @param secondBackground A second background of the dynamic color (as a function of a
-     *     `DynamicScheme`), if it exists.
-     * @param contrastCurve A `ContrastCurve` object specifying how its contrast against its
-     *     background should behave in various contrast levels options.
-     * @param toneDeltaPair A `ToneDeltaPair` object specifying a tone delta constraint between two
-     *     colors. One of them must be the color being constructed.
-     */
+    /// <summary>A constructor for DynamicColor.
+    ///
+    /// <para>_Strongly_ prefer using one of the convenience constructors. This class is arguably too
+    /// flexible to ensure it can support any scenario. Functional arguments allow overriding without
+    /// risks that come with subclasses.</para>
+    ///
+    /// <para>For example, the default behavior of adjust tone at max contrast to be at a 7.0 ratio with
+    /// its background is principled and matches accessibility guidance. That does not mean it's the
+    /// desired approach for _every_ design system, and every color pairing, always, in every case.</para>
+    ///
+    /// <para>For opaque colors (colors with alpha = 100%).</para></summary>
+    /// <param name="name">The name of the dynamic color.</param>
+    /// <param name="palette">Function that provides a TonalPalette given DynamicScheme. A TonalPalette is
+    /// defined by a hue and chroma, so this replaces the need to specify hue/chroma. By providing
+    /// a tonal palette, when contrast adjustments are made, intended chroma can be preserved.</param>
+    /// <param name="tone">Function that provides a tone, given a DynamicScheme.</param>
+    /// <param name="isBackground">Whether this dynamic color is a background, with some other color as the
+    /// foreground.</param>
+    /// <param name="background">The background of the dynamic color (as a function of a `DynamicScheme`), if
+    /// it exists.</param>
+    /// <param name="secondBackground">A second background of the dynamic color (as a function of a
+    /// `DynamicScheme`), if it exists.</param>
+    /// <param name="contrastCurve">A `ContrastCurve` object specifying how its contrast against its
+    /// background should behave in various contrast levels options.</param>
+    /// <param name="toneDeltaPair">A `ToneDeltaPair` object specifying a tone delta constraint between two
+    /// colors. One of them must be the color being constructed.</param>
     public DynamicColor(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone, bool isBackground, Func<DynamicScheme, DynamicColor>? background, Func<DynamicScheme, DynamicColor>? secondBackground, ContrastCurve? contrastCurve, Func<DynamicScheme, ToneDeltaPair>? toneDeltaPair)
     {
         this.name = name;
@@ -103,36 +93,33 @@ public sealed class DynamicColor
         this.opacity = null;
     }
 
-    /**
-     * A constructor for DynamicColor.
-     *
-     * <p>_Strongly_ prefer using one of the convenience constructors. This class is arguably too
-     * flexible to ensure it can support any scenario. Functional arguments allow overriding without
-     * risks that come with subclasses.
-     *
-     * <p>For example, the default behavior of adjust tone at max contrast to be at a 7.0 ratio with
-     * its background is principled and matches accessibility guidance. That does not mean it's the
-     * desired approach for _every_ design system, and every color pairing, always, in every case.
-     *
-     * <p>For opaque colors (colors with alpha = 100%).
-     *
-     * @param name The name of the dynamic color.
-     * @param palette Function that provides a TonalPalette given DynamicScheme. A TonalPalette is
-     *     defined by a hue and chroma, so this replaces the need to specify hue/chroma. By providing
-     *     a tonal palette, when contrast adjustments are made, intended chroma can be preserved.
-     * @param tone Function that provides a tone, given a DynamicScheme.
-     * @param isBackground Whether this dynamic color is a background, with some other color as the
-     *     foreground.
-     * @param background The background of the dynamic color (as a function of a `DynamicScheme`), if
-     *     it exists.
-     * @param secondBackground A second background of the dynamic color (as a function of a
-     *     `DynamicScheme`), if it exists.
-     * @param contrastCurve A `ContrastCurve` object specifying how its contrast against its
-     *     background should behave in various contrast levels options.
-     * @param toneDeltaPair A `ToneDeltaPair` object specifying a tone delta constraint between two
-     *     colors. One of them must be the color being constructed.
-     * @param opacity A function returning the opacity of a color, as a number between 0 and 1.
-     */
+    /// <summary>A constructor for DynamicColor.
+    ///
+    /// <para>_Strongly_ prefer using one of the convenience constructors. This class is arguably too
+    /// flexible to ensure it can support any scenario. Functional arguments allow overriding without
+    /// risks that come with subclasses.</para>
+    ///
+    /// <para>For example, the default behavior of adjust tone at max contrast to be at a 7.0 ratio with
+    /// its background is principled and matches accessibility guidance. That does not mean it's the
+    /// desired approach for _every_ design system, and every color pairing, always, in every case.</para>
+    ///
+    /// <para>For opaque colors (colors with alpha = 100%).</para></summary>
+    /// <param name="name">The name of the dynamic color.</param>
+    /// <param name="palette">Function that provides a TonalPalette given DynamicScheme. A TonalPalette is
+    /// defined by a hue and chroma, so this replaces the need to specify hue/chroma. By providing
+    /// a tonal palette, when contrast adjustments are made, intended chroma can be preserved.</param>
+    /// <param name="tone">Function that provides a tone, given a DynamicScheme.</param>
+    /// <param name="isBackground">Whether this dynamic color is a background, with some other color as the
+    /// foreground.</param>
+    /// <param name="background">The background of the dynamic color (as a function of a `DynamicScheme`), if
+    /// it exists.</param>
+    /// <param name="secondBackground">A second background of the dynamic color (as a function of a
+    /// `DynamicScheme`), if it exists.</param>
+    /// <param name="contrastCurve">A `ContrastCurve` object specifying how its contrast against its
+    /// background should behave in various contrast levels options.</param>
+    /// <param name="toneDeltaPair">A `ToneDeltaPair` object specifying a tone delta constraint between two
+    /// colors. One of them must be the color being constructed.</param>
+    /// <param name="opacity">A function returning the opacity of a color, as a number between 0 and 1.</param>
     public DynamicColor(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone, bool isBackground, Func<DynamicScheme, DynamicColor>? background, Func<DynamicScheme, DynamicColor>? secondBackground, ContrastCurve? contrastCurve, Func<DynamicScheme, ToneDeltaPair>? toneDeltaPair, Func<DynamicScheme, double>? opacity)
     {
         this.name = name;
@@ -146,27 +133,24 @@ public sealed class DynamicColor
         this.opacity = opacity;
     }
 
-    /**
-     * A convenience constructor for DynamicColor.
-     *
-     * <p>_Strongly_ prefer using one of the convenience constructors. This class is arguably too
-     * flexible to ensure it can support any scenario. Functional arguments allow overriding without
-     * risks that come with subclasses.
-     *
-     * <p>For example, the default behavior of adjust tone at max contrast to be at a 7.0 ratio with
-     * its background is principled and matches accessibility guidance. That does not mean it's the
-     * desired approach for _every_ design system, and every color pairing, always, in every case.
-     *
-     * <p>For opaque colors (colors with alpha = 100%).
-     *
-     * <p>For colors that are not backgrounds, and do not have backgrounds.
-     *
-     * @param name The name of the dynamic color.
-     * @param palette Function that provides a TonalPalette given DynamicScheme. A TonalPalette is
-     *     defined by a hue and chroma, so this replaces the need to specify hue/chroma. By providing
-     *     a tonal palette, when contrast adjustments are made, intended chroma can be preserved.
-     * @param tone Function that provides a tone, given a DynamicScheme.
-     */
+    /// <summary>A convenience constructor for DynamicColor.
+    ///
+    /// <para>_Strongly_ prefer using one of the convenience constructors. This class is arguably too
+    /// flexible to ensure it can support any scenario. Functional arguments allow overriding without
+    /// risks that come with subclasses.</para>
+    ///
+    /// <para>For example, the default behavior of adjust tone at max contrast to be at a 7.0 ratio with
+    /// its background is principled and matches accessibility guidance. That does not mean it's the
+    /// desired approach for _every_ design system, and every color pairing, always, in every case.</para>
+    ///
+    /// <para>For opaque colors (colors with alpha = 100%).</para>
+    ///
+    /// <para>For colors that are not backgrounds, and do not have backgrounds.</para></summary>
+    /// <param name="name">The name of the dynamic color.</param>
+    /// <param name="palette">Function that provides a TonalPalette given DynamicScheme. A TonalPalette is
+    /// defined by a hue and chroma, so this replaces the need to specify hue/chroma. By providing
+    /// a tonal palette, when contrast adjustments are made, intended chroma can be preserved.</param>
+    /// <param name="tone">Function that provides a tone, given a DynamicScheme.</param>
     public static DynamicColor fromPalette(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone)
     {
         return new DynamicColor(
@@ -181,29 +165,26 @@ public sealed class DynamicColor
         );
     }
 
-    /**
-     * A convenience constructor for DynamicColor.
-     *
-     * <p>_Strongly_ prefer using one of the convenience constructors. This class is arguably too
-     * flexible to ensure it can support any scenario. Functional arguments allow overriding without
-     * risks that come with subclasses.
-     *
-     * <p>For example, the default behavior of adjust tone at max contrast to be at a 7.0 ratio with
-     * its background is principled and matches accessibility guidance. That does not mean it's the
-     * desired approach for _every_ design system, and every color pairing, always, in every case.
-     *
-     * <p>For opaque colors (colors with alpha = 100%).
-     *
-     * <p>For colors that do not have backgrounds.
-     *
-     * @param name The name of the dynamic color.
-     * @param palette Function that provides a TonalPalette given DynamicScheme. A TonalPalette is
-     *     defined by a hue and chroma, so this replaces the need to specify hue/chroma. By providing
-     *     a tonal palette, when contrast adjustments are made, intended chroma can be preserved.
-     * @param tone Function that provides a tone, given a DynamicScheme.
-     * @param isBackground Whether this dynamic color is a background, with some other color as the
-     *     foreground.
-     */
+    /// <summary>A convenience constructor for DynamicColor.
+    ///
+    /// <para>_Strongly_ prefer using one of the convenience constructors. This class is arguably too
+    /// flexible to ensure it can support any scenario. Functional arguments allow overriding without
+    /// risks that come with subclasses.</para>
+    ///
+    /// <para>For example, the default behavior of adjust tone at max contrast to be at a 7.0 ratio with
+    /// its background is principled and matches accessibility guidance. That does not mean it's the
+    /// desired approach for _every_ design system, and every color pairing, always, in every case.</para>
+    ///
+    /// <para>For opaque colors (colors with alpha = 100%).</para>
+    ///
+    /// <para>For colors that do not have backgrounds.</para></summary>
+    /// <param name="name">The name of the dynamic color.</param>
+    /// <param name="palette">Function that provides a TonalPalette given DynamicScheme. A TonalPalette is
+    /// defined by a hue and chroma, so this replaces the need to specify hue/chroma. By providing
+    /// a tonal palette, when contrast adjustments are made, intended chroma can be preserved.</param>
+    /// <param name="tone">Function that provides a tone, given a DynamicScheme.</param>
+    /// <param name="isBackground">Whether this dynamic color is a background, with some other color as the
+    /// foreground.</param>
     public static DynamicColor fromPalette(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone, bool isBackground)
     {
         return new DynamicColor(
@@ -218,14 +199,11 @@ public sealed class DynamicColor
         );
     }
 
-    /**
-     * Create a DynamicColor from a hex code.
-     *
-     * <p>Result has no background; thus no support for increasing/decreasing contrast for a11y.
-     *
-     * @param name The name of the dynamic color.
-     * @param argb The source color from which to extract the hue and chroma.
-     */
+    /// <summary>Create a DynamicColor from a hex code.
+    ///
+    /// <para>Result has no background; thus no support for increasing/decreasing contrast for a11y.</para></summary>
+    /// <param name="name">The name of the dynamic color.</param>
+    /// <param name="argb">The source color from which to extract the hue and chroma.</param>
     public static DynamicColor fromArgb(string name, int argb)
     {
         Hct.Hct hct = Hct.Hct.fromInt(argb);
@@ -233,12 +211,9 @@ public sealed class DynamicColor
         return DynamicColor.fromPalette(name, (s) => palette, (s) => hct.getTone());
     }
 
-    /**
-     * Returns an ARGB integer (i.e. a hex code).
-     *
-     * @param scheme Defines the conditions of the user interface, for example, whether or not it is
-     *     dark mode or light mode, and what the desired contrast level is.
-     */
+    /// <summary>Returns an ARGB integer (i.e. a hex code).</summary>
+    /// <param name="scheme">Defines the conditions of the user interface, for example, whether or not it is
+    /// dark mode or light mode, and what the desired contrast level is.</param>
     public int getArgb(DynamicScheme scheme)
     {
         int argb = getHct(scheme).toInt();
@@ -251,12 +226,9 @@ public sealed class DynamicColor
         return (argb & 0x00ffffff) | (alpha << 24);
     }
 
-    /**
-     * Returns an HCT object.
-     *
-     * @param scheme Defines the conditions of the user interface, for example, whether or not it is
-     *     dark mode or light mode, and what the desired contrast level is.
-     */
+    /// <summary>Returns an HCT object.</summary>
+    /// <param name="scheme">Defines the conditions of the user interface, for example, whether or not it is
+    /// dark mode or light mode, and what the desired contrast level is.</param>
     public Hct.Hct getHct(DynamicScheme scheme)
     {
         if (hctCache.TryGetValue(scheme, out Hct.Hct? cachedAnswer))
@@ -281,7 +253,7 @@ public sealed class DynamicColor
         return answer;
     }
 
-    /** Returns the tone in HCT, ranging from 0 to 100, of the resolved color given scheme. */
+    /// <summary>Returns the tone in HCT, ranging from 0 to 100, of the resolved color given scheme.</summary>
     public double getTone(DynamicScheme scheme)
     {
         bool decreasingContrast = scheme.contrastLevel < 0;
@@ -486,10 +458,8 @@ public sealed class DynamicColor
         }
     }
 
-    /**
-     * Given a background tone, find a foreground tone, while ensuring they reach a contrast ratio
-     * that is as close to ratio as possible.
-     */
+    /// <summary>Given a background tone, find a foreground tone, while ensuring they reach a contrast ratio
+    /// that is as close to ratio as possible.</summary>
     public static double foregroundTone(double bgTone, double ratio)
     {
         double lighterTone = Contrast.Contrast.lighterUnsafe(bgTone, ratio);
@@ -523,10 +493,8 @@ public sealed class DynamicColor
         }
     }
 
-    /**
-     * Adjust a tone down such that white has 4.5 contrast, if the tone is reasonably close to
-     * supporting it.
-     */
+    /// <summary>Adjust a tone down such that white has 4.5 contrast, if the tone is reasonably close to
+    /// supporting it.</summary>
     public static double enableLightForeground(double tone)
     {
         if (tonePrefersLightForeground(tone) && !toneAllowsLightForeground(tone))
@@ -536,22 +504,20 @@ public sealed class DynamicColor
         return tone;
     }
 
-    /**
-     * People prefer white foregrounds on ~T60-70. Observed over time, and also by Andrew Somers
-     * during research for APCA.
-     *
-     * <p>T60 used as to create the smallest discontinuity possible when skipping down to T49 in order
-     * to ensure light foregrounds.
-     *
-     * <p>Since `tertiaryContainer` in dark monochrome scheme requires a tone of 60, it should not be
-     * adjusted. Therefore, 60 is excluded here.
-     */
+    /// <summary>People prefer white foregrounds on ~T60-70. Observed over time, and also by Andrew Somers
+    /// during research for APCA.
+    ///
+    /// <para>T60 used as to create the smallest discontinuity possible when skipping down to T49 in order
+    /// to ensure light foregrounds.</para>
+    ///
+    /// <para>Since `tertiaryContainer` in dark monochrome scheme requires a tone of 60, it should not be
+    /// adjusted. Therefore, 60 is excluded here.</para></summary>
     public static bool tonePrefersLightForeground(double tone)
     {
         return Math.Round(tone) < 60;
     }
 
-    /** Tones less than ~T50 always permit white at 4.5 contrast. */
+    /// <summary>Tones less than ~T50 always permit white at 4.5 contrast.</summary>
     public static bool toneAllowsLightForeground(double tone)
     {
         return Math.Round(tone) <= 49;

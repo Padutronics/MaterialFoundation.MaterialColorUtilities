@@ -18,22 +18,18 @@ using System;
 
 namespace MaterialFoundation.MaterialColorUtilities.Dislike;
 
-/**
- * Check and/or fix universally disliked colors.
- *
- * <p>Color science studies of color preference indicate universal distaste for dark yellow-greens,
- * and also show this is correlated to distate for biological waste and rotting food.
- *
- * <p>See Palmer and Schloss, 2010 or Schloss and Palmer's Chapter 21 in Handbook of Color
- * Psychology (2015).
- */
+/// <summary>Check and/or fix universally disliked colors.
+///
+/// <para>Color science studies of color preference indicate universal distaste for dark yellow-greens,
+/// and also show this is correlated to distate for biological waste and rotting food.</para>
+///
+/// <para>See Palmer and Schloss, 2010 or Schloss and Palmer's Chapter 21 in Handbook of Color
+/// Psychology (2015).</para></summary>
 public static class DislikeAnalyzer
 {
-    /**
-     * Returns true if color is disliked.
-     *
-     * <p>Disliked is defined as a dark yellow-green that is not neutral.
-     */
+    /// <summary>Returns true if color is disliked.
+    ///
+    /// <para>Disliked is defined as a dark yellow-green that is not neutral.</para></summary>
     public static bool isDisliked(Hct.Hct hct)
     {
         bool huePasses = Math.Round(hct.getHue()) >= 90.0 && Math.Round(hct.getHue()) <= 111.0;
@@ -43,7 +39,7 @@ public static class DislikeAnalyzer
         return huePasses && chromaPasses && tonePasses;
     }
 
-    /** If color is disliked, lighten it to make it likable. */
+    /// <summary>If color is disliked, lighten it to make it likable.</summary>
     public static Hct.Hct fixIfDisliked(Hct.Hct hct)
     {
         if (isDisliked(hct))

@@ -18,34 +18,29 @@ using MaterialFoundation.MaterialColorUtilities.Utils;
 
 namespace MaterialFoundation.MaterialColorUtilities.Dynamiccolor;
 
-/**
- * A class containing a value that changes with the contrast level.
- *
- * <p>Usually represents the contrast requirements for a dynamic color on its background. The four
- * values correspond to values for contrast levels -1.0, 0.0, 0.5, and 1.0, respectively.
- */
+/// <summary>A class containing a value that changes with the contrast level.
+///
+/// <para>Usually represents the contrast requirements for a dynamic color on its background. The four
+/// values correspond to values for contrast levels -1.0, 0.0, 0.5, and 1.0, respectively.</para></summary>
 public sealed class ContrastCurve
 {
-    /** Value for contrast level -1.0 */
+    /// <summary>Value for contrast level -1.0</summary>
     private readonly double low;
 
-    /** Value for contrast level 0.0 */
+    /// <summary>Value for contrast level 0.0</summary>
     private readonly double normal;
 
-    /** Value for contrast level 0.5 */
+    /// <summary>Value for contrast level 0.5</summary>
     private readonly double medium;
 
-    /** Value for contrast level 1.0 */
+    /// <summary>Value for contrast level 1.0</summary>
     private readonly double high;
 
-    /**
-     * Creates a `ContrastCurve` object.
-     *
-     * @param low Value for contrast level -1.0
-     * @param normal Value for contrast level 0.0
-     * @param medium Value for contrast level 0.5
-     * @param high Value for contrast level 1.0
-     */
+    /// <summary>Creates a `ContrastCurve` object.</summary>
+    /// <param name="low">Value for contrast level -1.0</param>
+    /// <param name="normal">Value for contrast level 0.0</param>
+    /// <param name="medium">Value for contrast level 0.5</param>
+    /// <param name="high">Value for contrast level 1.0</param>
     public ContrastCurve(double low, double normal, double medium, double high)
     {
         this.low = low;
@@ -54,13 +49,10 @@ public sealed class ContrastCurve
         this.high = high;
     }
 
-    /**
-     * Returns the value at a given contrast level.
-     *
-     * @param contrastLevel The contrast level. 0.0 is the default (normal); -1.0 is the lowest; 1.0
-     *     is the highest.
-     * @return The value. For contrast ratios, a number between 1.0 and 21.0.
-     */
+    /// <summary>Returns the value at a given contrast level.</summary>
+    /// <param name="contrastLevel">The contrast level. 0.0 is the default (normal); -1.0 is the lowest; 1.0
+    /// is the highest.</param>
+    /// <returns>The value. For contrast ratios, a number between 1.0 and 21.0.</returns>
     public double get(double contrastLevel)
     {
         if (contrastLevel <= -1.0)

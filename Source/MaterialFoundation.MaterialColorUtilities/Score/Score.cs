@@ -20,13 +20,11 @@ using System.Collections.Generic;
 
 namespace MaterialFoundation.MaterialColorUtilities.Score;
 
-/**
- * Given a large set of colors, remove colors that are unsuitable for a UI theme, and rank the rest
- * based on suitability.
- *
- * <p>Enables use of a high cluster count for image quantization, thus ensuring colors aren't
- * muddied, while curating the high cluster count to a much smaller number of appropriate choices.
- */
+/// <summary>Given a large set of colors, remove colors that are unsuitable for a UI theme, and rank the rest
+/// based on suitability.
+///
+/// <para>Enables use of a high cluster count for image quantization, thus ensuring colors aren't
+/// muddied, while curating the high cluster count to a much smaller number of appropriate choices.</para></summary>
 public static class Score
 {
     private const double TARGET_CHROMA = 48.0; // A1 Chroma
@@ -52,20 +50,17 @@ public static class Score
         return score(colorsToPopulation, desired, fallbackColorArgb, true);
     }
 
-    /**
-     * Given a map with keys of colors and values of how often the color appears, rank the colors
-     * based on suitability for being used for a UI theme.
-     *
-     * @param colorsToPopulation map with keys of colors and values of how often the color appears,
-     *     usually from a source image.
-     * @param desired max count of colors to be returned in the list.
-     * @param fallbackColorArgb color to be returned if no other options available.
-     * @param filter whether to filter out undesireable combinations.
-     * @return Colors sorted by suitability for a UI theme. The most suitable color is the first item,
-     *     the least suitable is the last. There will always be at least one color returned. If all
-     *     the input colors were not suitable for a theme, a default fallback color will be provided,
-     *     Google Blue.
-     */
+    /// <summary>Given a map with keys of colors and values of how often the color appears, rank the colors
+    /// based on suitability for being used for a UI theme.</summary>
+    /// <param name="colorsToPopulation">map with keys of colors and values of how often the color appears,
+    /// usually from a source image.</param>
+    /// <param name="desired">max count of colors to be returned in the list.</param>
+    /// <param name="fallbackColorArgb">color to be returned if no other options available.</param>
+    /// <param name="filter">whether to filter out undesireable combinations.</param>
+    /// <returns>Colors sorted by suitability for a UI theme. The most suitable color is the first item,
+    /// the least suitable is the last. There will always be at least one color returned. If all
+    /// the input colors were not suitable for a theme, a default fallback color will be provided,
+    /// Google Blue.</returns>
     public static ICollection<int> score(IDictionary<int, int> colorsToPopulation, int desired, int fallbackColorArgb, bool filter)
     {
         // Get the HCT color for each Argb value, while finding the per hue count and

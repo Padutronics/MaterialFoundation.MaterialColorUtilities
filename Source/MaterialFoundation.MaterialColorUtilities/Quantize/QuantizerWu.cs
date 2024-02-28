@@ -20,12 +20,10 @@ using System.Collections.Generic;
 
 namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 
-/**
- * An image quantizer that divides the image's pixels into clusters by recursively cutting an RGB
- * cube, based on the weight of pixels in each area of the cube.
- *
- * <p>The algorithm was described by Xiaolin Wu in Graphic Gems II, published in 1991.
- */
+/// <summary>An image quantizer that divides the image's pixels into clusters by recursively cutting an RGB
+/// cube, based on the weight of pixels in each area of the cube.
+///
+/// <para>The algorithm was described by Xiaolin Wu in Graphic Gems II, published in 1991.</para></summary>
 public sealed class QuantizerWu : Quantizer
 {
     private int[] weights = [];
@@ -35,10 +33,10 @@ public sealed class QuantizerWu : Quantizer
     private double[] moments = [];
     private Box[] cubes = [];
 
-    // A histogram of all the input colors is constructed. It has the shape of a
-    // cube. The cube would be too large if it contained all 16 million colors:
-    // historical best practice is to use 5 bits  of the 8 in each channel,
-    // reducing the histogram to a volume of ~32,000.
+    /// <summary>A histogram of all the input colors is constructed. It has the shape of a
+    /// cube. The cube would be too large if it contained all 16 million colors:
+    /// historical best practice is to use 5 bits  of the 8 in each channel,
+    /// reducing the histogram to a volume of ~32,000.</summary>
     private const int INDEX_BITS = 5;
     private const int INDEX_COUNT = 33; // ((1 << INDEX_BITS) + 1)
     private const int TOTAL_SIZE = 35937; // INDEX_COUNT * INDEX_COUNT * INDEX_COUNT

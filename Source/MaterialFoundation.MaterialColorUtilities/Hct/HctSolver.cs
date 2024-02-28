@@ -19,7 +19,7 @@ using System;
 
 namespace MaterialFoundation.MaterialColorUtilities.Hct;
 
-/** A class that solves the HCT equation. */
+/// <summary>A class that solves the HCT equation.</summary>
 public static class HctSolver
 {
     private static readonly double[][] SCALED_DISCOUNT_FROM_LINRGB = new double[][]
@@ -297,23 +297,17 @@ public static class HctSolver
         99.55452497210776,
     };
 
-    /**
-     * Sanitizes a small enough angle in radians.
-     *
-     * @param angle An angle in radians; must not deviate too much from 0.
-     * @return A coterminal angle between 0 and 2pi.
-     */
+    /// <summary>Sanitizes a small enough angle in radians.</summary>
+    /// <param name="angle">An angle in radians; must not deviate too much from 0.</param>
+    /// <returns>A coterminal angle between 0 and 2pi.</returns>
     private static double sanitizeRadians(double angle)
     {
         return (angle + Math.PI * 8) % (Math.PI * 2);
     }
 
-    /**
-     * Delinearizes an RGB component, returning a floating-point number.
-     *
-     * @param rgbComponent 0.0 <= rgb_component <= 100.0, represents linear R/G/B channel
-     * @return 0.0 <= output <= 255.0, color channel converted to regular RGB space
-     */
+    /// <summary>Delinearizes an RGB component, returning a floating-point number.</summary>
+    /// <param name="rgbComponent">0.0 <= rgb_component <= 100.0, represents linear R/G/B channel</param>
+    /// <returns>0.0 <= output <= 255.0, color channel converted to regular RGB space</returns>
     private static double trueDelinearized(double rgbComponent)
     {
         double normalized = rgbComponent / 100.0;
@@ -335,12 +329,9 @@ public static class HctSolver
         return MathUtils.signum(component) * 400.0 * af / (af + 27.13);
     }
 
-    /**
-     * Returns the hue of a linear RGB color in CAM16.
-     *
-     * @param linrgb The linear RGB coordinates of a color.
-     * @return The hue of the color in CAM16, in radians.
-     */
+    /// <summary>Returns the hue of a linear RGB color in CAM16.</summary>
+    /// <param name="linrgb">The linear RGB coordinates of a color.</param>
+    /// <returns>The hue of the color in CAM16, in radians.</returns>
     private static double hueOf(double[] linrgb)
     {
         double[] scaledDiscount = MathUtils.matrixMultiply(linrgb, SCALED_DISCOUNT_FROM_LINRGB);
@@ -361,14 +352,11 @@ public static class HctSolver
         return deltaAB < deltaAC;
     }
 
-    /**
-     * Solves the lerp equation.
-     *
-     * @param source The starting number.
-     * @param mid The number in the middle.
-     * @param target The ending number.
-     * @return A number t such that lerp(source, target, t) = mid.
-     */
+    /// <summary>Solves the lerp equation.</summary>
+    /// <param name="source">The starting number.</param>
+    /// <param name="mid">The number in the middle.</param>
+    /// <param name="target">The ending number.</param>
+    /// <returns>A number t such that lerp(source, target, t) = mid.</returns>
     private static double intercept(double source, double mid, double target)
     {
         return (mid - source) / (target - source);
@@ -384,16 +372,13 @@ public static class HctSolver
         };
     }
 
-    /**
-     * Intersects a segment with a plane.
-     *
-     * @param source The coordinates of point A.
-     * @param coordinate The R-, G-, or B-coordinate of the plane.
-     * @param target The coordinates of point B.
-     * @param axis The axis the plane is perpendicular with. (0: R, 1: G, 2: B)
-     * @return The intersection point of the segment AB with the plane R=coordinate, G=coordinate, or
-     *     B=coordinate
-     */
+    /// <summary>Intersects a segment with a plane.</summary>
+    /// <param name="source">The coordinates of point A.</param>
+    /// <param name="coordinate">The R-, G-, or B-coordinate of the plane.</param>
+    /// <param name="target">The coordinates of point B.</param>
+    /// <param name="axis">The axis the plane is perpendicular with. (0: R, 1: G, 2: B)</param>
+    /// <returns>The intersection point of the segment AB with the plane R=coordinate, G=coordinate, or
+    /// B=coordinate</returns>
     private static double[] setCoordinate(double[] source, double coordinate, double[] target, int axis)
     {
         double t = intercept(source[axis], coordinate, target[axis]);
@@ -405,15 +390,12 @@ public static class HctSolver
         return 0.0 <= x && x <= 100.0;
     }
 
-    /**
-     * Returns the nth possible vertex of the polygonal intersection.
-     *
-     * @param y The Y value of the plane.
-     * @param n The zero-based index of the point. 0 <= n <= 11.
-     * @return The nth possible vertex of the polygonal intersection of the y plane and the RGB cube,
-     *     in linear RGB coordinates, if it exists. If this possible vertex lies outside of the cube,
-     *     [-1.0, -1.0, -1.0] is returned.
-     */
+    /// <summary>Returns the nth possible vertex of the polygonal intersection.</summary>
+    /// <param name="y">The Y value of the plane.</param>
+    /// <param name="n">The zero-based index of the point. 0 <= n <= 11.</param>
+    /// <returns>The nth possible vertex of the polygonal intersection of the y plane and the RGB cube,
+    /// in linear RGB coordinates, if it exists. If this possible vertex lies outside of the cube,
+    /// [-1.0, -1.0, -1.0] is returned.</returns>
     private static double[] nthVertex(double y, int n)
     {
         double kR = Y_FROM_LINRGB[0];
@@ -465,14 +447,11 @@ public static class HctSolver
         }
     }
 
-    /**
-     * Finds the segment containing the desired color.
-     *
-     * @param y The Y value of the color.
-     * @param targetHue The hue of the color.
-     * @return A list of two sets of linear RGB coordinates, each corresponding to an endpoint of the
-     *     segment containing the desired color.
-     */
+    /// <summary>Finds the segment containing the desired color.</summary>
+    /// <param name="y">The Y value of the color.</param>
+    /// <param name="targetHue">The hue of the color.</param>
+    /// <returns>A list of two sets of linear RGB coordinates, each corresponding to an endpoint of the
+    /// segment containing the desired color.</returns>
     private static double[][] bisectToSegment(double y, double targetHue)
     {
         double[] left = new double[] { -1.0, -1.0, -1.0 };
@@ -531,13 +510,10 @@ public static class HctSolver
         return (int)Math.Ceiling(x - 0.5);
     }
 
-    /**
-     * Finds a color with the given Y and hue on the boundary of the cube.
-     *
-     * @param y The Y value of the color.
-     * @param targetHue The hue of the color.
-     * @return The desired color, in linear RGB coordinates.
-     */
+    /// <summary>Finds a color with the given Y and hue on the boundary of the cube.</summary>
+    /// <param name="y">The Y value of the color.</param>
+    /// <param name="targetHue">The hue of the color.</param>
+    /// <returns>The desired color, in linear RGB coordinates.</returns>
     private static double[] bisectToLimit(double y, double targetHue)
     {
         double[][] segment = bisectToSegment(y, targetHue);
@@ -597,14 +573,11 @@ public static class HctSolver
         return MathUtils.signum(adapted) * Math.Pow(@base, 1.0 / 0.42);
     }
 
-    /**
-     * Finds a color with the given hue, chroma, and Y.
-     *
-     * @param hueRadians The desired hue in radians.
-     * @param chroma The desired chroma.
-     * @param y The desired Y.
-     * @return The desired color as a hexadecimal integer, if found; 0 otherwise.
-     */
+    /// <summary>Finds a color with the given hue, chroma, and Y.</summary>
+    /// <param name="hueRadians">The desired hue in radians.</param>
+    /// <param name="chroma">The desired chroma.</param>
+    /// <param name="y">The desired Y.</param>
+    /// <returns>The desired color as a hexadecimal integer, if found; 0 otherwise.</returns>
     private static int findResultByJ(double hueRadians, double chroma, double y)
     {
         // Initial estimate of j.
@@ -668,16 +641,13 @@ public static class HctSolver
         return 0;
     }
 
-    /**
-     * Finds an sRGB color with the given hue, chroma, and L*, if possible.
-     *
-     * @param hueDegrees The desired hue, in degrees.
-     * @param chroma The desired chroma.
-     * @param lstar The desired L*.
-     * @return A hexadecimal representing the sRGB color. The color has sufficiently close hue,
-     *     chroma, and L* to the desired values, if possible; otherwise, the hue and L* will be
-     *     sufficiently close, and chroma will be maximized.
-     */
+    /// <summary>Finds an sRGB color with the given hue, chroma, and L*, if possible.</summary>
+    /// <param name="hueDegrees">The desired hue, in degrees.</param>
+    /// <param name="chroma">The desired chroma.</param>
+    /// <param name="lstar">The desired L*.</param>
+    /// <returns>A hexadecimal representing the sRGB color. The color has sufficiently close hue,
+    /// chroma, and L* to the desired values, if possible; otherwise, the hue and L* will be
+    /// sufficiently close, and chroma will be maximized.</returns>
     public static int solveToInt(double hueDegrees, double chroma, double lstar)
     {
         if (chroma < 0.0001 || lstar < 0.0001 || lstar > 99.9999)
@@ -696,16 +666,13 @@ public static class HctSolver
         return ColorUtils.argbFromLinrgb(linrgb);
     }
 
-    /**
-     * Finds an sRGB color with the given hue, chroma, and L*, if possible.
-     *
-     * @param hueDegrees The desired hue, in degrees.
-     * @param chroma The desired chroma.
-     * @param lstar The desired L*.
-     * @return A CAM16 object representing the sRGB color. The color has sufficiently close hue,
-     *     chroma, and L* to the desired values, if possible; otherwise, the hue and L* will be
-     *     sufficiently close, and chroma will be maximized.
-     */
+    /// <summary>Finds an sRGB color with the given hue, chroma, and L*, if possible.</summary>
+    /// <param name="hueDegrees">The desired hue, in degrees.</param>
+    /// <param name="chroma">The desired chroma.</param>
+    /// <param name="lstar">The desired L*.</param>
+    /// <returns>A CAM16 object representing the sRGB color. The color has sufficiently close hue,
+    /// chroma, and L* to the desired values, if possible; otherwise, the hue and L* will be
+    /// sufficiently close, and chroma will be maximized.</returns>
     public static Cam16 solveToCam(double hueDegrees, double chroma, double lstar)
     {
         return Cam16.fromInt(solveToInt(hueDegrees, chroma, lstar));

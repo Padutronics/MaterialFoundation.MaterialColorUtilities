@@ -19,9 +19,7 @@ using System.Collections.Generic;
 
 namespace MaterialFoundation.MaterialColorUtilities.Palettes;
 
-/**
- * A convenience class for retrieving colors that are constant in hue and chroma, but vary in tone.
- */
+/// <summary>A convenience class for retrieving colors that are constant in hue and chroma, but vary in tone.</summary>
 public sealed class TonalPalette
 {
     private IDictionary<int, int> cache;
@@ -29,35 +27,26 @@ public sealed class TonalPalette
     private double hue;
     private double chroma;
 
-    /**
-     * Create tones using the HCT hue and chroma from a color.
-     *
-     * @param argb ARGB representation of a color
-     * @return Tones matching that color's hue and chroma.
-     */
+    /// <summary>Create tones using the HCT hue and chroma from a color.</summary>
+    /// <param name="argb">ARGB representation of a color</param>
+    /// <returns>Tones matching that color's hue and chroma.</returns>
     public static TonalPalette fromInt(int argb)
     {
         return fromHct(Hct.Hct.fromInt(argb));
     }
 
-    /**
-     * Create tones using a HCT color.
-     *
-     * @param hct HCT representation of a color.
-     * @return Tones matching that color's hue and chroma.
-     */
+    /// <summary>Create tones using a HCT color.</summary>
+    /// <param name="hct">HCT representation of a color.</param>
+    /// <returns>Tones matching that color's hue and chroma.</returns>
     public static TonalPalette fromHct(Hct.Hct hct)
     {
         return new TonalPalette(hct.getHue(), hct.getChroma(), hct);
     }
 
-    /**
-     * Create tones from a defined HCT hue and chroma.
-     *
-     * @param hue HCT hue
-     * @param chroma HCT chroma
-     * @return Tones matching hue and chroma.
-     */
+    /// <summary>Create tones from a defined HCT hue and chroma.</summary>
+    /// <param name="hue">HCT hue</param>
+    /// <param name="chroma">HCT chroma</param>
+    /// <returns>Tones matching hue and chroma.</returns>
     public static TonalPalette fromHueAndChroma(double hue, double chroma)
     {
         return new TonalPalette(hue, chroma, createKeyColor(hue, chroma));
@@ -71,7 +60,7 @@ public sealed class TonalPalette
         this.keyColor = keyColor;
     }
 
-    /** The key color is the first tone, starting from T50, matching the given hue and chroma. */
+    /// <summary>The key color is the first tone, starting from T50, matching the given hue and chroma.</summary>
     private static Hct.Hct createKeyColor(double hue, double chroma)
     {
         double startTone = 50.0;
@@ -114,13 +103,9 @@ public sealed class TonalPalette
         return smallestDeltaHct;
     }
 
-    /**
-     * Create an ARGB color with HCT hue and chroma of this Tones instance, and the provided HCT tone.
-     *
-     * @param tone HCT tone, measured from 0 to 100.
-     * @return ARGB representation of a color with that tone.
-     */
-    // AndroidJdkLibsChecker is higher priority than ComputeIfAbsentUseValue (b/119581923)
+    /// <summary>Create an ARGB color with HCT hue and chroma of this Tones instance, and the provided HCT tone.</summary>
+    /// <param name="tone">HCT tone, measured from 0 to 100.</param>
+    /// <returns>ARGB representation of a color with that tone.</returns>
     public int tone(int tone)
     {
         if (!cache.TryGetValue(tone, out int color))
@@ -131,25 +116,25 @@ public sealed class TonalPalette
         return color;
     }
 
-    /** Given a tone, use hue and chroma of palette to create a color, and return it as HCT. */
+    /// <summary>Given a tone, use hue and chroma of palette to create a color, and return it as HCT.</summary>
     public Hct.Hct getHct(double tone)
     {
         return Hct.Hct.from(this.hue, this.chroma, tone);
     }
 
-    /** The chroma of the Tonal Palette, in HCT. Ranges from 0 to ~130 (for sRGB gamut). */
+    /// <summary>The chroma of the Tonal Palette, in HCT. Ranges from 0 to ~130 (for sRGB gamut).</summary>
     public double getChroma()
     {
         return this.chroma;
     }
 
-    /** The hue of the Tonal Palette, in HCT. Ranges from 0 to 360. */
+    /// <summary>The hue of the Tonal Palette, in HCT. Ranges from 0 to 360.</summary>
     public double getHue()
     {
         return this.hue;
     }
 
-    /** The key color is the first tone, starting from T50, that matches the palette's chroma. */
+    /// <summary>The key color is the first tone, starting from T50, that matches the palette's chroma.</summary>
     public Hct.Hct getKeyColor()
     {
         return this.keyColor;

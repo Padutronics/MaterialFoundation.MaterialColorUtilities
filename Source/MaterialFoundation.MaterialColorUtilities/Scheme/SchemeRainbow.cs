@@ -19,7 +19,7 @@ using MaterialFoundation.MaterialColorUtilities.Utils;
 
 namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 
-/** A playful theme - the source color's hue does not appear in the theme. */
+/// <summary>A playful theme - the source color's hue does not appear in the theme.</summary>
 public class SchemeRainbow : DynamicScheme
 {
     public SchemeRainbow(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :

@@ -16,14 +16,11 @@
 
 namespace MaterialFoundation.MaterialColorUtilities.Utils;
 
-/** Utility methods for string representations of colors. */
+/// <summary>Utility methods for string representations of colors.</summary>
 public static class StringUtils
 {
-    /**
-     * Hex string representing color, ex. #ff0000 for red.
-     *
-     * @param argb ARGB representation of a color.
-     */
+    /// <summary>Hex string representing color, ex. #ff0000 for red.</summary>
+    /// <param name="argb">ARGB representation of a color.</param>
     public static string hexFromArgb(int argb)
     {
         int red = ColorUtils.redFromArgb(argb);

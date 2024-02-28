@@ -18,7 +18,7 @@ using MaterialFoundation.MaterialColorUtilities.Palettes;
 
 namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 
-/** A loud theme, colorfulness is maximum for Primary palette, increased for others. */
+/// <summary>A loud theme, colorfulness is maximum for Primary palette, increased for others.</summary>
 public class SchemeVibrant : DynamicScheme
 {
     private static readonly double[] HUES = { 0, 41, 61, 101, 131, 181, 251, 301, 360 };

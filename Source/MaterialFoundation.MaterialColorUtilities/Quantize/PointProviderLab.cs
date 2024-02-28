@@ -18,35 +18,29 @@ using MaterialFoundation.MaterialColorUtilities.Utils;
 
 namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 
-/**
- * Provides conversions needed for K-Means quantization. Converting input to points, and converting
- * the final state of the K-Means algorithm to colors.
- */
+/// <summary>Provides conversions needed for K-Means quantization. Converting input to points, and converting
+/// the final state of the K-Means algorithm to colors.</summary>
 public sealed class PointProviderLab : PointProvider
 {
-    /**
-     * Convert a color represented in ARGB to a 3-element array of L*a*b* coordinates of the color.
-     */
+    /// <summary>Convert a color represented in ARGB to a 3-element array of L*a*b* coordinates of the color.</summary>
     public double[] fromInt(int argb)
     {
         double[] lab = ColorUtils.labFromArgb(argb);
         return new double[] { lab[0], lab[1], lab[2] };
     }
 
-    /** Convert a 3-element array to a color represented in ARGB. */
+    /// <summary>Convert a 3-element array to a color represented in ARGB.</summary>
     public int toInt(double[] lab)
     {
         return ColorUtils.argbFromLab(lab[0], lab[1], lab[2]);
     }
 
-    /**
-     * Standard CIE 1976 delta E formula also takes the square root, unneeded here. This method is
-     * used by quantization algorithms to compare distance, and the relative ordering is the same,
-     * with or without a square root.
-     *
-     * <p>This relatively minor optimization is helpful because this method is called at least once
-     * for each pixel in an image.
-     */
+    /// <summary>Standard CIE 1976 delta E formula also takes the square root, unneeded here. This method is
+    /// used by quantization algorithms to compare distance, and the relative ordering is the same,
+    /// with or without a square root.
+    ///
+    /// <para>This relatively minor optimization is helpful because this method is called at least once
+    /// for each pixel in an image.</para></summary>
     public double distance(double[] one, double[] two)
     {
         double dL = (one[0] - two[0]);

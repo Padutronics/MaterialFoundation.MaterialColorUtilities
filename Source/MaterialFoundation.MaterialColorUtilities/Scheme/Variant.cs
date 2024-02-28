@@ -16,7 +16,7 @@
 
 namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 
-/** Themes for Dynamic Color. */
+/// <summary>Themes for Dynamic Color.</summary>
 public enum Variant
 {
     MONOCHROME,
