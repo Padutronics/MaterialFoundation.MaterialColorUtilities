@@ -347,48 +347,42 @@ public sealed class QuantizerWu : IQuantizer
 
     private static int Bottom(Box cube, Direction direction, int[] moment)
     {
-        switch (direction)
+        return direction switch
         {
-            case Direction.Red:
-                return -moment[GetIndex(cube.r0, cube.g1, cube.b1)] +
-                    moment[GetIndex(cube.r0, cube.g1, cube.b0)] +
-                    moment[GetIndex(cube.r0, cube.g0, cube.b1)] -
-                    moment[GetIndex(cube.r0, cube.g0, cube.b0)];
-            case Direction.Green:
-                return -moment[GetIndex(cube.r1, cube.g0, cube.b1)] +
-                    moment[GetIndex(cube.r1, cube.g0, cube.b0)] +
-                    moment[GetIndex(cube.r0, cube.g0, cube.b1)] -
-                    moment[GetIndex(cube.r0, cube.g0, cube.b0)];
-            case Direction.Blue:
-                return -moment[GetIndex(cube.r1, cube.g1, cube.b0)] +
-                    moment[GetIndex(cube.r1, cube.g0, cube.b0)] +
-                    moment[GetIndex(cube.r0, cube.g1, cube.b0)] -
-                    moment[GetIndex(cube.r0, cube.g0, cube.b0)];
-        }
-        throw new ArgumentException("unexpected direction " + direction);
+            Direction.Red => -moment[GetIndex(cube.r0, cube.g1, cube.b1)] +
+                moment[GetIndex(cube.r0, cube.g1, cube.b0)] +
+                moment[GetIndex(cube.r0, cube.g0, cube.b1)] -
+                moment[GetIndex(cube.r0, cube.g0, cube.b0)],
+            Direction.Green => -moment[GetIndex(cube.r1, cube.g0, cube.b1)] +
+                moment[GetIndex(cube.r1, cube.g0, cube.b0)] +
+                moment[GetIndex(cube.r0, cube.g0, cube.b1)] -
+                moment[GetIndex(cube.r0, cube.g0, cube.b0)],
+            Direction.Blue => -moment[GetIndex(cube.r1, cube.g1, cube.b0)] +
+                moment[GetIndex(cube.r1, cube.g0, cube.b0)] +
+                moment[GetIndex(cube.r0, cube.g1, cube.b0)] -
+                moment[GetIndex(cube.r0, cube.g0, cube.b0)],
+            _ => throw new ArgumentException("unexpected direction " + direction),
+        };
     }
 
     private static int Top(Box cube, Direction direction, int position, int[] moment)
     {
-        switch (direction)
+        return direction switch
         {
-            case Direction.Red:
-                return moment[GetIndex(position, cube.g1, cube.b1)] -
-                    moment[GetIndex(position, cube.g1, cube.b0)] -
-                    moment[GetIndex(position, cube.g0, cube.b1)] +
-                    moment[GetIndex(position, cube.g0, cube.b0)];
-            case Direction.Green:
-                return moment[GetIndex(cube.r1, position, cube.b1)] -
-                    moment[GetIndex(cube.r1, position, cube.b0)] -
-                    moment[GetIndex(cube.r0, position, cube.b1)] +
-                    moment[GetIndex(cube.r0, position, cube.b0)];
-            case Direction.Blue:
-                return moment[GetIndex(cube.r1, cube.g1, position)] -
-                    moment[GetIndex(cube.r1, cube.g0, position)] -
-                    moment[GetIndex(cube.r0, cube.g1, position)] +
-                    moment[GetIndex(cube.r0, cube.g0, position)];
-        }
-        throw new ArgumentException("unexpected direction " + direction);
+            Direction.Red => moment[GetIndex(position, cube.g1, cube.b1)] -
+                moment[GetIndex(position, cube.g1, cube.b0)] -
+                moment[GetIndex(position, cube.g0, cube.b1)] +
+                moment[GetIndex(position, cube.g0, cube.b0)],
+            Direction.Green => moment[GetIndex(cube.r1, position, cube.b1)] -
+                moment[GetIndex(cube.r1, position, cube.b0)] -
+                moment[GetIndex(cube.r0, position, cube.b1)] +
+                moment[GetIndex(cube.r0, position, cube.b0)],
+            Direction.Blue => moment[GetIndex(cube.r1, cube.g1, position)] -
+                moment[GetIndex(cube.r1, cube.g0, position)] -
+                moment[GetIndex(cube.r0, cube.g1, position)] +
+                moment[GetIndex(cube.r0, cube.g0, position)],
+            _ => throw new ArgumentException("unexpected direction " + direction),
+        };
     }
 
     private enum Direction
