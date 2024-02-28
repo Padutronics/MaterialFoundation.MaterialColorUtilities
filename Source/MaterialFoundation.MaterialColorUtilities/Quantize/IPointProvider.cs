@@ -17,7 +17,7 @@
 namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 
 /// <summary>An interface to allow use of different color spaces by quantizers.</summary>
-public interface PointProvider
+public interface IPointProvider
 {
     /// <summary>The four components in the color space of an sRGB color.</summary>
     double[] FromInt(int argb);

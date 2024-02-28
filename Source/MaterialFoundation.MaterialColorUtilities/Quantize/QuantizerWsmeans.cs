@@ -72,7 +72,7 @@ public sealed class QuantizerWsmeans
         var pixelToCount = new Dictionary<int, int>();
         double[][] points = new double[inputPixels.Length][];
         int[] pixels = new int[inputPixels.Length];
-        PointProvider pointProvider = new PointProviderLab();
+        IPointProvider pointProvider = new PointProviderLab();
 
         int pointCount = 0;
         for (int i = 0; i < inputPixels.Length; i++)

@@ -24,7 +24,7 @@ namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 /// cube, based on the weight of pixels in each area of the cube.
 ///
 /// <para>The algorithm was described by Xiaolin Wu in Graphic Gems II, published in 1991.</para></summary>
-public sealed class QuantizerWu : Quantizer
+public sealed class QuantizerWu : IQuantizer
 {
     private int[] weights = [];
     private int[] momentsR = [];

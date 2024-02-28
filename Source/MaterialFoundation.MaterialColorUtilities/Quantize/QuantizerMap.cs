@@ -19,7 +19,7 @@ using System.Collections.Generic;
 namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 
 /// <summary>Creates a dictionary with keys of colors, and values of count of the color</summary>
-public sealed class QuantizerMap : Quantizer
+public sealed class QuantizerMap : IQuantizer
 {
     private IDictionary<int, int>? colorToCount;
 

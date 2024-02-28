@@ -20,7 +20,7 @@ namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 
 /// <summary>Provides conversions needed for K-Means quantization. Converting input to points, and converting
 /// the final state of the K-Means algorithm to colors.</summary>
-public sealed class PointProviderLab : PointProvider
+public sealed class PointProviderLab : IPointProvider
 {
     /// <summary>Convert a color represented in ARGB to a 3-element array of L*a*b* coordinates of the color.</summary>
     public double[] FromInt(int argb)
