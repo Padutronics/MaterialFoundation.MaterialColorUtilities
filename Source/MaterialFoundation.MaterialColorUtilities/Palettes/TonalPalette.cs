@@ -22,10 +22,10 @@ namespace MaterialFoundation.MaterialColorUtilities.Palettes;
 /// <summary>A convenience class for retrieving colors that are constant in hue and chroma, but vary in tone.</summary>
 public sealed class TonalPalette
 {
-    private IDictionary<int, int> cache;
-    private Hct.Hct keyColor;
-    private double hue;
-    private double chroma;
+    private readonly IDictionary<int, int> cache;
+    private readonly Hct.Hct keyColor;
+    private readonly double hue;
+    private readonly double chroma;
 
     /// <summary>Create tones using the HCT hue and chroma from a color.</summary>
     /// <param name="argb">ARGB representation of a color</param>
