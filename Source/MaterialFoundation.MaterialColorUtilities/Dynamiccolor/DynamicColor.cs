@@ -173,11 +173,11 @@ public sealed class DynamicColor
             name,
             palette,
             tone,
-            /* isBackground= */ false,
-            /* background= */ null,
-            /* secondBackground= */ null,
-            /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null
+            isBackground: false,
+            background: null,
+            secondBackground: null,
+            contrastCurve: null,
+            toneDeltaPair: null
         );
     }
 
@@ -211,10 +211,10 @@ public sealed class DynamicColor
             palette,
             tone,
             isBackground,
-            /* background= */ null,
-            /* secondBackground= */ null,
-            /* contrastCurve= */ null,
-            /* toneDeltaPair= */ null
+            background: null,
+            secondBackground: null,
+            contrastCurve: null,
+            toneDeltaPair: null
         );
     }
 
