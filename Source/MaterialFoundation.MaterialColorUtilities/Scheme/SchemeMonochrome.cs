@@ -24,7 +24,7 @@ public class SchemeMonochrome : DynamicScheme
     public SchemeMonochrome(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
         base(
             sourceColorHct,
-            Variant.MONOCHROME,
+            Variant.Monochrome,
             isDark,
             contrastLevel,
             TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 0.0),

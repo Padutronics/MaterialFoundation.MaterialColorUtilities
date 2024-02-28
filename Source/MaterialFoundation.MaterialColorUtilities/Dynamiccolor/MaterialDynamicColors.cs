@@ -391,7 +391,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryContainer(), Primary(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryContainer(), Primary(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -437,7 +437,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryContainer(), Primary(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryContainer(), Primary(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -490,7 +490,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryContainer(), Secondary(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryContainer(), Secondary(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -540,7 +540,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryContainer(), Secondary(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryContainer(), Secondary(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -582,7 +582,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryContainer(), Tertiary(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryContainer(), Tertiary(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -629,7 +629,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryContainer(), Tertiary(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryContainer(), Tertiary(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -668,7 +668,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            toneDeltaPair: (s) => new ToneDeltaPair(ErrorContainer(), Error(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(ErrorContainer(), Error(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -696,7 +696,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(ErrorContainer(), Error(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(ErrorContainer(), Error(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -724,7 +724,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryFixed(), PrimaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryFixed(), PrimaryFixedDim(), 10.0, TonePolarity.Lighter, true)
         );
     }
 
@@ -738,7 +738,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryFixed(), PrimaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryFixed(), PrimaryFixedDim(), 10.0, TonePolarity.Lighter, true)
         );
     }
 
@@ -780,7 +780,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryFixed(), SecondaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryFixed(), SecondaryFixedDim(), 10.0, TonePolarity.Lighter, true)
         );
     }
 
@@ -794,7 +794,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryFixed(), SecondaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryFixed(), SecondaryFixedDim(), 10.0, TonePolarity.Lighter, true)
         );
     }
 
@@ -836,7 +836,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryFixed(), TertiaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryFixed(), TertiaryFixedDim(), 10.0, TonePolarity.Lighter, true)
         );
     }
 
@@ -850,7 +850,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryFixed(), TertiaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryFixed(), TertiaryFixedDim(), 10.0, TonePolarity.Lighter, true)
         );
     }
 
@@ -975,16 +975,16 @@ public sealed class MaterialDynamicColors
 
     private bool IsFidelity(DynamicScheme scheme)
     {
-        if (this.isExtendedFidelity && scheme.variant != Variant.MONOCHROME && scheme.variant != Variant.NEUTRAL)
+        if (this.isExtendedFidelity && scheme.variant != Variant.Monochrome && scheme.variant != Variant.Neutral)
         {
             return true;
         }
-        return scheme.variant == Variant.FIDELITY || scheme.variant == Variant.CONTENT;
+        return scheme.variant == Variant.Fidelity || scheme.variant == Variant.Content;
     }
 
     private static bool IsMonochrome(DynamicScheme scheme)
     {
-        return scheme.variant == Variant.MONOCHROME;
+        return scheme.variant == Variant.Monochrome;
     }
 
     private static double FindDesiredChromaByTone(double hue, double chroma, double tone, bool byDecreasingTone)

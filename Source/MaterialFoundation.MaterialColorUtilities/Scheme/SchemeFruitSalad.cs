@@ -25,7 +25,7 @@ public class SchemeFruitSalad : DynamicScheme
     public SchemeFruitSalad(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
         base(
             sourceColorHct,
-            Variant.FRUIT_SALAD,
+            Variant.FruitSalad,
             isDark,
             contrastLevel,
             TonalPalette.FromHueAndChroma(MathUtils.SanitizeDegreesDouble(sourceColorHct.GetHue() - 50.0), 48.0),

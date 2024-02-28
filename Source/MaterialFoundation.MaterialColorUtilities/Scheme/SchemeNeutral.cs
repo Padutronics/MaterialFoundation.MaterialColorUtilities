@@ -24,7 +24,7 @@ public class SchemeNeutral : DynamicScheme
     public SchemeNeutral(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
         base(
             sourceColorHct,
-            Variant.NEUTRAL,
+            Variant.Neutral,
             isDark,
             contrastLevel,
             TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 12.0),

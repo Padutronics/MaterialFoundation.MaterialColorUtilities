@@ -28,7 +28,7 @@ public class SchemeVibrant : DynamicScheme
     public SchemeVibrant(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
         base(
             sourceColorHct,
-            Variant.VIBRANT,
+            Variant.Vibrant,
             isDark,
             contrastLevel,
             TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 200.0),

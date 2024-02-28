@@ -36,7 +36,7 @@ public class SchemeContent : DynamicScheme
     public SchemeContent(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
         base(
             sourceColorHct,
-            Variant.CONTENT,
+            Variant.Content,
             isDark,
             contrastLevel,
             TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), sourceColorHct.GetChroma()),

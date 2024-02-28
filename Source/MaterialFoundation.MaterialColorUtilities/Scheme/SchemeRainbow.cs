@@ -25,7 +25,7 @@ public class SchemeRainbow : DynamicScheme
     public SchemeRainbow(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
         base(
             sourceColorHct,
-            Variant.RAINBOW,
+            Variant.Rainbow,
             isDark,
             contrastLevel,
             TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 48.0),

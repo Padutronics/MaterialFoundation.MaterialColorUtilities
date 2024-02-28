@@ -25,7 +25,7 @@ public class SchemeTonalSpot : DynamicScheme
     public SchemeTonalSpot(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
         base(
             sourceColorHct,
-            Variant.TONAL_SPOT,
+            Variant.TonalSpot,
             isDark,
             contrastLevel,
             TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 36.0),

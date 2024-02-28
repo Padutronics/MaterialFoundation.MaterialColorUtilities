@@ -34,7 +34,7 @@ public class SchemeFidelity : DynamicScheme
     public SchemeFidelity(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
         base(
             sourceColorHct,
-            Variant.FIDELITY,
+            Variant.Fidelity,
             isDark,
             contrastLevel,
             TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), sourceColorHct.GetChroma()),

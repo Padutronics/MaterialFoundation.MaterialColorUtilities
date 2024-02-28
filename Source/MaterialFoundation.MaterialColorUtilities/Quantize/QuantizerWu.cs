@@ -226,9 +226,9 @@ public sealed class QuantizerWu : Quantizer
         int wholeB = Volume(one, momentsB);
         int wholeW = Volume(one, weights);
 
-        MaximizeResult maxRResult = Maximize(one, Direction.RED, one.r0 + 1, one.r1, wholeR, wholeG, wholeB, wholeW);
-        MaximizeResult maxGResult = Maximize(one, Direction.GREEN, one.g0 + 1, one.g1, wholeR, wholeG, wholeB, wholeW);
-        MaximizeResult maxBResult = Maximize(one, Direction.BLUE, one.b0 + 1, one.b1, wholeR, wholeG, wholeB, wholeW);
+        MaximizeResult maxRResult = Maximize(one, Direction.Red, one.r0 + 1, one.r1, wholeR, wholeG, wholeB, wholeW);
+        MaximizeResult maxGResult = Maximize(one, Direction.Green, one.g0 + 1, one.g1, wholeR, wholeG, wholeB, wholeW);
+        MaximizeResult maxBResult = Maximize(one, Direction.Blue, one.b0 + 1, one.b1, wholeR, wholeG, wholeB, wholeW);
         Direction cutDirection;
         double maxR = maxRResult.maximum;
         double maxG = maxGResult.maximum;
@@ -239,15 +239,15 @@ public sealed class QuantizerWu : Quantizer
             {
                 return false;
             }
-            cutDirection = Direction.RED;
+            cutDirection = Direction.Red;
         }
         else if (maxG >= maxR && maxG >= maxB)
         {
-            cutDirection = Direction.GREEN;
+            cutDirection = Direction.Green;
         }
         else
         {
-            cutDirection = Direction.BLUE;
+            cutDirection = Direction.Blue;
         }
 
         two.r1 = one.r1;
@@ -256,19 +256,19 @@ public sealed class QuantizerWu : Quantizer
 
         switch (cutDirection)
         {
-            case Direction.RED:
+            case Direction.Red:
                 one.r1 = maxRResult.cutLocation;
                 two.r0 = one.r1;
                 two.g0 = one.g0;
                 two.b0 = one.b0;
                 break;
-            case Direction.GREEN:
+            case Direction.Green:
                 one.g1 = maxGResult.cutLocation;
                 two.r0 = one.r0;
                 two.g0 = one.g1;
                 two.b0 = one.b0;
                 break;
-            case Direction.BLUE:
+            case Direction.Blue:
                 one.b1 = maxBResult.cutLocation;
                 two.r0 = one.r0;
                 two.g0 = one.g0;
@@ -349,17 +349,17 @@ public sealed class QuantizerWu : Quantizer
     {
         switch (direction)
         {
-            case Direction.RED:
+            case Direction.Red:
                 return -moment[GetIndex(cube.r0, cube.g1, cube.b1)] +
                     moment[GetIndex(cube.r0, cube.g1, cube.b0)] +
                     moment[GetIndex(cube.r0, cube.g0, cube.b1)] -
                     moment[GetIndex(cube.r0, cube.g0, cube.b0)];
-            case Direction.GREEN:
+            case Direction.Green:
                 return -moment[GetIndex(cube.r1, cube.g0, cube.b1)] +
                     moment[GetIndex(cube.r1, cube.g0, cube.b0)] +
                     moment[GetIndex(cube.r0, cube.g0, cube.b1)] -
                     moment[GetIndex(cube.r0, cube.g0, cube.b0)];
-            case Direction.BLUE:
+            case Direction.Blue:
                 return -moment[GetIndex(cube.r1, cube.g1, cube.b0)] +
                     moment[GetIndex(cube.r1, cube.g0, cube.b0)] +
                     moment[GetIndex(cube.r0, cube.g1, cube.b0)] -
@@ -372,17 +372,17 @@ public sealed class QuantizerWu : Quantizer
     {
         switch (direction)
         {
-            case Direction.RED:
+            case Direction.Red:
                 return (moment[GetIndex(position, cube.g1, cube.b1)] -
                     moment[GetIndex(position, cube.g1, cube.b0)] -
                     moment[GetIndex(position, cube.g0, cube.b1)] +
                     moment[GetIndex(position, cube.g0, cube.b0)]);
-            case Direction.GREEN:
+            case Direction.Green:
                 return (moment[GetIndex(cube.r1, position, cube.b1)] -
                     moment[GetIndex(cube.r1, position, cube.b0)] -
                     moment[GetIndex(cube.r0, position, cube.b1)] +
                     moment[GetIndex(cube.r0, position, cube.b0)]);
-            case Direction.BLUE:
+            case Direction.Blue:
                 return (moment[GetIndex(cube.r1, cube.g1, position)] -
                     moment[GetIndex(cube.r1, cube.g0, position)] -
                     moment[GetIndex(cube.r0, cube.g1, position)] +
@@ -393,9 +393,9 @@ public sealed class QuantizerWu : Quantizer
 
     private enum Direction
     {
-        RED,
-        GREEN,
-        BLUE
+        Red,
+        Green,
+        Blue
     }
 
     private sealed class MaximizeResult

@@ -19,13 +19,13 @@ namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 /// <summary>Themes for Dynamic Color.</summary>
 public enum Variant
 {
-    MONOCHROME,
-    NEUTRAL,
-    TONAL_SPOT,
-    VIBRANT,
-    EXPRESSIVE,
-    FIDELITY,
-    CONTENT,
-    RAINBOW,
-    FRUIT_SALAD
+    Monochrome,
+    Neutral,
+    TonalSpot,
+    Vibrant,
+    Expressive,
+    Fidelity,
+    Content,
+    Rainbow,
+    FruitSalad
 }

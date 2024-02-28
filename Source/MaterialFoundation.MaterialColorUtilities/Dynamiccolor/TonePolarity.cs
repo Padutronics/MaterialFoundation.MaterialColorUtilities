@@ -25,8 +25,8 @@ namespace MaterialFoundation.MaterialColorUtilities.Dynamiccolor;
 /// <para>See `ToneDeltaPair` for details.</para></summary>
 public enum TonePolarity
 {
-    DARKER,
-    LIGHTER,
-    NEARER,
-    FARTHER
+    Darker,
+    Lighter,
+    Nearer,
+    Farther
 }

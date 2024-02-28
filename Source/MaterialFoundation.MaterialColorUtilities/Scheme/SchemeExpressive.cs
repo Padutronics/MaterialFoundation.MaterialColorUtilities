@@ -30,7 +30,7 @@ public class SchemeExpressive : DynamicScheme
     public SchemeExpressive(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
         base(
             sourceColorHct,
-            Variant.EXPRESSIVE,
+            Variant.Expressive,
             isDark,
             contrastLevel,
             TonalPalette.FromHueAndChroma(MathUtils.SanitizeDegreesDouble(sourceColorHct.GetHue() + 240.0), 40.0),
