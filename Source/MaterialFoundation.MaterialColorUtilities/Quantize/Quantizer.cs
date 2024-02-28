@@ -18,5 +18,5 @@ namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 
 interface Quantizer
 {
-    public QuantizerResult quantize(int[] pixels, int maxColors);
+    QuantizerResult quantize(int[] pixels, int maxColors);
 }
