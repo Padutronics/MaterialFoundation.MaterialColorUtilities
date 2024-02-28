@@ -323,7 +323,6 @@ public sealed class Cam16
      */
     public static Cam16 fromUcs(double jstar, double astar, double bstar)
     {
-
         return fromUcsInViewingConditions(jstar, astar, bstar, ViewingConditions.DEFAULT);
     }
 
@@ -339,7 +338,6 @@ public sealed class Cam16
      */
     public static Cam16 fromUcsInViewingConditions(double jstar, double astar, double bstar, ViewingConditions viewingConditions)
     {
-
         double m = double.Hypot(astar, bstar);
         double m2 = double.ExpM1(m * 0.0228) / 0.0228;
         double c = m2 / viewingConditions.getFlRoot();

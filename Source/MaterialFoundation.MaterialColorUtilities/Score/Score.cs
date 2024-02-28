@@ -68,7 +68,6 @@ public static class Score
      */
     public static ICollection<int> score(IDictionary<int, int> colorsToPopulation, int desired, int fallbackColorArgb, bool filter)
     {
-
         // Get the HCT color for each Argb value, while finding the per hue count and
         // total count.
         var colorsHct = new List<Hct.Hct>();

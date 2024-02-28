@@ -92,7 +92,6 @@ public sealed class DynamicColor
      */
     public DynamicColor(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone, bool isBackground, Func<DynamicScheme, DynamicColor>? background, Func<DynamicScheme, DynamicColor>? secondBackground, ContrastCurve? contrastCurve, Func<DynamicScheme, ToneDeltaPair>? toneDeltaPair)
     {
-
         this.name = name;
         this.palette = palette;
         this.tone = tone;
