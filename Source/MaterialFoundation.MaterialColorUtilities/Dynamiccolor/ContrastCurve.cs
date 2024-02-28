@@ -53,7 +53,7 @@ public sealed class ContrastCurve
     /// <param name="contrastLevel">The contrast level. 0.0 is the default (normal); -1.0 is the lowest; 1.0
     /// is the highest.</param>
     /// <returns>The value. For contrast ratios, a number between 1.0 and 21.0.</returns>
-    public double get(double contrastLevel)
+    public double Get(double contrastLevel)
     {
         if (contrastLevel <= -1.0)
         {
@@ -61,15 +61,15 @@ public sealed class ContrastCurve
         }
         else if (contrastLevel < 0.0)
         {
-            return MathUtils.lerp(this.low, this.normal, (contrastLevel - -1) / 1);
+            return MathUtils.Lerp(this.low, this.normal, (contrastLevel - -1) / 1);
         }
         else if (contrastLevel < 0.5)
         {
-            return MathUtils.lerp(this.normal, this.medium, (contrastLevel - 0) / 0.5);
+            return MathUtils.Lerp(this.normal, this.medium, (contrastLevel - 0) / 0.5);
         }
         else if (contrastLevel < 1.0)
         {
-            return MathUtils.lerp(this.medium, this.high, (contrastLevel - 0.5) / 0.5);
+            return MathUtils.Lerp(this.medium, this.high, (contrastLevel - 0.5) / 0.5);
         }
         else
         {

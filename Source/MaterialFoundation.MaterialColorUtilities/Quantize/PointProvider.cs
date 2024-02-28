@@ -20,12 +20,12 @@ namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 public interface PointProvider
 {
     /// <summary>The four components in the color space of an sRGB color.</summary>
-    double[] fromInt(int argb);
+    double[] FromInt(int argb);
 
     /// <summary>The ARGB (i.e. hex code) representation of this color.</summary>
-    int toInt(double[] point);
+    int ToInt(double[] point);
 
     /// <summary>Squared distance between two colors. Distance is defined by scientific color spaces and
     /// referred to as delta E.</summary>
-    double distance(double[] a, double[] b);
+    double Distance(double[] a, double[] b);
 }

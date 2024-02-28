@@ -29,7 +29,7 @@ namespace MaterialFoundation.MaterialColorUtilities.Hct;
 /// <para>Unlike contrast ratio, measuring contrast in L* is linear, and simple to calculate. A
 /// difference of 40 in HCT tone guarantees a contrast ratio >= 3.0, and a difference of 50
 /// guarantees a contrast ratio >= 4.5.</para>
-/// 
+///
 /// <para>HCT, hue, chroma, and tone. A color system that provides a perceptually accurate color
 /// measurement system that can also accurately render what colors will appear as in different
 /// lighting environments.</para></summary>
@@ -46,41 +46,41 @@ public sealed class Hct
     /// the requested chroma. Chroma has a different maximum for any given hue and tone.</param>
     /// <param name="tone">0 <= tone <= 100; invalid values are corrected.</param>
     /// <returns>HCT representation of a color in default viewing conditions.</returns>
-    public static Hct from(double hue, double chroma, double tone)
+    public static Hct From(double hue, double chroma, double tone)
     {
-        int argb = HctSolver.solveToInt(hue, chroma, tone);
+        int argb = HctSolver.SolveToInt(hue, chroma, tone);
         return new Hct(argb);
     }
 
     /// <summary>Create an HCT color from a color.</summary>
     /// <param name="argb">ARGB representation of a color.</param>
     /// <returns>HCT representation of a color in default viewing conditions</returns>
-    public static Hct fromInt(int argb)
+    public static Hct FromInt(int argb)
     {
         return new Hct(argb);
     }
 
     private Hct(int argb)
     {
-        setInternalState(argb);
+        SetInternalState(argb);
     }
 
-    public double getHue()
+    public double GetHue()
     {
         return hue;
     }
 
-    public double getChroma()
+    public double GetChroma()
     {
         return chroma;
     }
 
-    public double getTone()
+    public double GetTone()
     {
         return tone;
     }
 
-    public int toInt()
+    public int ToInt()
     {
         return argb;
     }
@@ -88,25 +88,25 @@ public sealed class Hct
     /// <summary>Set the hue of this color. Chroma may decrease because chroma has a different maximum for any
     /// given hue and tone.</summary>
     /// <param name="newHue">0 <= newHue < 360; invalid values are corrected.</param>
-    public void setHue(double newHue)
+    public void SetHue(double newHue)
     {
-        setInternalState(HctSolver.solveToInt(newHue, chroma, tone));
+        SetInternalState(HctSolver.SolveToInt(newHue, chroma, tone));
     }
 
     /// <summary>Set the chroma of this color. Chroma may decrease because chroma has a different maximum for
     /// any given hue and tone.</summary>
     /// <param name="newChroma">0 <= newChroma < ?</param>
-    public void setChroma(double newChroma)
+    public void SetChroma(double newChroma)
     {
-        setInternalState(HctSolver.solveToInt(hue, newChroma, tone));
+        SetInternalState(HctSolver.SolveToInt(hue, newChroma, tone));
     }
 
     /// <summary>Set the tone of this color. Chroma may decrease because chroma has a different maximum for any
     /// given hue and tone.</summary>
     /// <param name="newTone">0 <= newTone <= 100; invalid valids are corrected.</param>
-    public void setTone(double newTone)
+    public void SetTone(double newTone)
     {
-        setInternalState(HctSolver.solveToInt(hue, chroma, newTone));
+        SetInternalState(HctSolver.SolveToInt(hue, chroma, newTone));
     }
 
     /// <summary>Translate a color into different ViewingConditions.
@@ -120,27 +120,27 @@ public sealed class Hct
     /// to make these calculations.</para>
     ///
     /// <para>See ViewingConditions.make for parameters affecting color appearance.</para></summary>
-    public Hct inViewingConditions(ViewingConditions vc)
+    public Hct InViewingConditions(ViewingConditions vc)
     {
         // 1. Use CAM16 to find XYZ coordinates of color in specified VC.
-        Cam16 cam16 = Cam16.fromInt(toInt());
-        double[] viewedInVc = cam16.xyzInViewingConditions(vc, null);
+        Cam16 cam16 = Cam16.FromInt(ToInt());
+        double[] viewedInVc = cam16.XyzInViewingConditions(vc, null);
 
         // 2. Create CAM16 of those XYZ coordinates in default VC.
-        Cam16 recastInVc = Cam16.fromXyzInViewingConditions(viewedInVc[0], viewedInVc[1], viewedInVc[2], ViewingConditions.DEFAULT);
+        Cam16 recastInVc = Cam16.FromXyzInViewingConditions(viewedInVc[0], viewedInVc[1], viewedInVc[2], ViewingConditions.DEFAULT);
 
         // 3. Create HCT from:
         // - CAM16 using default VC with XYZ coordinates in specified VC.
         // - L* converted from Y in XYZ coordinates in specified VC.
-        return Hct.from(recastInVc.getHue(), recastInVc.getChroma(), ColorUtils.lstarFromY(viewedInVc[1]));
+        return Hct.From(recastInVc.GetHue(), recastInVc.GetChroma(), ColorUtils.LstarFromY(viewedInVc[1]));
     }
 
-    private void setInternalState(int argb)
+    private void SetInternalState(int argb)
     {
         this.argb = argb;
-        Cam16 cam = Cam16.fromInt(argb);
-        hue = cam.getHue();
-        chroma = cam.getChroma();
-        this.tone = ColorUtils.lstarFromArgb(argb);
+        Cam16 cam = Cam16.FromInt(argb);
+        hue = cam.GetHue();
+        chroma = cam.GetChroma();
+        this.tone = ColorUtils.LstarFromArgb(argb);
     }
 }

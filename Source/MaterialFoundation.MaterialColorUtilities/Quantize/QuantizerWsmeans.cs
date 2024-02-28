@@ -64,7 +64,7 @@ public sealed class QuantizerWsmeans
     /// returned.</param>
     /// <returns>Map with keys of colors in ARGB format, values of how many of the input pixels belong
     /// to the color.</returns>
-    public static IDictionary<int, int> quantize(int[] inputPixels, int[] startingClusters, int maxColors)
+    public static IDictionary<int, int> Quantize(int[] inputPixels, int[] startingClusters, int maxColors)
     {
         // Uses a seeded random number generator to ensure consistent results.
         var random = new Random(0x42688);
@@ -80,7 +80,7 @@ public sealed class QuantizerWsmeans
             int inputPixel = inputPixels[i];
             if (!pixelToCount.TryGetValue(inputPixel, out int pixelCount))
             {
-                points[pointCount] = pointProvider.fromInt(inputPixel);
+                points[pointCount] = pointProvider.FromInt(inputPixel);
                 pixels[pointCount] = inputPixel;
                 pointCount++;
 
@@ -110,7 +110,7 @@ public sealed class QuantizerWsmeans
         int clustersCreated = 0;
         for (int i = 0; i < startingClusters.Length; i++)
         {
-            clusters[i] = pointProvider.fromInt(startingClusters[i]);
+            clusters[i] = pointProvider.FromInt(startingClusters[i]);
             clustersCreated++;
         }
 
@@ -149,7 +149,7 @@ public sealed class QuantizerWsmeans
             {
                 for (int j = i + 1; j < clusterCount; j++)
                 {
-                    double distance = pointProvider.distance(clusters[i], clusters[j]);
+                    double distance = pointProvider.Distance(clusters[i], clusters[j]);
                     distanceToIndexMatrix[j][i].distance = distance;
                     distanceToIndexMatrix[j][i].index = i;
                     distanceToIndexMatrix[i][j].distance = distance;
@@ -168,7 +168,7 @@ public sealed class QuantizerWsmeans
                 double[] point = points[i];
                 int previousClusterIndex = clusterIndices[i];
                 double[] previousCluster = clusters[previousClusterIndex];
-                double previousDistance = pointProvider.distance(point, previousCluster);
+                double previousDistance = pointProvider.Distance(point, previousCluster);
 
                 double minimumDistance = previousDistance;
                 int newClusterIndex = -1;
@@ -178,7 +178,7 @@ public sealed class QuantizerWsmeans
                     {
                         continue;
                     }
-                    double distance = pointProvider.distance(point, clusters[j]);
+                    double distance = pointProvider.Distance(point, clusters[j]);
                     if (distance < minimumDistance)
                     {
                         minimumDistance = distance;
@@ -242,7 +242,7 @@ public sealed class QuantizerWsmeans
                 continue;
             }
 
-            int possibleNewCluster = pointProvider.toInt(clusters[i]);
+            int possibleNewCluster = pointProvider.ToInt(clusters[i]);
             if (argbToPopulation.ContainsKey(possibleNewCluster))
             {
                 continue;

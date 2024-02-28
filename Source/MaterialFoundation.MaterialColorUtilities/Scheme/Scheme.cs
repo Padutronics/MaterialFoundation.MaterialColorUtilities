@@ -89,562 +89,562 @@ public class Scheme
     }
 
     /// <summary>Creates a light theme Scheme from a source color in ARGB, i.e. a hex code.</summary>
-    public static Scheme light(int argb)
+    public static Scheme Light(int argb)
     {
-        return lightFromCorePalette(CorePalette.of(argb));
+        return LightFromCorePalette(CorePalette.Of(argb));
     }
 
     /// <summary>Creates a dark theme Scheme from a source color in ARGB, i.e. a hex code.</summary>
-    public static Scheme dark(int argb)
+    public static Scheme Dark(int argb)
     {
-        return darkFromCorePalette(CorePalette.of(argb));
+        return DarkFromCorePalette(CorePalette.Of(argb));
     }
 
     /// <summary>Creates a light theme content-based Scheme from a source color in ARGB, i.e. a hex code.</summary>
-    public static Scheme lightContent(int argb)
+    public static Scheme LightContent(int argb)
     {
-        return lightFromCorePalette(CorePalette.contentOf(argb));
+        return LightFromCorePalette(CorePalette.ContentOf(argb));
     }
 
     /// <summary>Creates a dark theme content-based Scheme from a source color in ARGB, i.e. a hex code.</summary>
-    public static Scheme darkContent(int argb)
+    public static Scheme DarkContent(int argb)
     {
-        return darkFromCorePalette(CorePalette.contentOf(argb));
+        return DarkFromCorePalette(CorePalette.ContentOf(argb));
     }
 
-    private static Scheme lightFromCorePalette(CorePalette core)
-    {
-        return new Scheme()
-            .withPrimary(core.a1.tone(40))
-            .withOnPrimary(core.a1.tone(100))
-            .withPrimaryContainer(core.a1.tone(90))
-            .withOnPrimaryContainer(core.a1.tone(10))
-            .withSecondary(core.a2.tone(40))
-            .withOnSecondary(core.a2.tone(100))
-            .withSecondaryContainer(core.a2.tone(90))
-            .withOnSecondaryContainer(core.a2.tone(10))
-            .withTertiary(core.a3.tone(40))
-            .withOnTertiary(core.a3.tone(100))
-            .withTertiaryContainer(core.a3.tone(90))
-            .withOnTertiaryContainer(core.a3.tone(10))
-            .withError(core.error.tone(40))
-            .withOnError(core.error.tone(100))
-            .withErrorContainer(core.error.tone(90))
-            .withOnErrorContainer(core.error.tone(10))
-            .withBackground(core.n1.tone(99))
-            .withOnBackground(core.n1.tone(10))
-            .withSurface(core.n1.tone(99))
-            .withOnSurface(core.n1.tone(10))
-            .withSurfaceVariant(core.n2.tone(90))
-            .withOnSurfaceVariant(core.n2.tone(30))
-            .withOutline(core.n2.tone(50))
-            .withOutlineVariant(core.n2.tone(80))
-            .withShadow(core.n1.tone(0))
-            .withScrim(core.n1.tone(0))
-            .withInverseSurface(core.n1.tone(20))
-            .withInverseOnSurface(core.n1.tone(95))
-            .withInversePrimary(core.a1.tone(80));
-    }
-
-    private static Scheme darkFromCorePalette(CorePalette core)
+    private static Scheme LightFromCorePalette(CorePalette core)
     {
         return new Scheme()
-            .withPrimary(core.a1.tone(80))
-            .withOnPrimary(core.a1.tone(20))
-            .withPrimaryContainer(core.a1.tone(30))
-            .withOnPrimaryContainer(core.a1.tone(90))
-            .withSecondary(core.a2.tone(80))
-            .withOnSecondary(core.a2.tone(20))
-            .withSecondaryContainer(core.a2.tone(30))
-            .withOnSecondaryContainer(core.a2.tone(90))
-            .withTertiary(core.a3.tone(80))
-            .withOnTertiary(core.a3.tone(20))
-            .withTertiaryContainer(core.a3.tone(30))
-            .withOnTertiaryContainer(core.a3.tone(90))
-            .withError(core.error.tone(80))
-            .withOnError(core.error.tone(20))
-            .withErrorContainer(core.error.tone(30))
-            .withOnErrorContainer(core.error.tone(80))
-            .withBackground(core.n1.tone(10))
-            .withOnBackground(core.n1.tone(90))
-            .withSurface(core.n1.tone(10))
-            .withOnSurface(core.n1.tone(90))
-            .withSurfaceVariant(core.n2.tone(30))
-            .withOnSurfaceVariant(core.n2.tone(80))
-            .withOutline(core.n2.tone(60))
-            .withOutlineVariant(core.n2.tone(30))
-            .withShadow(core.n1.tone(0))
-            .withScrim(core.n1.tone(0))
-            .withInverseSurface(core.n1.tone(90))
-            .withInverseOnSurface(core.n1.tone(20))
-            .withInversePrimary(core.a1.tone(40));
+            .WithPrimary(core.a1.Tone(40))
+            .WithOnPrimary(core.a1.Tone(100))
+            .WithPrimaryContainer(core.a1.Tone(90))
+            .WithOnPrimaryContainer(core.a1.Tone(10))
+            .WithSecondary(core.a2.Tone(40))
+            .WithOnSecondary(core.a2.Tone(100))
+            .WithSecondaryContainer(core.a2.Tone(90))
+            .WithOnSecondaryContainer(core.a2.Tone(10))
+            .WithTertiary(core.a3.Tone(40))
+            .WithOnTertiary(core.a3.Tone(100))
+            .WithTertiaryContainer(core.a3.Tone(90))
+            .WithOnTertiaryContainer(core.a3.Tone(10))
+            .WithError(core.error.Tone(40))
+            .WithOnError(core.error.Tone(100))
+            .WithErrorContainer(core.error.Tone(90))
+            .WithOnErrorContainer(core.error.Tone(10))
+            .WithBackground(core.n1.Tone(99))
+            .WithOnBackground(core.n1.Tone(10))
+            .WithSurface(core.n1.Tone(99))
+            .WithOnSurface(core.n1.Tone(10))
+            .WithSurfaceVariant(core.n2.Tone(90))
+            .WithOnSurfaceVariant(core.n2.Tone(30))
+            .WithOutline(core.n2.Tone(50))
+            .WithOutlineVariant(core.n2.Tone(80))
+            .WithShadow(core.n1.Tone(0))
+            .WithScrim(core.n1.Tone(0))
+            .WithInverseSurface(core.n1.Tone(20))
+            .WithInverseOnSurface(core.n1.Tone(95))
+            .WithInversePrimary(core.a1.Tone(80));
     }
 
-    public int getPrimary()
+    private static Scheme DarkFromCorePalette(CorePalette core)
+    {
+        return new Scheme()
+            .WithPrimary(core.a1.Tone(80))
+            .WithOnPrimary(core.a1.Tone(20))
+            .WithPrimaryContainer(core.a1.Tone(30))
+            .WithOnPrimaryContainer(core.a1.Tone(90))
+            .WithSecondary(core.a2.Tone(80))
+            .WithOnSecondary(core.a2.Tone(20))
+            .WithSecondaryContainer(core.a2.Tone(30))
+            .WithOnSecondaryContainer(core.a2.Tone(90))
+            .WithTertiary(core.a3.Tone(80))
+            .WithOnTertiary(core.a3.Tone(20))
+            .WithTertiaryContainer(core.a3.Tone(30))
+            .WithOnTertiaryContainer(core.a3.Tone(90))
+            .WithError(core.error.Tone(80))
+            .WithOnError(core.error.Tone(20))
+            .WithErrorContainer(core.error.Tone(30))
+            .WithOnErrorContainer(core.error.Tone(80))
+            .WithBackground(core.n1.Tone(10))
+            .WithOnBackground(core.n1.Tone(90))
+            .WithSurface(core.n1.Tone(10))
+            .WithOnSurface(core.n1.Tone(90))
+            .WithSurfaceVariant(core.n2.Tone(30))
+            .WithOnSurfaceVariant(core.n2.Tone(80))
+            .WithOutline(core.n2.Tone(60))
+            .WithOutlineVariant(core.n2.Tone(30))
+            .WithShadow(core.n1.Tone(0))
+            .WithScrim(core.n1.Tone(0))
+            .WithInverseSurface(core.n1.Tone(90))
+            .WithInverseOnSurface(core.n1.Tone(20))
+            .WithInversePrimary(core.a1.Tone(40));
+    }
+
+    public int GetPrimary()
     {
         return primary;
     }
 
-    public void setPrimary(int primary)
+    public void SetPrimary(int primary)
     {
         this.primary = primary;
     }
 
-    public Scheme withPrimary(int primary)
+    public Scheme WithPrimary(int primary)
     {
         this.primary = primary;
         return this;
     }
 
-    public int getOnPrimary()
+    public int GetOnPrimary()
     {
         return onPrimary;
     }
 
-    public void setOnPrimary(int onPrimary)
+    public void SetOnPrimary(int onPrimary)
     {
         this.onPrimary = onPrimary;
     }
 
-    public Scheme withOnPrimary(int onPrimary)
+    public Scheme WithOnPrimary(int onPrimary)
     {
         this.onPrimary = onPrimary;
         return this;
     }
 
-    public int getPrimaryContainer()
+    public int GetPrimaryContainer()
     {
         return primaryContainer;
     }
 
-    public void setPrimaryContainer(int primaryContainer)
+    public void SetPrimaryContainer(int primaryContainer)
     {
         this.primaryContainer = primaryContainer;
     }
 
-    public Scheme withPrimaryContainer(int primaryContainer)
+    public Scheme WithPrimaryContainer(int primaryContainer)
     {
         this.primaryContainer = primaryContainer;
         return this;
     }
 
-    public int getOnPrimaryContainer()
+    public int GetOnPrimaryContainer()
     {
         return onPrimaryContainer;
     }
 
-    public void setOnPrimaryContainer(int onPrimaryContainer)
+    public void SetOnPrimaryContainer(int onPrimaryContainer)
     {
         this.onPrimaryContainer = onPrimaryContainer;
     }
 
-    public Scheme withOnPrimaryContainer(int onPrimaryContainer)
+    public Scheme WithOnPrimaryContainer(int onPrimaryContainer)
     {
         this.onPrimaryContainer = onPrimaryContainer;
         return this;
     }
 
-    public int getSecondary()
+    public int GetSecondary()
     {
         return secondary;
     }
 
-    public void setSecondary(int secondary)
+    public void SetSecondary(int secondary)
     {
         this.secondary = secondary;
     }
 
-    public Scheme withSecondary(int secondary)
+    public Scheme WithSecondary(int secondary)
     {
         this.secondary = secondary;
         return this;
     }
 
-    public int getOnSecondary()
+    public int GetOnSecondary()
     {
         return onSecondary;
     }
 
-    public void setOnSecondary(int onSecondary)
+    public void SetOnSecondary(int onSecondary)
     {
         this.onSecondary = onSecondary;
     }
 
-    public Scheme withOnSecondary(int onSecondary)
+    public Scheme WithOnSecondary(int onSecondary)
     {
         this.onSecondary = onSecondary;
         return this;
     }
 
-    public int getSecondaryContainer()
+    public int GetSecondaryContainer()
     {
         return secondaryContainer;
     }
 
-    public void setSecondaryContainer(int secondaryContainer)
+    public void SetSecondaryContainer(int secondaryContainer)
     {
         this.secondaryContainer = secondaryContainer;
     }
 
-    public Scheme withSecondaryContainer(int secondaryContainer)
+    public Scheme WithSecondaryContainer(int secondaryContainer)
     {
         this.secondaryContainer = secondaryContainer;
         return this;
     }
 
-    public int getOnSecondaryContainer()
+    public int GetOnSecondaryContainer()
     {
         return onSecondaryContainer;
     }
 
-    public void setOnSecondaryContainer(int onSecondaryContainer)
+    public void SetOnSecondaryContainer(int onSecondaryContainer)
     {
         this.onSecondaryContainer = onSecondaryContainer;
     }
 
-    public Scheme withOnSecondaryContainer(int onSecondaryContainer)
+    public Scheme WithOnSecondaryContainer(int onSecondaryContainer)
     {
         this.onSecondaryContainer = onSecondaryContainer;
         return this;
     }
 
-    public int getTertiary()
+    public int GetTertiary()
     {
         return tertiary;
     }
 
-    public void setTertiary(int tertiary)
+    public void SetTertiary(int tertiary)
     {
         this.tertiary = tertiary;
     }
 
-    public Scheme withTertiary(int tertiary)
+    public Scheme WithTertiary(int tertiary)
     {
         this.tertiary = tertiary;
         return this;
     }
 
-    public int getOnTertiary()
+    public int GetOnTertiary()
     {
         return onTertiary;
     }
 
-    public void setOnTertiary(int onTertiary)
+    public void SetOnTertiary(int onTertiary)
     {
         this.onTertiary = onTertiary;
     }
 
-    public Scheme withOnTertiary(int onTertiary)
+    public Scheme WithOnTertiary(int onTertiary)
     {
         this.onTertiary = onTertiary;
         return this;
     }
 
-    public int getTertiaryContainer()
+    public int GetTertiaryContainer()
     {
         return tertiaryContainer;
     }
 
-    public void setTertiaryContainer(int tertiaryContainer)
+    public void SetTertiaryContainer(int tertiaryContainer)
     {
         this.tertiaryContainer = tertiaryContainer;
     }
 
-    public Scheme withTertiaryContainer(int tertiaryContainer)
+    public Scheme WithTertiaryContainer(int tertiaryContainer)
     {
         this.tertiaryContainer = tertiaryContainer;
         return this;
     }
 
-    public int getOnTertiaryContainer()
+    public int GetOnTertiaryContainer()
     {
         return onTertiaryContainer;
     }
 
-    public void setOnTertiaryContainer(int onTertiaryContainer)
+    public void SetOnTertiaryContainer(int onTertiaryContainer)
     {
         this.onTertiaryContainer = onTertiaryContainer;
     }
 
-    public Scheme withOnTertiaryContainer(int onTertiaryContainer)
+    public Scheme WithOnTertiaryContainer(int onTertiaryContainer)
     {
         this.onTertiaryContainer = onTertiaryContainer;
         return this;
     }
 
-    public int getError()
+    public int GetError()
     {
         return error;
     }
 
-    public void setError(int error)
+    public void SetError(int error)
     {
         this.error = error;
     }
 
-    public Scheme withError(int error)
+    public Scheme WithError(int error)
     {
         this.error = error;
         return this;
     }
 
-    public int getOnError()
+    public int GetOnError()
     {
         return onError;
     }
 
-    public void setOnError(int onError)
+    public void SetOnError(int onError)
     {
         this.onError = onError;
     }
 
-    public Scheme withOnError(int onError)
+    public Scheme WithOnError(int onError)
     {
         this.onError = onError;
         return this;
     }
 
-    public int getErrorContainer()
+    public int GetErrorContainer()
     {
         return errorContainer;
     }
 
-    public void setErrorContainer(int errorContainer)
+    public void SetErrorContainer(int errorContainer)
     {
         this.errorContainer = errorContainer;
     }
 
-    public Scheme withErrorContainer(int errorContainer)
+    public Scheme WithErrorContainer(int errorContainer)
     {
         this.errorContainer = errorContainer;
         return this;
     }
 
-    public int getOnErrorContainer()
+    public int GetOnErrorContainer()
     {
         return onErrorContainer;
     }
 
-    public void setOnErrorContainer(int onErrorContainer)
+    public void SetOnErrorContainer(int onErrorContainer)
     {
         this.onErrorContainer = onErrorContainer;
     }
 
-    public Scheme withOnErrorContainer(int onErrorContainer)
+    public Scheme WithOnErrorContainer(int onErrorContainer)
     {
         this.onErrorContainer = onErrorContainer;
         return this;
     }
 
-    public int getBackground()
+    public int GetBackground()
     {
         return background;
     }
 
-    public void setBackground(int background)
+    public void SetBackground(int background)
     {
         this.background = background;
     }
 
-    public Scheme withBackground(int background)
+    public Scheme WithBackground(int background)
     {
         this.background = background;
         return this;
     }
 
-    public int getOnBackground()
+    public int GetOnBackground()
     {
         return onBackground;
     }
 
-    public void setOnBackground(int onBackground)
+    public void SetOnBackground(int onBackground)
     {
         this.onBackground = onBackground;
     }
 
-    public Scheme withOnBackground(int onBackground)
+    public Scheme WithOnBackground(int onBackground)
     {
         this.onBackground = onBackground;
         return this;
     }
 
-    public int getSurface()
+    public int GetSurface()
     {
         return surface;
     }
 
-    public void setSurface(int surface)
+    public void SetSurface(int surface)
     {
         this.surface = surface;
     }
 
-    public Scheme withSurface(int surface)
+    public Scheme WithSurface(int surface)
     {
         this.surface = surface;
         return this;
     }
 
-    public int getOnSurface()
+    public int GetOnSurface()
     {
         return onSurface;
     }
 
-    public void setOnSurface(int onSurface)
+    public void SetOnSurface(int onSurface)
     {
         this.onSurface = onSurface;
     }
 
-    public Scheme withOnSurface(int onSurface)
+    public Scheme WithOnSurface(int onSurface)
     {
         this.onSurface = onSurface;
         return this;
     }
 
-    public int getSurfaceVariant()
+    public int GetSurfaceVariant()
     {
         return surfaceVariant;
     }
 
-    public void setSurfaceVariant(int surfaceVariant)
+    public void SetSurfaceVariant(int surfaceVariant)
     {
         this.surfaceVariant = surfaceVariant;
     }
 
-    public Scheme withSurfaceVariant(int surfaceVariant)
+    public Scheme WithSurfaceVariant(int surfaceVariant)
     {
         this.surfaceVariant = surfaceVariant;
         return this;
     }
 
-    public int getOnSurfaceVariant()
+    public int GetOnSurfaceVariant()
     {
         return onSurfaceVariant;
     }
 
-    public void setOnSurfaceVariant(int onSurfaceVariant)
+    public void SetOnSurfaceVariant(int onSurfaceVariant)
     {
         this.onSurfaceVariant = onSurfaceVariant;
     }
 
-    public Scheme withOnSurfaceVariant(int onSurfaceVariant)
+    public Scheme WithOnSurfaceVariant(int onSurfaceVariant)
     {
         this.onSurfaceVariant = onSurfaceVariant;
         return this;
     }
 
-    public int getOutline()
+    public int GetOutline()
     {
         return outline;
     }
 
-    public void setOutline(int outline)
+    public void SetOutline(int outline)
     {
         this.outline = outline;
     }
 
-    public Scheme withOutline(int outline)
+    public Scheme WithOutline(int outline)
     {
         this.outline = outline;
         return this;
     }
 
-    public int getOutlineVariant()
+    public int GetOutlineVariant()
     {
         return outlineVariant;
     }
 
-    public void setOutlineVariant(int outlineVariant)
+    public void SetOutlineVariant(int outlineVariant)
     {
         this.outlineVariant = outlineVariant;
     }
 
-    public Scheme withOutlineVariant(int outlineVariant)
+    public Scheme WithOutlineVariant(int outlineVariant)
     {
         this.outlineVariant = outlineVariant;
         return this;
     }
 
-    public int getShadow()
+    public int GetShadow()
     {
         return shadow;
     }
 
-    public void setShadow(int shadow)
+    public void SetShadow(int shadow)
     {
         this.shadow = shadow;
     }
 
-    public Scheme withShadow(int shadow)
+    public Scheme WithShadow(int shadow)
     {
         this.shadow = shadow;
         return this;
     }
 
-    public int getScrim()
+    public int GetScrim()
     {
         return scrim;
     }
 
-    public void setScrim(int scrim)
+    public void SetScrim(int scrim)
     {
         this.scrim = scrim;
     }
 
-    public Scheme withScrim(int scrim)
+    public Scheme WithScrim(int scrim)
     {
         this.scrim = scrim;
         return this;
     }
 
-    public int getInverseSurface()
+    public int GetInverseSurface()
     {
         return inverseSurface;
     }
 
-    public void setInverseSurface(int inverseSurface)
+    public void SetInverseSurface(int inverseSurface)
     {
         this.inverseSurface = inverseSurface;
     }
 
-    public Scheme withInverseSurface(int inverseSurface)
+    public Scheme WithInverseSurface(int inverseSurface)
     {
         this.inverseSurface = inverseSurface;
         return this;
     }
 
-    public int getInverseOnSurface()
+    public int GetInverseOnSurface()
     {
         return inverseOnSurface;
     }
 
-    public void setInverseOnSurface(int inverseOnSurface)
+    public void SetInverseOnSurface(int inverseOnSurface)
     {
         this.inverseOnSurface = inverseOnSurface;
     }
 
-    public Scheme withInverseOnSurface(int inverseOnSurface)
+    public Scheme WithInverseOnSurface(int inverseOnSurface)
     {
         this.inverseOnSurface = inverseOnSurface;
         return this;
     }
 
-    public int getInversePrimary()
+    public int GetInversePrimary()
     {
         return inversePrimary;
     }
 
-    public void setInversePrimary(int inversePrimary)
+    public void SetInversePrimary(int inversePrimary)
     {
         this.inversePrimary = inversePrimary;
     }
 
-    public Scheme withInversePrimary(int inversePrimary)
+    public Scheme WithInversePrimary(int inversePrimary)
     {
         this.inversePrimary = inversePrimary;
         return this;
     }
 
-    public string toString()
+    public override string ToString()
     {
         return "Scheme{" +
             "primary=" +

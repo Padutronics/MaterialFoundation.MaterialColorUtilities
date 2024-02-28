@@ -30,21 +30,21 @@ public static class DislikeAnalyzer
     /// <summary>Returns true if color is disliked.
     ///
     /// <para>Disliked is defined as a dark yellow-green that is not neutral.</para></summary>
-    public static bool isDisliked(Hct.Hct hct)
+    public static bool IsDisliked(Hct.Hct hct)
     {
-        bool huePasses = Math.Round(hct.getHue()) >= 90.0 && Math.Round(hct.getHue()) <= 111.0;
-        bool chromaPasses = Math.Round(hct.getChroma()) > 16.0;
-        bool tonePasses = Math.Round(hct.getTone()) < 65.0;
+        bool huePasses = Math.Round(hct.GetHue()) >= 90.0 && Math.Round(hct.GetHue()) <= 111.0;
+        bool chromaPasses = Math.Round(hct.GetChroma()) > 16.0;
+        bool tonePasses = Math.Round(hct.GetTone()) < 65.0;
 
         return huePasses && chromaPasses && tonePasses;
     }
 
     /// <summary>If color is disliked, lighten it to make it likable.</summary>
-    public static Hct.Hct fixIfDisliked(Hct.Hct hct)
+    public static Hct.Hct FixIfDisliked(Hct.Hct hct)
     {
-        if (isDisliked(hct))
+        if (IsDisliked(hct))
         {
-            return Hct.Hct.from(hct.getHue(), hct.getChroma(), 70.0);
+            return Hct.Hct.From(hct.GetHue(), hct.GetChroma(), 70.0);
         }
 
         return hct;

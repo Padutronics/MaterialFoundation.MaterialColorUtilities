@@ -31,7 +31,7 @@ namespace MaterialFoundation.MaterialColorUtilities.Hct;
 public sealed class ViewingConditions
 {
     /// <summary>sRGB-like viewing conditions.</summary>
-    public static readonly ViewingConditions DEFAULT = ViewingConditions.defaultWithBackgroundLstar(50.0);
+    public static readonly ViewingConditions DEFAULT = ViewingConditions.DefaultWithBackgroundLstar(50.0);
 
     private readonly double aw;
     private readonly double nbb;
@@ -44,52 +44,52 @@ public sealed class ViewingConditions
     private readonly double flRoot;
     private readonly double z;
 
-    public double getAw()
+    public double GetAw()
     {
         return aw;
     }
 
-    public double getN()
+    public double GetN()
     {
         return n;
     }
 
-    public double getNbb()
+    public double GetNbb()
     {
         return nbb;
     }
 
-    public double getNcb()
+    public double GetNcb()
     {
         return ncb;
     }
 
-    public double getC()
+    public double GetC()
     {
         return c;
     }
 
-    public double getNc()
+    public double GetNc()
     {
         return nc;
     }
 
-    public double[] getRgbD()
+    public double[] GetRgbD()
     {
         return rgbD;
     }
 
-    public double getFl()
+    public double GetFl()
     {
         return fl;
     }
 
-    public double getFlRoot()
+    public double GetFlRoot()
     {
         return flRoot;
     }
 
-    public double getZ()
+    public double GetZ()
     {
         return z;
     }
@@ -109,7 +109,7 @@ public sealed class ViewingConditions
     /// <param name="discountingIlluminant">discountingIlluminant Whether the eye accounts for the tint of the ambient lighting,
     /// such as knowing an apple is still red in green light. default = false, the eye does not
     /// perform this process on self-luminous objects like displays.</param>
-    public static ViewingConditions make(double[] whitePoint, double adaptingLuminance, double backgroundLstar, double surround, bool discountingIlluminant)
+    public static ViewingConditions Make(double[] whitePoint, double adaptingLuminance, double backgroundLstar, double surround, bool discountingIlluminant)
     {
         // A background of pure black is non-physical and leads to infinities that represent the idea
         // that any color viewed in pure black can't be seen.
@@ -122,19 +122,19 @@ public sealed class ViewingConditions
         double bW = (xyz[0] * matrix[2][0]) + (xyz[1] * matrix[2][1]) + (xyz[2] * matrix[2][2]);
         double f = 0.8 + (surround / 10.0);
         double c = (f >= 0.9)
-            ? MathUtils.lerp(0.59, 0.69, ((f - 0.9) * 10.0))
-            : MathUtils.lerp(0.525, 0.59, ((f - 0.8) * 10.0));
+            ? MathUtils.Lerp(0.59, 0.69, ((f - 0.9) * 10.0))
+            : MathUtils.Lerp(0.525, 0.59, ((f - 0.8) * 10.0));
         double d = discountingIlluminant
             ? 1.0
             : f * (1.0 - ((1.0 / 3.6) * Math.Exp((-adaptingLuminance - 42.0) / 92.0)));
-        d = MathUtils.clampDouble(0.0, 1.0, d);
+        d = MathUtils.ClampDouble(0.0, 1.0, d);
         double nc = f;
         double[] rgbD = new double[] { d * (100.0 / rW) + 1.0 - d, d * (100.0 / gW) + 1.0 - d, d * (100.0 / bW) + 1.0 - d };
         double k = 1.0 / (5.0 * adaptingLuminance + 1.0);
         double k4 = k * k * k * k;
         double k4F = 1.0 - k4;
         double fl = (k4 * adaptingLuminance) + (0.1 * k4F * k4F * Math.Cbrt(5.0 * adaptingLuminance));
-        double n = (ColorUtils.yFromLstar(backgroundLstar) / whitePoint[1]);
+        double n = (ColorUtils.YFromLstar(backgroundLstar) / whitePoint[1]);
         double z = 1.48 + Math.Sqrt(n);
         double nbb = 0.725 / Math.Pow(n, 0.2);
         double ncb = nbb;
@@ -159,9 +159,9 @@ public sealed class ViewingConditions
     /// <summary>Create sRGB-like viewing conditions with a custom background lstar.
     ///
     /// <para>Default viewing conditions have a lstar of 50, midgray.</para></summary>
-    public static ViewingConditions defaultWithBackgroundLstar(double lstar)
+    public static ViewingConditions DefaultWithBackgroundLstar(double lstar)
     {
-        return ViewingConditions.make(ColorUtils.whitePointD65(), (200.0 / Math.PI * ColorUtils.yFromLstar(50.0) / 100.0), lstar, 2.0, false);
+        return ViewingConditions.Make(ColorUtils.WhitePointD65(), (200.0 / Math.PI * ColorUtils.YFromLstar(50.0) / 100.0), lstar, 2.0, false);
     }
 
     /// <summary>Parameters are intermediate values of the CAM16 conversion process. Their names are shorthand

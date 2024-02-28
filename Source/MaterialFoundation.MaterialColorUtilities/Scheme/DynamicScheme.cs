@@ -39,7 +39,7 @@ public class DynamicScheme
 
     public DynamicScheme(Hct.Hct sourceColorHct, Variant variant, bool isDark, double contrastLevel, TonalPalette primaryPalette, TonalPalette secondaryPalette, TonalPalette tertiaryPalette, TonalPalette neutralPalette, TonalPalette neutralVariantPalette)
     {
-        this.sourceColorArgb = sourceColorHct.toInt();
+        this.sourceColorArgb = sourceColorHct.ToInt();
         this.sourceColorHct = sourceColorHct;
         this.variant = variant;
         this.isDark = isDark;
@@ -50,7 +50,7 @@ public class DynamicScheme
         this.tertiaryPalette = tertiaryPalette;
         this.neutralPalette = neutralPalette;
         this.neutralVariantPalette = neutralVariantPalette;
-        this.errorPalette = TonalPalette.fromHueAndChroma(25.0, 84.0);
+        this.errorPalette = TonalPalette.FromHueAndChroma(25.0, 84.0);
     }
 
     /// <summary>Given a set of hues and set of hue rotations, locate which hues the source color's hue is
@@ -60,12 +60,12 @@ public class DynamicScheme
     /// <param name="hues">A set of hues.</param>
     /// <param name="rotations">A set of hue rotations.</param>
     /// <returns>Color's hue with a rotation applied.</returns>
-    public static double getRotatedHue(Hct.Hct sourceColorHct, double[] hues, double[] rotations)
+    public static double GetRotatedHue(Hct.Hct sourceColorHct, double[] hues, double[] rotations)
     {
-        double sourceHue = sourceColorHct.getHue();
+        double sourceHue = sourceColorHct.GetHue();
         if (rotations.Length == 1)
         {
-            return MathUtils.sanitizeDegreesDouble(sourceHue + rotations[0]);
+            return MathUtils.SanitizeDegreesDouble(sourceHue + rotations[0]);
         }
         int size = hues.Length;
         for (int i = 0; i <= (size - 2); i++)
@@ -74,7 +74,7 @@ public class DynamicScheme
             double nextHue = hues[i + 1];
             if (thisHue < sourceHue && sourceHue < nextHue)
             {
-                return MathUtils.sanitizeDegreesDouble(sourceHue + rotations[i]);
+                return MathUtils.SanitizeDegreesDouble(sourceHue + rotations[i]);
             }
         }
         // If this statement executes, something is wrong, there should have been a rotation

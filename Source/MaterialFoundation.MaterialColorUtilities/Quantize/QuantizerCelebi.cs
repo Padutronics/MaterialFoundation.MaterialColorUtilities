@@ -38,10 +38,10 @@ public sealed class QuantizerCelebi
     /// returned.</param>
     /// <returns>Map with keys of colors in ARGB format, and values of number of pixels in the original
     /// image that correspond to the color in the quantized image.</returns>
-    public static IDictionary<int, int> quantize(int[] pixels, int maxColors)
+    public static IDictionary<int, int> Quantize(int[] pixels, int maxColors)
     {
         QuantizerWu wu = new QuantizerWu();
-        QuantizerResult wuResult = wu.quantize(pixels, maxColors);
+        QuantizerResult wuResult = wu.Quantize(pixels, maxColors);
 
         ICollection<int> wuClustersAsObjects = wuResult.colorToCount.Keys;
         int index = 0;
@@ -51,6 +51,6 @@ public sealed class QuantizerCelebi
             wuClusters[index++] = argb;
         }
 
-        return QuantizerWsmeans.quantize(pixels, wuClusters, maxColors);
+        return QuantizerWsmeans.Quantize(pixels, wuClusters, maxColors);
     }
 }

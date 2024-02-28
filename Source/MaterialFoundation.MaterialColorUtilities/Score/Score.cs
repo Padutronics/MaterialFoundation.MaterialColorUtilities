@@ -34,20 +34,20 @@ public static class Score
     private const double CUTOFF_CHROMA = 5.0;
     private const double CUTOFF_EXCITED_PROPORTION = 0.01;
 
-    public static ICollection<int> score(IDictionary<int, int> colorsToPopulation)
+    public static ICollection<int> GetScore(IDictionary<int, int> colorsToPopulation)
     {
         // Fallback color is Google Blue.
-        return score(colorsToPopulation, 4, unchecked((int)0xff4285f4), true);
+        return GetScore(colorsToPopulation, 4, unchecked((int)0xff4285f4), true);
     }
 
-    public static ICollection<int> score(IDictionary<int, int> colorsToPopulation, int desired)
+    public static ICollection<int> GetScore(IDictionary<int, int> colorsToPopulation, int desired)
     {
-        return score(colorsToPopulation, desired, unchecked((int)0xff4285f4), true);
+        return GetScore(colorsToPopulation, desired, unchecked((int)0xff4285f4), true);
     }
 
-    public static ICollection<int> score(IDictionary<int, int> colorsToPopulation, int desired, int fallbackColorArgb)
+    public static ICollection<int> GetScore(IDictionary<int, int> colorsToPopulation, int desired, int fallbackColorArgb)
     {
-        return score(colorsToPopulation, desired, fallbackColorArgb, true);
+        return GetScore(colorsToPopulation, desired, fallbackColorArgb, true);
     }
 
     /// <summary>Given a map with keys of colors and values of how often the color appears, rank the colors
@@ -61,7 +61,7 @@ public static class Score
     /// the least suitable is the last. There will always be at least one color returned. If all
     /// the input colors were not suitable for a theme, a default fallback color will be provided,
     /// Google Blue.</returns>
-    public static ICollection<int> score(IDictionary<int, int> colorsToPopulation, int desired, int fallbackColorArgb, bool filter)
+    public static ICollection<int> GetScore(IDictionary<int, int> colorsToPopulation, int desired, int fallbackColorArgb, bool filter)
     {
         // Get the HCT color for each Argb value, while finding the per hue count and
         // total count.
@@ -70,9 +70,9 @@ public static class Score
         double populationSum = 0.0;
         foreach (KeyValuePair<int, int> entry in colorsToPopulation)
         {
-            Hct.Hct hct = Hct.Hct.fromInt(entry.Key);
+            Hct.Hct hct = Hct.Hct.FromInt(entry.Key);
             colorsHct.Add(hct);
-            int hue = (int)Math.Floor(hct.getHue());
+            int hue = (int)Math.Floor(hct.GetHue());
             huePopulation[hue] += entry.Value;
             populationSum += entry.Value;
         }
@@ -84,7 +84,7 @@ public static class Score
             double proportion = huePopulation[hue] / populationSum;
             for (int i = hue - 14; i < hue + 16; i++)
             {
-                int neighborHue = MathUtils.sanitizeDegreesInt(i);
+                int neighborHue = MathUtils.SanitizeDegreesInt(i);
                 hueExcitedProportions[neighborHue] += proportion;
             }
         }
@@ -94,16 +94,16 @@ public static class Score
         var scoredHcts = new List<ScoredHCT>();
         foreach (Hct.Hct hct in colorsHct)
         {
-            int hue = MathUtils.sanitizeDegreesInt((int)Math.Round(hct.getHue()));
+            int hue = MathUtils.SanitizeDegreesInt((int)Math.Round(hct.GetHue()));
             double proportion = hueExcitedProportions[hue];
-            if (filter && (hct.getChroma() < CUTOFF_CHROMA || proportion <= CUTOFF_EXCITED_PROPORTION))
+            if (filter && (hct.GetChroma() < CUTOFF_CHROMA || proportion <= CUTOFF_EXCITED_PROPORTION))
             {
                 continue;
             }
 
             double proportionScore = proportion * 100.0 * WEIGHT_PROPORTION;
-            double chromaWeight = hct.getChroma() < TARGET_CHROMA ? WEIGHT_CHROMA_BELOW : WEIGHT_CHROMA_ABOVE;
-            double chromaScore = (hct.getChroma() - TARGET_CHROMA) * chromaWeight;
+            double chromaWeight = hct.GetChroma() < TARGET_CHROMA ? WEIGHT_CHROMA_BELOW : WEIGHT_CHROMA_ABOVE;
+            double chromaScore = (hct.GetChroma() - TARGET_CHROMA) * chromaWeight;
             double score = proportionScore + chromaScore;
             scoredHcts.Add(new ScoredHCT(hct, score));
         }
@@ -124,7 +124,7 @@ public static class Score
                 bool hasDuplicateHue = false;
                 foreach (Hct.Hct chosenHct in chosenColors)
                 {
-                    if (MathUtils.differenceDegrees(hct.getHue(), chosenHct.getHue()) < differenceDegrees)
+                    if (MathUtils.DifferenceDegrees(hct.GetHue(), chosenHct.GetHue()) < differenceDegrees)
                     {
                         hasDuplicateHue = true;
                         break;
@@ -151,7 +151,7 @@ public static class Score
         }
         foreach (Hct.Hct chosenHct in chosenColors)
         {
-            colors.Add(chosenHct.toInt());
+            colors.Add(chosenHct.ToInt());
         }
         return colors;
     }

@@ -28,11 +28,11 @@ public class SchemeFruitSalad : DynamicScheme
             Variant.FRUIT_SALAD,
             isDark,
             contrastLevel,
-            TonalPalette.fromHueAndChroma(MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() - 50.0), 48.0),
-            TonalPalette.fromHueAndChroma(MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() - 50.0), 36.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 36.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 10.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 16.0)
+            TonalPalette.FromHueAndChroma(MathUtils.SanitizeDegreesDouble(sourceColorHct.GetHue() - 50.0), 48.0),
+            TonalPalette.FromHueAndChroma(MathUtils.SanitizeDegreesDouble(sourceColorHct.GetHue() - 50.0), 36.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 36.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 10.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 16.0)
         )
     {
     }

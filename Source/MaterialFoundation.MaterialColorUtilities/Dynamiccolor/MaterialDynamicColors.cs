@@ -36,57 +36,57 @@ public sealed class MaterialDynamicColors
         this.isExtendedFidelity = isExtendedFidelity;
     }
 
-    public DynamicColor highestSurface(DynamicScheme s)
+    public DynamicColor HighestSurface(DynamicScheme s)
     {
-        return s.isDark ? surfaceBright() : surfaceDim();
+        return s.isDark ? SurfaceBright() : SurfaceDim();
     }
 
-    public DynamicColor primaryPaletteKeyColor()
+    public DynamicColor PrimaryPaletteKeyColor()
     {
-        return DynamicColor.fromPalette(
+        return DynamicColor.FromPalette(
             name: "primary_palette_key_color",
             palette: (s) => s.primaryPalette,
-            tone: (s) => s.primaryPalette.getKeyColor().getTone()
+            tone: (s) => s.primaryPalette.GetKeyColor().GetTone()
         );
     }
 
-    public DynamicColor secondaryPaletteKeyColor()
+    public DynamicColor SecondaryPaletteKeyColor()
     {
-        return DynamicColor.fromPalette(
+        return DynamicColor.FromPalette(
             name: "secondary_palette_key_color",
             palette: (s) => s.secondaryPalette,
-            tone: (s) => s.secondaryPalette.getKeyColor().getTone()
+            tone: (s) => s.secondaryPalette.GetKeyColor().GetTone()
         );
     }
 
-    public DynamicColor tertiaryPaletteKeyColor()
+    public DynamicColor TertiaryPaletteKeyColor()
     {
-        return DynamicColor.fromPalette(
+        return DynamicColor.FromPalette(
             name: "tertiary_palette_key_color",
             palette: (s) => s.tertiaryPalette,
-            tone: (s) => s.tertiaryPalette.getKeyColor().getTone()
+            tone: (s) => s.tertiaryPalette.GetKeyColor().GetTone()
         );
     }
 
-    public DynamicColor neutralPaletteKeyColor()
+    public DynamicColor NeutralPaletteKeyColor()
     {
-        return DynamicColor.fromPalette(
+        return DynamicColor.FromPalette(
             name: "neutral_palette_key_color",
             palette: (s) => s.neutralPalette,
-            tone: (s) => s.neutralPalette.getKeyColor().getTone()
+            tone: (s) => s.neutralPalette.GetKeyColor().GetTone()
         );
     }
 
-    public DynamicColor neutralVariantPaletteKeyColor()
+    public DynamicColor NeutralVariantPaletteKeyColor()
     {
-        return DynamicColor.fromPalette(
+        return DynamicColor.FromPalette(
             name: "neutral_variant_palette_key_color",
             palette: (s) => s.neutralVariantPalette,
-            tone: (s) => s.neutralVariantPalette.getKeyColor().getTone()
+            tone: (s) => s.neutralVariantPalette.GetKeyColor().GetTone()
         );
     }
 
-    public DynamicColor background()
+    public DynamicColor Background()
     {
         return new DynamicColor(
             name: "background",
@@ -100,21 +100,21 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    public DynamicColor onBackground()
+    public DynamicColor OnBackground()
     {
         return new DynamicColor(
             name: "on_background",
             palette: (s) => s.neutralPalette,
             tone: (s) => s.isDark ? 90.0 : 10.0,
             isBackground: false,
-            background: (s) => background(),
+            background: (s) => Background(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 3.0, 4.5, 7.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor surface()
+    public DynamicColor Surface()
     {
         return new DynamicColor(
             name: "surface",
@@ -128,12 +128,12 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    public DynamicColor surfaceDim()
+    public DynamicColor SurfaceDim()
     {
         return new DynamicColor(
             name: "surface_dim",
             palette: (s) => s.neutralPalette,
-            tone: (s) => s.isDark ? 6.0 : new ContrastCurve(87.0, 87.0, 80.0, 75.0).get(s.contrastLevel),
+            tone: (s) => s.isDark ? 6.0 : new ContrastCurve(87.0, 87.0, 80.0, 75.0).Get(s.contrastLevel),
             isBackground: true,
             background: null,
             secondBackground: null,
@@ -142,12 +142,12 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    public DynamicColor surfaceBright()
+    public DynamicColor SurfaceBright()
     {
         return new DynamicColor(
             name: "surface_bright",
             palette: (s) => s.neutralPalette,
-            tone: (s) => s.isDark ? new ContrastCurve(24.0, 24.0, 29.0, 34.0).get(s.contrastLevel) : 98.0,
+            tone: (s) => s.isDark ? new ContrastCurve(24.0, 24.0, 29.0, 34.0).Get(s.contrastLevel) : 98.0,
             isBackground: true,
             background: null,
             secondBackground: null,
@@ -156,12 +156,12 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    public DynamicColor surfaceContainerLowest()
+    public DynamicColor SurfaceContainerLowest()
     {
         return new DynamicColor(
             name: "surface_container_lowest",
             palette: (s) => s.neutralPalette,
-            tone: (s) => s.isDark ? new ContrastCurve(4.0, 4.0, 2.0, 0.0).get(s.contrastLevel) : 100.0,
+            tone: (s) => s.isDark ? new ContrastCurve(4.0, 4.0, 2.0, 0.0).Get(s.contrastLevel) : 100.0,
             isBackground: true,
             background: null,
             secondBackground: null,
@@ -170,14 +170,14 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    public DynamicColor surfaceContainerLow()
+    public DynamicColor SurfaceContainerLow()
     {
         return new DynamicColor(
             name: "surface_container_low",
             palette: (s) => s.neutralPalette,
             tone: (s) => s.isDark
-                ? new ContrastCurve(10.0, 10.0, 11.0, 12.0).get(s.contrastLevel)
-                : new ContrastCurve(96.0, 96.0, 96.0, 95.0).get(s.contrastLevel),
+                ? new ContrastCurve(10.0, 10.0, 11.0, 12.0).Get(s.contrastLevel)
+                : new ContrastCurve(96.0, 96.0, 96.0, 95.0).Get(s.contrastLevel),
             isBackground: true,
             background: null,
             secondBackground: null,
@@ -186,14 +186,14 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    public DynamicColor surfaceContainer()
+    public DynamicColor SurfaceContainer()
     {
         return new DynamicColor(
             name: "surface_container",
             palette: (s) => s.neutralPalette,
             tone: (s) => s.isDark
-                ? new ContrastCurve(12.0, 12.0, 16.0, 20.0).get(s.contrastLevel)
-                : new ContrastCurve(94.0, 94.0, 92.0, 90.0).get(s.contrastLevel),
+                ? new ContrastCurve(12.0, 12.0, 16.0, 20.0).Get(s.contrastLevel)
+                : new ContrastCurve(94.0, 94.0, 92.0, 90.0).Get(s.contrastLevel),
             isBackground: true,
             background: null,
             secondBackground: null,
@@ -202,14 +202,14 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    public DynamicColor surfaceContainerHigh()
+    public DynamicColor SurfaceContainerHigh()
     {
         return new DynamicColor(
             name: "surface_container_high",
             palette: (s) => s.neutralPalette,
             tone: (s) => s.isDark
-                ? new ContrastCurve(17.0, 17.0, 21.0, 25.0).get(s.contrastLevel)
-                : new ContrastCurve(92.0, 92.0, 88.0, 85.0).get(s.contrastLevel),
+                ? new ContrastCurve(17.0, 17.0, 21.0, 25.0).Get(s.contrastLevel)
+                : new ContrastCurve(92.0, 92.0, 88.0, 85.0).Get(s.contrastLevel),
             isBackground: true,
             background: null,
             secondBackground: null,
@@ -218,14 +218,14 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    public DynamicColor surfaceContainerHighest()
+    public DynamicColor SurfaceContainerHighest()
     {
         return new DynamicColor(
             name: "surface_container_highest",
             palette: (s) => s.neutralPalette,
             tone: (s) => s.isDark
-                ? new ContrastCurve(22.0, 22.0, 26.0, 30.0).get(s.contrastLevel)
-                : new ContrastCurve(90.0, 90.0, 84.0, 80.0).get(s.contrastLevel),
+                ? new ContrastCurve(22.0, 22.0, 26.0, 30.0).Get(s.contrastLevel)
+                : new ContrastCurve(90.0, 90.0, 84.0, 80.0).Get(s.contrastLevel),
             isBackground: true,
             background: null,
             secondBackground: null,
@@ -234,21 +234,21 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    public DynamicColor onSurface()
+    public DynamicColor OnSurface()
     {
         return new DynamicColor(
             name: "on_surface",
             palette: (s) => s.neutralPalette,
             tone: (s) => s.isDark ? 90.0 : 10.0,
             isBackground: false,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor surfaceVariant()
+    public DynamicColor SurfaceVariant()
     {
         return new DynamicColor(
             name: "surface_variant",
@@ -262,21 +262,21 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    public DynamicColor onSurfaceVariant()
+    public DynamicColor OnSurfaceVariant()
     {
         return new DynamicColor(
             name: "on_surface_variant",
             palette: (s) => s.neutralVariantPalette,
             tone: (s) => s.isDark ? 80.0 : 30.0,
             isBackground: false,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 11.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor inverseSurface()
+    public DynamicColor InverseSurface()
     {
         return new DynamicColor(
             name: "inverse_surface",
@@ -290,49 +290,49 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    public DynamicColor inverseOnSurface()
+    public DynamicColor InverseOnSurface()
     {
         return new DynamicColor(
             name: "inverse_on_surface",
             palette: (s) => s.neutralPalette,
             tone: (s) => s.isDark ? 20.0 : 95.0,
             isBackground: false,
-            background: (s) => inverseSurface(),
+            background: (s) => InverseSurface(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor outline()
+    public DynamicColor Outline()
     {
         return new DynamicColor(
             name: "outline",
             palette: (s) => s.neutralVariantPalette,
             tone: (s) => s.isDark ? 60.0 : 50.0,
             isBackground: false,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.5, 3.0, 4.5, 7.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor outlineVariant()
+    public DynamicColor OutlineVariant()
     {
         return new DynamicColor(
             name: "outline_variant",
             palette: (s) => s.neutralVariantPalette,
             tone: (s) => s.isDark ? 30.0 : 80.0,
             isBackground: false,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor shadow()
+    public DynamicColor Shadow()
     {
         return new DynamicColor(
             name: "shadow",
@@ -346,7 +346,7 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    public DynamicColor scrim()
+    public DynamicColor Scrim()
     {
         return new DynamicColor(
             name: "scrim",
@@ -360,7 +360,7 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    public DynamicColor surfaceTint()
+    public DynamicColor SurfaceTint()
     {
         return new DynamicColor(
             name: "surface_tint",
@@ -374,134 +374,134 @@ public sealed class MaterialDynamicColors
         );
     }
 
-    public DynamicColor primary()
+    public DynamicColor Primary()
     {
         return new DynamicColor(
             name: "primary",
             palette: (s) => s.primaryPalette,
             tone: (s) =>
             {
-                if (isMonochrome(s))
+                if (IsMonochrome(s))
                 {
                     return s.isDark ? 100.0 : 0.0;
                 }
                 return s.isDark ? 80.0 : 40.0;
             },
             isBackground: true,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            toneDeltaPair: (s) => new ToneDeltaPair(primaryContainer(), primary(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryContainer(), Primary(), 10.0, TonePolarity.NEARER, false)
         );
     }
 
-    public DynamicColor onPrimary()
+    public DynamicColor OnPrimary()
     {
         return new DynamicColor(
             name: "on_primary",
             palette: (s) => s.primaryPalette,
             tone: (s) =>
             {
-                if (isMonochrome(s))
+                if (IsMonochrome(s))
                 {
                     return s.isDark ? 10.0 : 90.0;
                 }
                 return s.isDark ? 20.0 : 100.0;
             },
             isBackground: false,
-            background: (s) => primary(),
+            background: (s) => Primary(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor primaryContainer()
+    public DynamicColor PrimaryContainer()
     {
         return new DynamicColor(
             name: "primary_container",
             palette: (s) => s.primaryPalette,
             tone: (s) =>
             {
-                if (isFidelity(s))
+                if (IsFidelity(s))
                 {
-                    return s.sourceColorHct.getTone();
+                    return s.sourceColorHct.GetTone();
                 }
-                if (isMonochrome(s))
+                if (IsMonochrome(s))
                 {
                     return s.isDark ? 85.0 : 25.0;
                 }
                 return s.isDark ? 30.0 : 90.0;
             },
             isBackground: true,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(primaryContainer(), primary(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryContainer(), Primary(), 10.0, TonePolarity.NEARER, false)
         );
     }
 
-    public DynamicColor onPrimaryContainer()
+    public DynamicColor OnPrimaryContainer()
     {
         return new DynamicColor(
             name: "on_primary_container",
             palette: (s) => s.primaryPalette,
             tone: (s) =>
             {
-                if (isFidelity(s))
+                if (IsFidelity(s))
                 {
-                    return DynamicColor.foregroundTone(primaryContainer().tone(s), 4.5);
+                    return DynamicColor.ForegroundTone(PrimaryContainer().tone(s), 4.5);
                 }
-                if (isMonochrome(s))
+                if (IsMonochrome(s))
                 {
                     return s.isDark ? 0.0 : 100.0;
                 }
                 return s.isDark ? 90.0 : 10.0;
             },
             isBackground: false,
-            background: (s) => primaryContainer(),
+            background: (s) => PrimaryContainer(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor inversePrimary()
+    public DynamicColor InversePrimary()
     {
         return new DynamicColor(
             name: "inverse_primary",
             palette: (s) => s.primaryPalette,
             tone: (s) => s.isDark ? 40.0 : 80.0,
             isBackground: false,
-            background: (s) => inverseSurface(),
+            background: (s) => InverseSurface(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 7.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor secondary()
+    public DynamicColor Secondary()
     {
         return new DynamicColor(
             name: "secondary",
             palette: (s) => s.secondaryPalette,
             tone: (s) => s.isDark ? 80.0 : 40.0,
             isBackground: true,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            toneDeltaPair: (s) => new ToneDeltaPair(secondaryContainer(), secondary(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryContainer(), Secondary(), 10.0, TonePolarity.NEARER, false)
         );
     }
 
-    public DynamicColor onSecondary()
+    public DynamicColor OnSecondary()
     {
         return new DynamicColor(
             name: "on_secondary",
             palette: (s) => s.secondaryPalette,
             tone: (s) =>
             {
-                if (isMonochrome(s))
+                if (IsMonochrome(s))
                 {
                     return s.isDark ? 10.0 : 100.0;
                 }
@@ -511,14 +511,14 @@ public sealed class MaterialDynamicColors
                 }
             },
             isBackground: false,
-            background: (s) => secondary(),
+            background: (s) => Secondary(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor secondaryContainer()
+    public DynamicColor SecondaryContainer()
     {
         return new DynamicColor(
             name: "secondary_container",
@@ -526,357 +526,357 @@ public sealed class MaterialDynamicColors
             tone: (s) =>
             {
                 double initialTone = s.isDark ? 30.0 : 90.0;
-                if (isMonochrome(s))
+                if (IsMonochrome(s))
                 {
                     return s.isDark ? 30.0 : 85.0;
                 }
-                if (!isFidelity(s))
+                if (!IsFidelity(s))
                 {
                     return initialTone;
                 }
-                return findDesiredChromaByTone(s.secondaryPalette.getHue(), s.secondaryPalette.getChroma(), initialTone, !s.isDark);
+                return FindDesiredChromaByTone(s.secondaryPalette.GetHue(), s.secondaryPalette.GetChroma(), initialTone, !s.isDark);
             },
             isBackground: true,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(secondaryContainer(), secondary(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryContainer(), Secondary(), 10.0, TonePolarity.NEARER, false)
         );
     }
 
-    public DynamicColor onSecondaryContainer()
+    public DynamicColor OnSecondaryContainer()
     {
         return new DynamicColor(
             name: "on_secondary_container",
             palette: (s) => s.secondaryPalette,
             tone: (s) =>
             {
-                if (!isFidelity(s))
+                if (!IsFidelity(s))
                 {
                     return s.isDark ? 90.0 : 10.0;
                 }
-                return DynamicColor.foregroundTone(secondaryContainer().tone(s), 4.5);
+                return DynamicColor.ForegroundTone(SecondaryContainer().tone(s), 4.5);
             },
             isBackground: false,
-            background: (s) => secondaryContainer(),
+            background: (s) => SecondaryContainer(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor tertiary()
+    public DynamicColor Tertiary()
     {
         return new DynamicColor(
             name: "tertiary",
             palette: (s) => s.tertiaryPalette,
             tone: (s) =>
             {
-                if (isMonochrome(s))
+                if (IsMonochrome(s))
                 {
                     return s.isDark ? 90.0 : 25.0;
                 }
                 return s.isDark ? 80.0 : 40.0;
             },
             isBackground: true,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            toneDeltaPair: (s) => new ToneDeltaPair(tertiaryContainer(), tertiary(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryContainer(), Tertiary(), 10.0, TonePolarity.NEARER, false)
         );
     }
 
-    public DynamicColor onTertiary()
+    public DynamicColor OnTertiary()
     {
         return new DynamicColor(
             name: "on_tertiary",
             palette: (s) => s.tertiaryPalette,
             tone: (s) =>
             {
-                if (isMonochrome(s))
+                if (IsMonochrome(s))
                 {
                     return s.isDark ? 10.0 : 90.0;
                 }
                 return s.isDark ? 20.0 : 100.0;
             },
             isBackground: false,
-            background: (s) => tertiary(),
+            background: (s) => Tertiary(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor tertiaryContainer()
+    public DynamicColor TertiaryContainer()
     {
         return new DynamicColor(
             name: "tertiary_container",
             palette: (s) => s.tertiaryPalette,
             tone: (s) =>
             {
-                if (isMonochrome(s))
+                if (IsMonochrome(s))
                 {
                     return s.isDark ? 60.0 : 49.0;
                 }
-                if (!isFidelity(s))
+                if (!IsFidelity(s))
                 {
                     return s.isDark ? 30.0 : 90.0;
                 }
-                Hct.Hct proposedHct = s.tertiaryPalette.getHct(s.sourceColorHct.getTone());
-                return DislikeAnalyzer.fixIfDisliked(proposedHct).getTone();
+                Hct.Hct proposedHct = s.tertiaryPalette.GetHct(s.sourceColorHct.GetTone());
+                return DislikeAnalyzer.FixIfDisliked(proposedHct).GetTone();
             },
             isBackground: true,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(tertiaryContainer(), tertiary(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryContainer(), Tertiary(), 10.0, TonePolarity.NEARER, false)
         );
     }
 
-    public DynamicColor onTertiaryContainer()
+    public DynamicColor OnTertiaryContainer()
     {
         return new DynamicColor(
             name: "on_tertiary_container",
             palette: (s) => s.tertiaryPalette,
             tone: (s) =>
             {
-                if (isMonochrome(s))
+                if (IsMonochrome(s))
                 {
                     return s.isDark ? 0.0 : 100.0;
                 }
-                if (!isFidelity(s))
+                if (!IsFidelity(s))
                 {
                     return s.isDark ? 90.0 : 10.0;
                 }
-                return DynamicColor.foregroundTone(tertiaryContainer().tone(s), 4.5);
+                return DynamicColor.ForegroundTone(TertiaryContainer().tone(s), 4.5);
             },
             isBackground: false,
-            background: (s) => tertiaryContainer(),
+            background: (s) => TertiaryContainer(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor error()
+    public DynamicColor Error()
     {
         return new DynamicColor(
             name: "error",
             palette: (s) => s.errorPalette,
             tone: (s) => s.isDark ? 80.0 : 40.0,
             isBackground: true,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            toneDeltaPair: (s) => new ToneDeltaPair(errorContainer(), error(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(ErrorContainer(), Error(), 10.0, TonePolarity.NEARER, false)
         );
     }
 
-    public DynamicColor onError()
+    public DynamicColor OnError()
     {
         return new DynamicColor(
             name: "on_error",
             palette: (s) => s.errorPalette,
             tone: (s) => s.isDark ? 20.0 : 100.0,
             isBackground: false,
-            background: (s) => error(),
+            background: (s) => Error(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor errorContainer()
+    public DynamicColor ErrorContainer()
     {
         return new DynamicColor(
             name: "error_container",
             palette: (s) => s.errorPalette,
             tone: (s) => s.isDark ? 30.0 : 90.0,
             isBackground: true,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(errorContainer(), error(), 10.0, TonePolarity.NEARER, false)
+            toneDeltaPair: (s) => new ToneDeltaPair(ErrorContainer(), Error(), 10.0, TonePolarity.NEARER, false)
         );
     }
 
-    public DynamicColor onErrorContainer()
+    public DynamicColor OnErrorContainer()
     {
         return new DynamicColor(
             name: "on_error_container",
             palette: (s) => s.errorPalette,
             tone: (s) => s.isDark ? 90.0 : 10.0,
             isBackground: false,
-            background: (s) => errorContainer(),
+            background: (s) => ErrorContainer(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor primaryFixed()
+    public DynamicColor PrimaryFixed()
     {
         return new DynamicColor(
             name: "primary_fixed",
             palette: (s) => s.primaryPalette,
-            tone: (s) => isMonochrome(s) ? 40.0 : 90.0,
+            tone: (s) => IsMonochrome(s) ? 40.0 : 90.0,
             isBackground: true,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(primaryFixed(), primaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryFixed(), PrimaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
         );
     }
 
-    public DynamicColor primaryFixedDim()
+    public DynamicColor PrimaryFixedDim()
     {
         return new DynamicColor(
             name: "primary_fixed_dim",
             palette: (s) => s.primaryPalette,
-            tone: (s) => isMonochrome(s) ? 30.0 : 80.0,
+            tone: (s) => IsMonochrome(s) ? 30.0 : 80.0,
             isBackground: true,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(primaryFixed(), primaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryFixed(), PrimaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
         );
     }
 
-    public DynamicColor onPrimaryFixed()
+    public DynamicColor OnPrimaryFixed()
     {
         return new DynamicColor(
             name: "on_primary_fixed",
             palette: (s) => s.primaryPalette,
-            tone: (s) => isMonochrome(s) ? 100.0 : 10.0,
+            tone: (s) => IsMonochrome(s) ? 100.0 : 10.0,
             isBackground: false,
-            background: (s) => primaryFixedDim(),
-            secondBackground: (s) => primaryFixed(),
+            background: (s) => PrimaryFixedDim(),
+            secondBackground: (s) => PrimaryFixed(),
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor onPrimaryFixedVariant()
+    public DynamicColor OnPrimaryFixedVariant()
     {
         return new DynamicColor(
             name: "on_primary_fixed_variant",
             palette: (s) => s.primaryPalette,
-            tone: (s) => isMonochrome(s) ? 90.0 : 30.0,
+            tone: (s) => IsMonochrome(s) ? 90.0 : 30.0,
             isBackground: false,
-            background: (s) => primaryFixedDim(),
-            secondBackground: (s) => primaryFixed(),
+            background: (s) => PrimaryFixedDim(),
+            secondBackground: (s) => PrimaryFixed(),
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 11.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor secondaryFixed()
+    public DynamicColor SecondaryFixed()
     {
         return new DynamicColor(
             name: "secondary_fixed",
             palette: (s) => s.secondaryPalette,
-            tone: (s) => isMonochrome(s) ? 80.0 : 90.0,
+            tone: (s) => IsMonochrome(s) ? 80.0 : 90.0,
             isBackground: true,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(secondaryFixed(), secondaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryFixed(), SecondaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
         );
     }
 
-    public DynamicColor secondaryFixedDim()
+    public DynamicColor SecondaryFixedDim()
     {
         return new DynamicColor(
             name: "secondary_fixed_dim",
             palette: (s) => s.secondaryPalette,
-            tone: (s) => isMonochrome(s) ? 70.0 : 80.0,
+            tone: (s) => IsMonochrome(s) ? 70.0 : 80.0,
             isBackground: true,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(secondaryFixed(), secondaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryFixed(), SecondaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
         );
     }
 
-    public DynamicColor onSecondaryFixed()
+    public DynamicColor OnSecondaryFixed()
     {
         return new DynamicColor(
             name: "on_secondary_fixed",
             palette: (s) => s.secondaryPalette,
             tone: (s) => 10.0,
             isBackground: false,
-            background: (s) => secondaryFixedDim(),
-            secondBackground: (s) => secondaryFixed(),
+            background: (s) => SecondaryFixedDim(),
+            secondBackground: (s) => SecondaryFixed(),
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor onSecondaryFixedVariant()
+    public DynamicColor OnSecondaryFixedVariant()
     {
         return new DynamicColor(
             name: "on_secondary_fixed_variant",
             palette: (s) => s.secondaryPalette,
-            tone: (s) => isMonochrome(s) ? 25.0 : 30.0,
+            tone: (s) => IsMonochrome(s) ? 25.0 : 30.0,
             isBackground: false,
-            background: (s) => secondaryFixedDim(),
-            secondBackground: (s) => secondaryFixed(),
+            background: (s) => SecondaryFixedDim(),
+            secondBackground: (s) => SecondaryFixed(),
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 11.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor tertiaryFixed()
+    public DynamicColor TertiaryFixed()
     {
         return new DynamicColor(
             name: "tertiary_fixed",
             palette: (s) => s.tertiaryPalette,
-            tone: (s) => isMonochrome(s) ? 40.0 : 90.0,
+            tone: (s) => IsMonochrome(s) ? 40.0 : 90.0,
             isBackground: true,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(tertiaryFixed(), tertiaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryFixed(), TertiaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
         );
     }
 
-    public DynamicColor tertiaryFixedDim()
+    public DynamicColor TertiaryFixedDim()
     {
         return new DynamicColor(
             name: "tertiary_fixed_dim",
             palette: (s) => s.tertiaryPalette,
-            tone: (s) => isMonochrome(s) ? 30.0 : 80.0,
+            tone: (s) => IsMonochrome(s) ? 30.0 : 80.0,
             isBackground: true,
-            background: highestSurface,
+            background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(tertiaryFixed(), tertiaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
+            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryFixed(), TertiaryFixedDim(), 10.0, TonePolarity.LIGHTER, true)
         );
     }
 
-    public DynamicColor onTertiaryFixed()
+    public DynamicColor OnTertiaryFixed()
     {
         return new DynamicColor(
             name: "on_tertiary_fixed",
             palette: (s) => s.tertiaryPalette,
-            tone: (s) => isMonochrome(s) ? 100.0 : 10.0,
+            tone: (s) => IsMonochrome(s) ? 100.0 : 10.0,
             isBackground: false,
-            background: (s) => tertiaryFixedDim(),
-            secondBackground: (s) => tertiaryFixed(),
+            background: (s) => TertiaryFixedDim(),
+            secondBackground: (s) => TertiaryFixed(),
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
     }
 
-    public DynamicColor onTertiaryFixedVariant()
+    public DynamicColor OnTertiaryFixedVariant()
     {
         return new DynamicColor(
             name: "on_tertiary_fixed_variant",
             palette: (s) => s.tertiaryPalette,
-            tone: (s) => isMonochrome(s) ? 90.0 : 30.0,
+            tone: (s) => IsMonochrome(s) ? 90.0 : 30.0,
             isBackground: false,
-            background: (s) => tertiaryFixedDim(),
-            secondBackground: (s) => tertiaryFixed(),
+            background: (s) => TertiaryFixedDim(),
+            secondBackground: (s) => TertiaryFixed(),
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 11.0),
             toneDeltaPair: null
         );
@@ -893,17 +893,17 @@ public sealed class MaterialDynamicColors
     /// colorAccent documented as colorSecondary in M3 and colorPrimary in GM3.
     /// Android used Material's Container as Primary/Secondary/Tertiary at launch.
     /// Therefore, this is a duplicated version of Primary Container.</remarks>
-    public DynamicColor controlActivated()
+    public DynamicColor ControlActivated()
     {
-        return DynamicColor.fromPalette("control_activated", (s) => s.primaryPalette, (s) => s.isDark ? 30.0 : 90.0);
+        return DynamicColor.FromPalette("control_activated", (s) => s.primaryPalette, (s) => s.isDark ? 30.0 : 90.0);
     }
 
     /// <remarks>colorControlNormal documented as textColorSecondary in M3 & GM3.
     /// In Material, textColorSecondary points to onSurfaceVariant in the non-disabled state,
     /// which is Neutral Variant T30/80 in light/dark.</remarks>
-    public DynamicColor controlNormal()
+    public DynamicColor ControlNormal()
     {
-        return DynamicColor.fromPalette("control_normal", (s) => s.neutralVariantPalette, (s) => s.isDark ? 80.0 : 30.0);
+        return DynamicColor.FromPalette("control_normal", (s) => s.neutralVariantPalette, (s) => s.isDark ? 80.0 : 30.0);
     }
 
     /// <remarks>colorControlHighlight documented, in both M3 & GM3:
@@ -914,7 +914,7 @@ public sealed class MaterialDynamicColors
     /// DynamicColors do not support alpha currently, and _may_ not need it for this use case,
     /// depending on how MDC resolved alpha for the other cases.
     /// Returning black in dark mode, white in light mode.</remarks>
-    public DynamicColor controlHighlight()
+    public DynamicColor ControlHighlight()
     {
         return new DynamicColor(
             name: "control_highlight",
@@ -930,16 +930,16 @@ public sealed class MaterialDynamicColors
     }
 
     /// <remarks>textColorPrimaryInverse documented, in both M3 & GM3, documented as N10/N90.</remarks>
-    public DynamicColor textPrimaryInverse()
+    public DynamicColor TextPrimaryInverse()
     {
-        return DynamicColor.fromPalette("text_primary_inverse", (s) => s.neutralPalette, (s) => s.isDark ? 10.0 : 90.0);
+        return DynamicColor.FromPalette("text_primary_inverse", (s) => s.neutralPalette, (s) => s.isDark ? 10.0 : 90.0);
     }
 
     /// <remarks>textColorSecondaryInverse and textColorTertiaryInverse both documented, in both M3 & GM3, as
     /// NV30/NV80</remarks>
-    public DynamicColor textSecondaryAndTertiaryInverse()
+    public DynamicColor TextSecondaryAndTertiaryInverse()
     {
-        return DynamicColor.fromPalette(
+        return DynamicColor.FromPalette(
             "text_secondary_and_tertiary_inverse",
             (s) => s.neutralVariantPalette,
             (s) => s.isDark ? 30.0 : 80.0
@@ -947,9 +947,9 @@ public sealed class MaterialDynamicColors
     }
 
     /// <remarks>textColorPrimaryInverseDisableOnly documented, in both M3 & GM3, as N10/N90</remarks>
-    public DynamicColor textPrimaryInverseDisableOnly()
+    public DynamicColor TextPrimaryInverseDisableOnly()
     {
-        return DynamicColor.fromPalette(
+        return DynamicColor.FromPalette(
             "text_primary_inverse_disable_only",
             (s) => s.neutralPalette,
             (s) => s.isDark ? 10.0 : 90.0
@@ -958,9 +958,9 @@ public sealed class MaterialDynamicColors
 
     /// <remarks>textColorSecondaryInverse and textColorTertiaryInverse in disabled state both documented,
     /// in both M3 & GM3, as N10/N90</remarks>
-    public DynamicColor textSecondaryAndTertiaryInverseDisabled()
+    public DynamicColor TextSecondaryAndTertiaryInverseDisabled()
     {
-        return DynamicColor.fromPalette(
+        return DynamicColor.FromPalette(
             "text_secondary_and_tertiary_inverse_disabled",
             (s) => s.neutralPalette,
             (s) => s.isDark ? 10.0 : 90.0
@@ -968,12 +968,12 @@ public sealed class MaterialDynamicColors
     }
 
     /// <remarks>textColorHintInverse documented, in both M3 & GM3, as N10/N90</remarks>
-    public DynamicColor textHintInverse()
+    public DynamicColor TextHintInverse()
     {
-        return DynamicColor.fromPalette("text_hint_inverse", (s) => s.neutralPalette, (s) => s.isDark ? 10.0 : 90.0);
+        return DynamicColor.FromPalette("text_hint_inverse", (s) => s.neutralPalette, (s) => s.isDark ? 10.0 : 90.0);
     }
 
-    private bool isFidelity(DynamicScheme scheme)
+    private bool IsFidelity(DynamicScheme scheme)
     {
         if (this.isExtendedFidelity && scheme.variant != Variant.MONOCHROME && scheme.variant != Variant.NEUTRAL)
         {
@@ -982,39 +982,39 @@ public sealed class MaterialDynamicColors
         return scheme.variant == Variant.FIDELITY || scheme.variant == Variant.CONTENT;
     }
 
-    private static bool isMonochrome(DynamicScheme scheme)
+    private static bool IsMonochrome(DynamicScheme scheme)
     {
         return scheme.variant == Variant.MONOCHROME;
     }
 
-    private static double findDesiredChromaByTone(double hue, double chroma, double tone, bool byDecreasingTone)
+    private static double FindDesiredChromaByTone(double hue, double chroma, double tone, bool byDecreasingTone)
     {
         double answer = tone;
 
-        Hct.Hct closestToChroma = Hct.Hct.from(hue, chroma, tone);
-        if (closestToChroma.getChroma() < chroma)
+        Hct.Hct closestToChroma = Hct.Hct.From(hue, chroma, tone);
+        if (closestToChroma.GetChroma() < chroma)
         {
-            double chromaPeak = closestToChroma.getChroma();
-            while (closestToChroma.getChroma() < chroma)
+            double chromaPeak = closestToChroma.GetChroma();
+            while (closestToChroma.GetChroma() < chroma)
             {
                 answer += byDecreasingTone ? -1.0 : 1.0;
-                Hct.Hct potentialSolution = Hct.Hct.from(hue, chroma, answer);
-                if (chromaPeak > potentialSolution.getChroma())
+                Hct.Hct potentialSolution = Hct.Hct.From(hue, chroma, answer);
+                if (chromaPeak > potentialSolution.GetChroma())
                 {
                     break;
                 }
-                if (Math.Abs(potentialSolution.getChroma() - chroma) < 0.4)
+                if (Math.Abs(potentialSolution.GetChroma() - chroma) < 0.4)
                 {
                     break;
                 }
 
-                double potentialDelta = Math.Abs(potentialSolution.getChroma() - chroma);
-                double currentDelta = Math.Abs(closestToChroma.getChroma() - chroma);
+                double potentialDelta = Math.Abs(potentialSolution.GetChroma() - chroma);
+                double currentDelta = Math.Abs(closestToChroma.GetChroma() - chroma);
                 if (potentialDelta < currentDelta)
                 {
                     closestToChroma = potentialSolution;
                 }
-                chromaPeak = Math.Max(chromaPeak, potentialSolution.getChroma());
+                chromaPeak = Math.Max(chromaPeak, potentialSolution.GetChroma());
             }
         }
 

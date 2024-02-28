@@ -28,11 +28,11 @@ public class SchemeRainbow : DynamicScheme
             Variant.RAINBOW,
             isDark,
             contrastLevel,
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 48.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 16.0),
-            TonalPalette.fromHueAndChroma(MathUtils.sanitizeDegreesDouble(sourceColorHct.getHue() + 60.0), 24.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 0.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 0.0)
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 48.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 16.0),
+            TonalPalette.FromHueAndChroma(MathUtils.SanitizeDegreesDouble(sourceColorHct.GetHue() + 60.0), 24.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 0.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 0.0)
         )
     {
     }

@@ -27,11 +27,11 @@ public class SchemeNeutral : DynamicScheme
             Variant.NEUTRAL,
             isDark,
             contrastLevel,
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 12.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 8.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 16.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 2.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), 2.0)
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 12.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 8.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 16.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 2.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 2.0)
         )
     {
     }

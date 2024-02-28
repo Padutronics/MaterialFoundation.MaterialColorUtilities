@@ -23,16 +23,16 @@ namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 public sealed class PointProviderLab : PointProvider
 {
     /// <summary>Convert a color represented in ARGB to a 3-element array of L*a*b* coordinates of the color.</summary>
-    public double[] fromInt(int argb)
+    public double[] FromInt(int argb)
     {
-        double[] lab = ColorUtils.labFromArgb(argb);
+        double[] lab = ColorUtils.LabFromArgb(argb);
         return new double[] { lab[0], lab[1], lab[2] };
     }
 
     /// <summary>Convert a 3-element array to a color represented in ARGB.</summary>
-    public int toInt(double[] lab)
+    public int ToInt(double[] lab)
     {
-        return ColorUtils.argbFromLab(lab[0], lab[1], lab[2]);
+        return ColorUtils.ArgbFromLab(lab[0], lab[1], lab[2]);
     }
 
     /// <summary>Standard CIE 1976 delta E formula also takes the square root, unneeded here. This method is
@@ -41,7 +41,7 @@ public sealed class PointProviderLab : PointProvider
     ///
     /// <para>This relatively minor optimization is helpful because this method is called at least once
     /// for each pixel in an image.</para></summary>
-    public double distance(double[] one, double[] two)
+    public double Distance(double[] one, double[] two)
     {
         double dL = (one[0] - two[0]);
         double dA = (one[1] - two[1]);

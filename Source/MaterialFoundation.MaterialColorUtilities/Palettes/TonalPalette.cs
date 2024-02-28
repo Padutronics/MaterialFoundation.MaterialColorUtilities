@@ -30,26 +30,26 @@ public sealed class TonalPalette
     /// <summary>Create tones using the HCT hue and chroma from a color.</summary>
     /// <param name="argb">ARGB representation of a color</param>
     /// <returns>Tones matching that color's hue and chroma.</returns>
-    public static TonalPalette fromInt(int argb)
+    public static TonalPalette FromInt(int argb)
     {
-        return fromHct(Hct.Hct.fromInt(argb));
+        return FromHct(Hct.Hct.FromInt(argb));
     }
 
     /// <summary>Create tones using a HCT color.</summary>
     /// <param name="hct">HCT representation of a color.</param>
     /// <returns>Tones matching that color's hue and chroma.</returns>
-    public static TonalPalette fromHct(Hct.Hct hct)
+    public static TonalPalette FromHct(Hct.Hct hct)
     {
-        return new TonalPalette(hct.getHue(), hct.getChroma(), hct);
+        return new TonalPalette(hct.GetHue(), hct.GetChroma(), hct);
     }
 
     /// <summary>Create tones from a defined HCT hue and chroma.</summary>
     /// <param name="hue">HCT hue</param>
     /// <param name="chroma">HCT chroma</param>
     /// <returns>Tones matching hue and chroma.</returns>
-    public static TonalPalette fromHueAndChroma(double hue, double chroma)
+    public static TonalPalette FromHueAndChroma(double hue, double chroma)
     {
-        return new TonalPalette(hue, chroma, createKeyColor(hue, chroma));
+        return new TonalPalette(hue, chroma, CreateKeyColor(hue, chroma));
     }
 
     private TonalPalette(double hue, double chroma, Hct.Hct keyColor)
@@ -61,11 +61,11 @@ public sealed class TonalPalette
     }
 
     /// <summary>The key color is the first tone, starting from T50, matching the given hue and chroma.</summary>
-    private static Hct.Hct createKeyColor(double hue, double chroma)
+    private static Hct.Hct CreateKeyColor(double hue, double chroma)
     {
         double startTone = 50.0;
-        Hct.Hct smallestDeltaHct = Hct.Hct.from(hue, chroma, startTone);
-        double smallestDelta = Math.Abs(smallestDeltaHct.getChroma() - chroma);
+        Hct.Hct smallestDeltaHct = Hct.Hct.From(hue, chroma, startTone);
+        double smallestDelta = Math.Abs(smallestDeltaHct.GetChroma() - chroma);
         // Starting from T50, check T+/-delta to see if they match the requested
         // chroma.
         //
@@ -78,21 +78,21 @@ public sealed class TonalPalette
             // case where requested chroma is 16.51, and the closest chroma is 16.49.
             // Error is minimized, but when rounded and displayed, requested chroma
             // is 17, key color's chroma is 16.
-            if (Math.Round(chroma) == Math.Round(smallestDeltaHct.getChroma()))
+            if (Math.Round(chroma) == Math.Round(smallestDeltaHct.GetChroma()))
             {
                 return smallestDeltaHct;
             }
 
-            Hct.Hct hctAdd = Hct.Hct.from(hue, chroma, startTone + delta);
-            double hctAddDelta = Math.Abs(hctAdd.getChroma() - chroma);
+            Hct.Hct hctAdd = Hct.Hct.From(hue, chroma, startTone + delta);
+            double hctAddDelta = Math.Abs(hctAdd.GetChroma() - chroma);
             if (hctAddDelta < smallestDelta)
             {
                 smallestDelta = hctAddDelta;
                 smallestDeltaHct = hctAdd;
             }
 
-            Hct.Hct hctSubtract = Hct.Hct.from(hue, chroma, startTone - delta);
-            double hctSubtractDelta = Math.Abs(hctSubtract.getChroma() - chroma);
+            Hct.Hct hctSubtract = Hct.Hct.From(hue, chroma, startTone - delta);
+            double hctSubtractDelta = Math.Abs(hctSubtract.GetChroma() - chroma);
             if (hctSubtractDelta < smallestDelta)
             {
                 smallestDelta = hctSubtractDelta;
@@ -106,36 +106,36 @@ public sealed class TonalPalette
     /// <summary>Create an ARGB color with HCT hue and chroma of this Tones instance, and the provided HCT tone.</summary>
     /// <param name="tone">HCT tone, measured from 0 to 100.</param>
     /// <returns>ARGB representation of a color with that tone.</returns>
-    public int tone(int tone)
+    public int Tone(int tone)
     {
         if (!cache.TryGetValue(tone, out int color))
         {
-            color = Hct.Hct.from(this.hue, this.chroma, tone).toInt();
+            color = Hct.Hct.From(this.hue, this.chroma, tone).ToInt();
             cache.Add(tone, color);
         }
         return color;
     }
 
     /// <summary>Given a tone, use hue and chroma of palette to create a color, and return it as HCT.</summary>
-    public Hct.Hct getHct(double tone)
+    public Hct.Hct GetHct(double tone)
     {
-        return Hct.Hct.from(this.hue, this.chroma, tone);
+        return Hct.Hct.From(this.hue, this.chroma, tone);
     }
 
     /// <summary>The chroma of the Tonal Palette, in HCT. Ranges from 0 to ~130 (for sRGB gamut).</summary>
-    public double getChroma()
+    public double GetChroma()
     {
         return this.chroma;
     }
 
     /// <summary>The hue of the Tonal Palette, in HCT. Ranges from 0 to 360.</summary>
-    public double getHue()
+    public double GetHue()
     {
         return this.hue;
     }
 
     /// <summary>The key color is the first tone, starting from T50, that matches the palette's chroma.</summary>
-    public Hct.Hct getKeyColor()
+    public Hct.Hct GetKeyColor()
     {
         return this.keyColor;
     }

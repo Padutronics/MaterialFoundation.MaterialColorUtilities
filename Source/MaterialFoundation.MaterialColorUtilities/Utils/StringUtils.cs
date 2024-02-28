@@ -21,11 +21,11 @@ public static class StringUtils
 {
     /// <summary>Hex string representing color, ex. #ff0000 for red.</summary>
     /// <param name="argb">ARGB representation of a color.</param>
-    public static string hexFromArgb(int argb)
+    public static string HexFromArgb(int argb)
     {
-        int red = ColorUtils.redFromArgb(argb);
-        int blue = ColorUtils.blueFromArgb(argb);
-        int green = ColorUtils.greenFromArgb(argb);
+        int red = ColorUtils.RedFromArgb(argb);
+        int blue = ColorUtils.BlueFromArgb(argb);
+        int green = ColorUtils.GreenFromArgb(argb);
         return string.Format("#%02x%02x%02x", red, green, blue);
     }
 }

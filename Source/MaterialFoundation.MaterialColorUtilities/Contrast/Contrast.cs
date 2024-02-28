@@ -84,7 +84,7 @@ public static class Contrast
     /// also known as relative luminance.</para>
     ///
     /// <para>The equation is ratio = lighter Y + 5 / darker Y + 5.</para></summary>
-    public static double ratioOfYs(double y1, double y2)
+    public static double RatioOfYs(double y1, double y2)
     {
         double lighter = Math.Max(y1, y2);
         double darker = (lighter == y2) ? y1 : y2;
@@ -104,36 +104,36 @@ public static class Contrast
     /// of a ratio, a linear difference. This allows a designer to determine what they need to adjust a
     /// color's lightness to in order to reach their desired contrast, instead of guessing & checking
     /// with hex codes.</para></summary>
-    public static double ratioOfTones(double t1, double t2)
+    public static double RatioOfTones(double t1, double t2)
     {
-        return ratioOfYs(ColorUtils.yFromLstar(t1), ColorUtils.yFromLstar(t2));
+        return RatioOfYs(ColorUtils.YFromLstar(t1), ColorUtils.YFromLstar(t2));
     }
 
     /// <summary>Returns T in HCT, L* in L*a*b* >= tone parameter that ensures ratio with input T/L*. Returns -1
     /// if ratio cannot be achieved.</summary>
     /// <param name="tone">Tone return value must contrast with.</param>
     /// <param name="ratio">Desired contrast ratio of return value and tone parameter.</param>
-    public static double lighter(double tone, double ratio)
+    public static double Lighter(double tone, double ratio)
     {
         if (tone < 0.0 || tone > 100.0)
         {
             return -1.0;
         }
         // Invert the contrast ratio equation to determine lighter Y given a ratio and darker Y.
-        double darkY = ColorUtils.yFromLstar(tone);
+        double darkY = ColorUtils.YFromLstar(tone);
         double lightY = ratio * (darkY + 5.0) - 5.0;
         if (lightY < 0.0 || lightY > 100.0)
         {
             return -1.0;
         }
-        double realContrast = ratioOfYs(lightY, darkY);
+        double realContrast = RatioOfYs(lightY, darkY);
         double delta = Math.Abs(realContrast - ratio);
         if (realContrast < ratio && delta > CONTRAST_RATIO_EPSILON)
         {
             return -1.0;
         }
 
-        double returnValue = ColorUtils.lstarFromY(lightY) + LUMINANCE_GAMUT_MAP_TOLERANCE;
+        double returnValue = ColorUtils.LstarFromY(lightY) + LUMINANCE_GAMUT_MAP_TOLERANCE;
         // NOMUTANTS--important validation step; functions it is calling may change implementation.
         if (returnValue < 0 || returnValue > 100)
         {
@@ -143,14 +143,14 @@ public static class Contrast
     }
 
     /// <summary>Tone >= tone parameter that ensures ratio. 100 if ratio cannot be achieved.
-    /// 
+    ///
     /// <para>This method is unsafe because the returned value is guaranteed to be in bounds, but, the in
     /// bounds return value may not reach the desired ratio.</para></summary>
     /// <param name="tone">Tone return value must contrast with.</param>
     /// <param name="ratio">Desired contrast ratio of return value and tone parameter.</param>
-    public static double lighterUnsafe(double tone, double ratio)
+    public static double LighterUnsafe(double tone, double ratio)
     {
-        double lighterSafe = lighter(tone, ratio);
+        double lighterSafe = Lighter(tone, ratio);
         return lighterSafe < 0.0 ? 100.0 : lighterSafe;
     }
 
@@ -158,20 +158,20 @@ public static class Contrast
     /// if ratio cannot be achieved.</summary>
     /// <param name="tone">Tone return value must contrast with.</param>
     /// <param name="ratio">Desired contrast ratio of return value and tone parameter.</param>
-    public static double darker(double tone, double ratio)
+    public static double Darker(double tone, double ratio)
     {
         if (tone < 0.0 || tone > 100.0)
         {
             return -1.0;
         }
         // Invert the contrast ratio equation to determine darker Y given a ratio and lighter Y.
-        double lightY = ColorUtils.yFromLstar(tone);
+        double lightY = ColorUtils.YFromLstar(tone);
         double darkY = ((lightY + 5.0) / ratio) - 5.0;
         if (darkY < 0.0 || darkY > 100.0)
         {
             return -1.0;
         }
-        double realContrast = ratioOfYs(lightY, darkY);
+        double realContrast = RatioOfYs(lightY, darkY);
         double delta = Math.Abs(realContrast - ratio);
         if (realContrast < ratio && delta > CONTRAST_RATIO_EPSILON)
         {
@@ -179,7 +179,7 @@ public static class Contrast
         }
 
         // For information on 0.4 constant, see comment in lighter(tone, ratio).
-        double returnValue = ColorUtils.lstarFromY(darkY) - LUMINANCE_GAMUT_MAP_TOLERANCE;
+        double returnValue = ColorUtils.LstarFromY(darkY) - LUMINANCE_GAMUT_MAP_TOLERANCE;
         // NOMUTANTS--important validation step; functions it is calling may change implementation.
         if (returnValue < 0 || returnValue > 100)
         {
@@ -189,14 +189,14 @@ public static class Contrast
     }
 
     /// <summary>Tone <= tone parameter that ensures ratio. 0 if ratio cannot be achieved.
-    /// 
+    ///
     /// <para>This method is unsafe because the returned value is guaranteed to be in bounds, but, the in
     /// bounds return value may not reach the desired ratio.</para></summary>
     /// <param name="tone">Tone return value must contrast with.</param>
     /// <param name="ratio">Desired contrast ratio of return value and tone parameter.</param>
-    public static double darkerUnsafe(double tone, double ratio)
+    public static double DarkerUnsafe(double tone, double ratio)
     {
-        double darkerSafe = darker(tone, ratio);
+        double darkerSafe = Darker(tone, ratio);
         return Math.Max(0.0, darkerSafe);
     }
 }

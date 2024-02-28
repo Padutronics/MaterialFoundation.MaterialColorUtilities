@@ -66,27 +66,27 @@ public sealed class ToneDeltaPair
         this.stayTogether = stayTogether;
     }
 
-    public DynamicColor getRoleA()
+    public DynamicColor GetRoleA()
     {
         return roleA;
     }
 
-    public DynamicColor getRoleB()
+    public DynamicColor GetRoleB()
     {
         return roleB;
     }
 
-    public double getDelta()
+    public double GetDelta()
     {
         return delta;
     }
 
-    public TonePolarity getPolarity()
+    public TonePolarity GetPolarity()
     {
         return polarity;
     }
 
-    public bool getStayTogether()
+    public bool GetStayTogether()
     {
         return stayTogether;
     }

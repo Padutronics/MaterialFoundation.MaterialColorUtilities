@@ -37,11 +37,11 @@ public class SchemeFidelity : DynamicScheme
             Variant.FIDELITY,
             isDark,
             contrastLevel,
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), sourceColorHct.getChroma()),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), Math.Max(sourceColorHct.getChroma() - 32.0, sourceColorHct.getChroma() * 0.5)),
-            TonalPalette.fromHct(DislikeAnalyzer.fixIfDisliked(new TemperatureCache(sourceColorHct).getComplement())),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), sourceColorHct.getChroma() / 8.0),
-            TonalPalette.fromHueAndChroma(sourceColorHct.getHue(), (sourceColorHct.getChroma() / 8.0) + 4.0)
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), sourceColorHct.GetChroma()),
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), Math.Max(sourceColorHct.GetChroma() - 32.0, sourceColorHct.GetChroma() * 0.5)),
+            TonalPalette.FromHct(DislikeAnalyzer.FixIfDisliked(new TemperatureCache(sourceColorHct).GetComplement())),
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), sourceColorHct.GetChroma() / 8.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), (sourceColorHct.GetChroma() / 8.0) + 4.0)
         )
     {
     }

@@ -151,7 +151,7 @@ public sealed class DynamicColor
     /// defined by a hue and chroma, so this replaces the need to specify hue/chroma. By providing
     /// a tonal palette, when contrast adjustments are made, intended chroma can be preserved.</param>
     /// <param name="tone">Function that provides a tone, given a DynamicScheme.</param>
-    public static DynamicColor fromPalette(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone)
+    public static DynamicColor FromPalette(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone)
     {
         return new DynamicColor(
             name,
@@ -185,7 +185,7 @@ public sealed class DynamicColor
     /// <param name="tone">Function that provides a tone, given a DynamicScheme.</param>
     /// <param name="isBackground">Whether this dynamic color is a background, with some other color as the
     /// foreground.</param>
-    public static DynamicColor fromPalette(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone, bool isBackground)
+    public static DynamicColor FromPalette(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone, bool isBackground)
     {
         return new DynamicColor(
             name,
@@ -204,32 +204,32 @@ public sealed class DynamicColor
     /// <para>Result has no background; thus no support for increasing/decreasing contrast for a11y.</para></summary>
     /// <param name="name">The name of the dynamic color.</param>
     /// <param name="argb">The source color from which to extract the hue and chroma.</param>
-    public static DynamicColor fromArgb(string name, int argb)
+    public static DynamicColor FromArgb(string name, int argb)
     {
-        Hct.Hct hct = Hct.Hct.fromInt(argb);
-        TonalPalette palette = TonalPalette.fromInt(argb);
-        return DynamicColor.fromPalette(name, (s) => palette, (s) => hct.getTone());
+        Hct.Hct hct = Hct.Hct.FromInt(argb);
+        TonalPalette palette = TonalPalette.FromInt(argb);
+        return DynamicColor.FromPalette(name, (s) => palette, (s) => hct.GetTone());
     }
 
     /// <summary>Returns an ARGB integer (i.e. a hex code).</summary>
     /// <param name="scheme">Defines the conditions of the user interface, for example, whether or not it is
     /// dark mode or light mode, and what the desired contrast level is.</param>
-    public int getArgb(DynamicScheme scheme)
+    public int GetArgb(DynamicScheme scheme)
     {
-        int argb = getHct(scheme).toInt();
+        int argb = GetHct(scheme).ToInt();
         if (opacity == null)
         {
             return argb;
         }
         double percentage = opacity(scheme);
-        int alpha = MathUtils.clampInt(0, 255, (int)Math.Round(percentage * 255));
+        int alpha = MathUtils.ClampInt(0, 255, (int)Math.Round(percentage * 255));
         return (argb & 0x00ffffff) | (alpha << 24);
     }
 
     /// <summary>Returns an HCT object.</summary>
     /// <param name="scheme">Defines the conditions of the user interface, for example, whether or not it is
     /// dark mode or light mode, and what the desired contrast level is.</param>
-    public Hct.Hct getHct(DynamicScheme scheme)
+    public Hct.Hct GetHct(DynamicScheme scheme)
     {
         if (hctCache.TryGetValue(scheme, out Hct.Hct? cachedAnswer))
         {
@@ -241,8 +241,8 @@ public sealed class DynamicColor
         //
         // For example, this enables colors with standard tone of T90, which has limited chroma, to
         // "recover" intended chroma as contrast increases.
-        double tone = getTone(scheme);
-        Hct.Hct answer = palette(scheme).getHct(tone);
+        double tone = GetTone(scheme);
+        Hct.Hct answer = palette(scheme).GetHct(tone);
         // NOMUTANTS--trivial test with onerous dependency injection requirement.
         if (hctCache.Count > 4)
         {
@@ -254,7 +254,7 @@ public sealed class DynamicColor
     }
 
     /// <summary>Returns the tone in HCT, ranging from 0 to 100, of the resolved color given scheme.</summary>
-    public double getTone(DynamicScheme scheme)
+    public double GetTone(DynamicScheme scheme)
     {
         bool decreasingContrast = scheme.contrastLevel < 0;
 
@@ -262,14 +262,14 @@ public sealed class DynamicColor
         if (toneDeltaPair != null)
         {
             ToneDeltaPair toneDeltaPair = this.toneDeltaPair(scheme);
-            DynamicColor roleA = toneDeltaPair.getRoleA();
-            DynamicColor roleB = toneDeltaPair.getRoleB();
-            double delta = toneDeltaPair.getDelta();
-            TonePolarity polarity = toneDeltaPair.getPolarity();
-            bool stayTogether = toneDeltaPair.getStayTogether();
+            DynamicColor roleA = toneDeltaPair.GetRoleA();
+            DynamicColor roleB = toneDeltaPair.GetRoleB();
+            double delta = toneDeltaPair.GetDelta();
+            TonePolarity polarity = toneDeltaPair.GetPolarity();
+            bool stayTogether = toneDeltaPair.GetStayTogether();
 
             DynamicColor bg = background!(scheme);
-            double bgTone = bg.getTone(scheme);
+            double bgTone = bg.GetTone(scheme);
 
             bool aIsNearer = (polarity == TonePolarity.NEARER || (polarity == TonePolarity.LIGHTER && !scheme.isDark) || (polarity == TonePolarity.DARKER && scheme.isDark));
             DynamicColor nearer = aIsNearer ? roleA : roleB;
@@ -278,41 +278,41 @@ public sealed class DynamicColor
             double expansionDir = scheme.isDark ? 1 : -1;
 
             // 1st round: solve to min, each
-            double nContrast = nearer.contrastCurve!.get(scheme.contrastLevel);
-            double fContrast = farther.contrastCurve!.get(scheme.contrastLevel);
+            double nContrast = nearer.contrastCurve!.Get(scheme.contrastLevel);
+            double fContrast = farther.contrastCurve!.Get(scheme.contrastLevel);
 
             // If a color is good enough, it is not adjusted.
             // Initial and adjusted tones for `nearer`
             double nInitialTone = nearer.tone(scheme);
 
-            double nTone = Contrast.Contrast.ratioOfTones(bgTone, nInitialTone) >= nContrast
+            double nTone = Contrast.Contrast.RatioOfTones(bgTone, nInitialTone) >= nContrast
                 ? nInitialTone
-                : DynamicColor.foregroundTone(bgTone, nContrast);
+                : DynamicColor.ForegroundTone(bgTone, nContrast);
             // Initial and adjusted tones for `farther`
             double fInitialTone = farther.tone(scheme);
 
-            double fTone = Contrast.Contrast.ratioOfTones(bgTone, fInitialTone) >= fContrast
+            double fTone = Contrast.Contrast.RatioOfTones(bgTone, fInitialTone) >= fContrast
                 ? fInitialTone
-                : DynamicColor.foregroundTone(bgTone, fContrast);
+                : DynamicColor.ForegroundTone(bgTone, fContrast);
 
             if (decreasingContrast)
             {
                 // If decreasing contrast, adjust color to the "bare minimum"
                 // that satisfies contrast.
-                nTone = DynamicColor.foregroundTone(bgTone, nContrast);
-                fTone = DynamicColor.foregroundTone(bgTone, fContrast);
+                nTone = DynamicColor.ForegroundTone(bgTone, nContrast);
+                fTone = DynamicColor.ForegroundTone(bgTone, fContrast);
             }
 
             // If constraint is not satisfied, try another round.
             if ((fTone - nTone) * expansionDir < delta)
             {
                 // 2nd round: expand farther to match delta.
-                fTone = MathUtils.clampDouble(0, 100, nTone + delta * expansionDir);
+                fTone = MathUtils.ClampDouble(0, 100, nTone + delta * expansionDir);
                 // If constraint is not satisfied, try another round.
                 if ((fTone - nTone) * expansionDir < delta)
                 {
                     // 3rd round: contract nearer to match delta.
-                    nTone = MathUtils.clampDouble(0, 100, fTone - delta * expansionDir);
+                    nTone = MathUtils.ClampDouble(0, 100, fTone - delta * expansionDir);
                 }
             }
 
@@ -376,29 +376,29 @@ public sealed class DynamicColor
                 return answer; // No adjustment for colors with no background.
             }
 
-            double bgTone = background(scheme).getTone(scheme);
+            double bgTone = background(scheme).GetTone(scheme);
 
-            double desiredRatio = contrastCurve!.get(scheme.contrastLevel);
+            double desiredRatio = contrastCurve!.Get(scheme.contrastLevel);
 
-            if (Contrast.Contrast.ratioOfTones(bgTone, answer) >= desiredRatio)
+            if (Contrast.Contrast.RatioOfTones(bgTone, answer) >= desiredRatio)
             {
                 // Don't "improve" what's good enough.
             }
             else
             {
                 // Rough improvement.
-                answer = DynamicColor.foregroundTone(bgTone, desiredRatio);
+                answer = DynamicColor.ForegroundTone(bgTone, desiredRatio);
             }
 
             if (decreasingContrast)
             {
-                answer = DynamicColor.foregroundTone(bgTone, desiredRatio);
+                answer = DynamicColor.ForegroundTone(bgTone, desiredRatio);
             }
 
             if (isBackground && 50 <= answer && answer < 60)
             {
                 // Must adjust
-                if (Contrast.Contrast.ratioOfTones(49, bgTone) >= desiredRatio)
+                if (Contrast.Contrast.RatioOfTones(49, bgTone) >= desiredRatio)
                 {
                     answer = 49;
                 }
@@ -412,24 +412,24 @@ public sealed class DynamicColor
             {
                 // Case 3: Adjust for dual backgrounds.
 
-                double bgTone1 = background(scheme).getTone(scheme);
-                double bgTone2 = secondBackground(scheme).getTone(scheme);
+                double bgTone1 = background(scheme).GetTone(scheme);
+                double bgTone2 = secondBackground(scheme).GetTone(scheme);
 
                 double upper = Math.Max(bgTone1, bgTone2);
                 double lower = Math.Min(bgTone1, bgTone2);
 
-                if (Contrast.Contrast.ratioOfTones(upper, answer) >= desiredRatio && Contrast.Contrast.ratioOfTones(lower, answer) >= desiredRatio)
+                if (Contrast.Contrast.RatioOfTones(upper, answer) >= desiredRatio && Contrast.Contrast.RatioOfTones(lower, answer) >= desiredRatio)
                 {
                     return answer;
                 }
 
                 // The darkest light tone that satisfies the desired ratio,
                 // or -1 if such ratio cannot be reached.
-                double lightOption = Contrast.Contrast.lighter(upper, desiredRatio);
+                double lightOption = Contrast.Contrast.Lighter(upper, desiredRatio);
 
                 // The lightest dark tone that satisfies the desired ratio,
                 // or -1 if such ratio cannot be reached.
-                double darkOption = Contrast.Contrast.darker(lower, desiredRatio);
+                double darkOption = Contrast.Contrast.Darker(lower, desiredRatio);
 
                 // Tones suitable for the foreground.
                 var availables = new List<double>();
@@ -442,7 +442,7 @@ public sealed class DynamicColor
                     availables.Add(darkOption);
                 }
 
-                bool prefersLight = DynamicColor.tonePrefersLightForeground(bgTone1) || DynamicColor.tonePrefersLightForeground(bgTone2);
+                bool prefersLight = DynamicColor.TonePrefersLightForeground(bgTone1) || DynamicColor.TonePrefersLightForeground(bgTone2);
                 if (prefersLight)
                 {
                     return (lightOption == -1) ? 100 : lightOption;
@@ -460,13 +460,13 @@ public sealed class DynamicColor
 
     /// <summary>Given a background tone, find a foreground tone, while ensuring they reach a contrast ratio
     /// that is as close to ratio as possible.</summary>
-    public static double foregroundTone(double bgTone, double ratio)
+    public static double ForegroundTone(double bgTone, double ratio)
     {
-        double lighterTone = Contrast.Contrast.lighterUnsafe(bgTone, ratio);
-        double darkerTone = Contrast.Contrast.darkerUnsafe(bgTone, ratio);
-        double lighterRatio = Contrast.Contrast.ratioOfTones(lighterTone, bgTone);
-        double darkerRatio = Contrast.Contrast.ratioOfTones(darkerTone, bgTone);
-        bool preferLighter = tonePrefersLightForeground(bgTone);
+        double lighterTone = Contrast.Contrast.LighterUnsafe(bgTone, ratio);
+        double darkerTone = Contrast.Contrast.DarkerUnsafe(bgTone, ratio);
+        double lighterRatio = Contrast.Contrast.RatioOfTones(lighterTone, bgTone);
+        double darkerRatio = Contrast.Contrast.RatioOfTones(darkerTone, bgTone);
+        bool preferLighter = TonePrefersLightForeground(bgTone);
 
         if (preferLighter)
         {
@@ -495,9 +495,9 @@ public sealed class DynamicColor
 
     /// <summary>Adjust a tone down such that white has 4.5 contrast, if the tone is reasonably close to
     /// supporting it.</summary>
-    public static double enableLightForeground(double tone)
+    public static double EnableLightForeground(double tone)
     {
-        if (tonePrefersLightForeground(tone) && !toneAllowsLightForeground(tone))
+        if (TonePrefersLightForeground(tone) && !ToneAllowsLightForeground(tone))
         {
             return 49.0;
         }
@@ -512,13 +512,13 @@ public sealed class DynamicColor
     ///
     /// <para>Since `tertiaryContainer` in dark monochrome scheme requires a tone of 60, it should not be
     /// adjusted. Therefore, 60 is excluded here.</para></summary>
-    public static bool tonePrefersLightForeground(double tone)
+    public static bool TonePrefersLightForeground(double tone)
     {
         return Math.Round(tone) < 60;
     }
 
     /// <summary>Tones less than ~T50 always permit white at 4.5 contrast.</summary>
-    public static bool toneAllowsLightForeground(double tone)
+    public static bool ToneAllowsLightForeground(double tone)
     {
         return Math.Round(tone) <= 49;
     }

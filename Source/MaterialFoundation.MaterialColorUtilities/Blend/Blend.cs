@@ -29,14 +29,14 @@ public static class Blend
     /// <param name="sourceColor">ARGB representation of the main theme color.</param>
     /// <returns>The design color with a hue shifted towards the system's color, a slightly
     /// warmer/cooler variant of the design color's hue.</returns>
-    public static int harmonize(int designColor, int sourceColor)
+    public static int Harmonize(int designColor, int sourceColor)
     {
-        Hct.Hct fromHct = Hct.Hct.fromInt(designColor);
-        Hct.Hct toHct = Hct.Hct.fromInt(sourceColor);
-        double differenceDegrees = MathUtils.differenceDegrees(fromHct.getHue(), toHct.getHue());
+        Hct.Hct fromHct = Hct.Hct.FromInt(designColor);
+        Hct.Hct toHct = Hct.Hct.FromInt(sourceColor);
+        double differenceDegrees = MathUtils.DifferenceDegrees(fromHct.GetHue(), toHct.GetHue());
         double rotationDegrees = Math.Min(differenceDegrees * 0.5, 15.0);
-        double outputHue = MathUtils.sanitizeDegreesDouble(fromHct.getHue() + rotationDegrees * MathUtils.rotationDirection(fromHct.getHue(), toHct.getHue()));
-        return Hct.Hct.from(outputHue, fromHct.getChroma(), fromHct.getTone()).toInt();
+        double outputHue = MathUtils.SanitizeDegreesDouble(fromHct.GetHue() + rotationDegrees * MathUtils.RotationDirection(fromHct.GetHue(), toHct.GetHue()));
+        return Hct.Hct.From(outputHue, fromHct.GetChroma(), fromHct.GetTone()).ToInt();
     }
 
     /// <summary>Blends hue from one color into another. The chroma and tone of the original color are
@@ -45,13 +45,13 @@ public static class Blend
     /// <param name="to">ARGB representation of color</param>
     /// <param name="amount">how much blending to perform; 0.0 >= and <= 1.0</param>
     /// <returns>from, with a hue blended towards to. Chroma and tone are constant.</returns>
-    public static int hctHue(int from, int to, double amount)
+    public static int HctHue(int from, int to, double amount)
     {
-        int ucs = cam16Ucs(from, to, amount);
-        Cam16 ucsCam = Cam16.fromInt(ucs);
-        Cam16 fromCam = Cam16.fromInt(from);
-        Hct.Hct blended = Hct.Hct.from(ucsCam.getHue(), fromCam.getChroma(), ColorUtils.lstarFromArgb(from));
-        return blended.toInt();
+        int ucs = Cam16Ucs(from, to, amount);
+        Cam16 ucsCam = Cam16.FromInt(ucs);
+        Cam16 fromCam = Cam16.FromInt(from);
+        Hct.Hct blended = Hct.Hct.From(ucsCam.GetHue(), fromCam.GetChroma(), ColorUtils.LstarFromArgb(from));
+        return blended.ToInt();
     }
 
     /// <summary>Blend in CAM16-UCS space.</summary>
@@ -59,19 +59,19 @@ public static class Blend
     /// <param name="to">ARGB representation of color</param>
     /// <param name="amount">how much blending to perform; 0.0 >= and <= 1.0</param>
     /// <returns>from, blended towards to. Hue, chroma, and tone will change.</returns>
-    public static int cam16Ucs(int from, int to, double amount)
+    public static int Cam16Ucs(int from, int to, double amount)
     {
-        Cam16 fromCam = Cam16.fromInt(from);
-        Cam16 toCam = Cam16.fromInt(to);
-        double fromJ = fromCam.getJstar();
-        double fromA = fromCam.getAstar();
-        double fromB = fromCam.getBstar();
-        double toJ = toCam.getJstar();
-        double toA = toCam.getAstar();
-        double toB = toCam.getBstar();
+        Cam16 fromCam = Cam16.FromInt(from);
+        Cam16 toCam = Cam16.FromInt(to);
+        double fromJ = fromCam.GetJstar();
+        double fromA = fromCam.GetAstar();
+        double fromB = fromCam.GetBstar();
+        double toJ = toCam.GetJstar();
+        double toA = toCam.GetAstar();
+        double toB = toCam.GetBstar();
         double jstar = fromJ + (toJ - fromJ) * amount;
         double astar = fromA + (toA - fromA) * amount;
         double bstar = fromB + (toB - fromB) * amount;
-        return Cam16.fromUcs(jstar, astar, bstar).toInt();
+        return Cam16.FromUcs(jstar, astar, bstar).ToInt();
     }
 }

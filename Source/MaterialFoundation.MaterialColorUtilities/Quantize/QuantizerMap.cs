@@ -23,7 +23,7 @@ public sealed class QuantizerMap : Quantizer
 {
     private IDictionary<int, int>? colorToCount;
 
-    public QuantizerResult quantize(int[] pixels, int colorCount)
+    public QuantizerResult Quantize(int[] pixels, int colorCount)
     {
         var pixelByCount = new Dictionary<int, int>();
         foreach (int pixel in pixels)
@@ -44,7 +44,7 @@ public sealed class QuantizerMap : Quantizer
         return new QuantizerResult(pixelByCount);
     }
 
-    public IDictionary<int, int>? getColorToCount()
+    public IDictionary<int, int>? GetColorToCount()
     {
         return colorToCount;
     }
