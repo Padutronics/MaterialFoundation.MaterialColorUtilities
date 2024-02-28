@@ -17,12 +17,8 @@
 namespace MaterialFoundation.MaterialColorUtilities.Utils;
 
 /** Utility methods for string representations of colors. */
-public sealed class StringUtils
+public static class StringUtils
 {
-    private StringUtils()
-    {
-    }
-
     /**
      * Hex string representing color, ex. #ff0000 for red.
      *

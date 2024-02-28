@@ -27,14 +27,8 @@ namespace MaterialFoundation.MaterialColorUtilities.Dislike;
  * <p>See Palmer and Schloss, 2010 or Schloss and Palmer's Chapter 21 in Handbook of Color
  * Psychology (2015).
  */
-public sealed class DislikeAnalyzer
+public static class DislikeAnalyzer
 {
-
-    private DislikeAnalyzer()
-    {
-        throw new NotSupportedException();
-    }
-
     /**
      * Returns true if color is disliked.
      *

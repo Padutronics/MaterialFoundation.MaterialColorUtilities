@@ -21,12 +21,8 @@ using System;
 namespace MaterialFoundation.MaterialColorUtilities.Blend;
 
 /** Functions for blending in HCT and CAM16. */
-public class Blend
+public static class Blend
 {
-    private Blend()
-    {
-    }
-
     /**
      * Blend the design color's HCT hue towards the key color's HCT hue, in a way that leaves the
      * original color recognizable and recognizably shifted towards the key color.

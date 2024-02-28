@@ -27,7 +27,7 @@ namespace MaterialFoundation.MaterialColorUtilities.Score;
  * <p>Enables use of a high cluster count for image quantization, thus ensuring colors aren't
  * muddied, while curating the high cluster count to a much smaller number of appropriate choices.
  */
-public sealed class Score
+public static class Score
 {
     private const double TARGET_CHROMA = 48.0; // A1 Chroma
     private const double WEIGHT_PROPORTION = 0.7;
@@ -35,10 +35,6 @@ public sealed class Score
     private const double WEIGHT_CHROMA_BELOW = 0.1;
     private const double CUTOFF_CHROMA = 5.0;
     private const double CUTOFF_EXCITED_PROPORTION = 0.01;
-
-    private Score()
-    {
-    }
 
     public static ICollection<int> score(IDictionary<int, int> colorsToPopulation)
     {

@@ -28,7 +28,7 @@ namespace MaterialFoundation.MaterialColorUtilities.Contrast;
  * <p>Contrast ratio is calculated using XYZ's Y. When linearized to match human perception, Y
  * becomes HCT's tone and L*a*b*'s' L*.
  */
-public sealed class Contrast
+public static class Contrast
 {
     // The minimum contrast ratio of two colors.
     // Contrast ratio equation = lighter + 5 / darker + 5, if lighter == darker, ratio == 1.
@@ -78,10 +78,6 @@ public sealed class Contrast
     // guarantee that as long as a perceptual color space gamut maps lightness such that the resulting
     // lightness rounds to the same as the requested, the desired contrast ratio will be reached.
     private const double LUMINANCE_GAMUT_MAP_TOLERANCE = 0.4;
-
-    private Contrast()
-    {
-    }
 
     /**
      * Contrast ratio is a measure of legibility, its used to compare the lightness of two colors.

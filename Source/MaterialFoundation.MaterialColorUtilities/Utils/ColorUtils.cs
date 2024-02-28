@@ -24,12 +24,8 @@ namespace MaterialFoundation.MaterialColorUtilities.Utils;
  * <p>Utility methods for color science constants and color space conversions that aren't HCT or
  * CAM16.
  */
-public class ColorUtils
+public static class ColorUtils
 {
-    private ColorUtils()
-    {
-    }
-
     private static readonly double[][] SRGB_TO_XYZ = new double[][]
     {
         new double[] { 0.41233895, 0.35762064, 0.18051042 },

@@ -20,12 +20,8 @@ using System;
 namespace MaterialFoundation.MaterialColorUtilities.Hct;
 
 /** A class that solves the HCT equation. */
-public class HctSolver
+public static class HctSolver
 {
-    private HctSolver()
-    {
-    }
-
     private static readonly double[][] SCALED_DISCOUNT_FROM_LINRGB = new double[][]
     {
         new double[] { 0.001200833568784504, 0.002389694492170889, 0.0002795742885861124, },
