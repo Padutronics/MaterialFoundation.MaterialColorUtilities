@@ -170,10 +170,6 @@ public static class Score
 
     private sealed class ScoredComparator : IComparer<ScoredHCT>
     {
-        public ScoredComparator()
-        {
-        }
-
         public int Compare(ScoredHCT? entry1, ScoredHCT? entry2)
         {
             return entry2!.score.CompareTo(entry1!.score);

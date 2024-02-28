@@ -34,11 +34,6 @@ public sealed class TemperatureCache
     private IList<Hct.Hct>? precomputedHctsByHue;
     private IDictionary<Hct.Hct, double>? precomputedTempsByHct;
 
-    private TemperatureCache()
-    {
-        throw new NotSupportedException();
-    }
-
     /// <summary>Create a cache that allows calculation of ex. complementary and analogous colors.</summary>
     /// <param name="input">Color to find complement/analogous colors of. Any colors will have the same tone,
     /// and chroma as the input color, modulo any restrictions due to the other hues having lower
