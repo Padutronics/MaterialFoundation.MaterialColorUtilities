@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-namespace MaterialFoundation.MaterialColorUtilities.Dynamiccolor;
+namespace MaterialFoundation.MaterialColorUtilities.Dynamicolor;
 
 /// <summary>Documents a constraint between two DynamicColors, in which their tones must have a certain
 /// distance from each other.

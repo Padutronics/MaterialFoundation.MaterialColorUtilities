@@ -16,7 +16,7 @@
 
 using MaterialFoundation.MaterialColorUtilities.Utils;
 
-namespace MaterialFoundation.MaterialColorUtilities.Dynamiccolor;
+namespace MaterialFoundation.MaterialColorUtilities.Dynamicolor;
 
 /// <summary>A class containing a value that changes with the contrast level.
 ///

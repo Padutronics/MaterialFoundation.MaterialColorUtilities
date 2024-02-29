@@ -20,7 +20,7 @@ using MaterialFoundation.MaterialColorUtilities.Utils;
 using System;
 using System.Collections.Generic;
 
-namespace MaterialFoundation.MaterialColorUtilities.Dynamiccolor;
+namespace MaterialFoundation.MaterialColorUtilities.Dynamicolor;
 
 /// <summary>A color that adjusts itself based on UI state, represented by DynamicScheme.
 ///

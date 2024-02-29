@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-namespace MaterialFoundation.MaterialColorUtilities.Dynamiccolor;
+namespace MaterialFoundation.MaterialColorUtilities.Dynamicolor;
 
 /// <summary>Describes the relationship in lightness between two colors.
 ///
