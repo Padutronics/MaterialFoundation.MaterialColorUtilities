@@ -306,12 +306,11 @@ public sealed class DynamicColor
         // "recover" intended chroma as contrast increases.
         double tone = GetTone(scheme);
         Hct.Hct answer = palette(scheme).GetHct(tone);
-        // NOMUTANTS--trivial test with onerous dependency injection requirement.
+
         if (hctCache.Count > 4)
         {
             hctCache.Clear();
         }
-        // NOMUTANTS--trivial test with onerous dependency injection requirement.
         hctCache.Add(scheme, answer);
         return answer;
     }

@@ -131,7 +131,6 @@ public static class Contrast
         }
 
         double returnValue = ColorUtils.LstarFromY(lightY) + LuminanceGamutMapTolerance;
-        // NOMUTANTS--important validation step; functions it is calling may change implementation.
         if (returnValue < 0 || returnValue > 100)
         {
             return -1.0;
@@ -177,7 +176,6 @@ public static class Contrast
 
         // For information on 0.4 constant, see comment in lighter(tone, ratio).
         double returnValue = ColorUtils.LstarFromY(darkY) - LuminanceGamutMapTolerance;
-        // NOMUTANTS--important validation step; functions it is calling may change implementation.
         if (returnValue < 0 || returnValue > 100)
         {
             return -1.0;
