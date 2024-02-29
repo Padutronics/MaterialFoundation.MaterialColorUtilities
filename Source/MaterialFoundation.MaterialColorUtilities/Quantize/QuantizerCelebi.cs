@@ -40,7 +40,7 @@ public sealed class QuantizerCelebi
     /// image that correspond to the color in the quantized image.</returns>
     public static IDictionary<int, int> Quantize(int[] pixels, int maxColors)
     {
-        QuantizerWu wu = new QuantizerWu();
+        var wu = new QuantizerWu();
         QuantizerResult wuResult = wu.Quantize(pixels, maxColors);
 
         ICollection<int> wuClustersAsObjects = wuResult.colorToCount.Keys;
