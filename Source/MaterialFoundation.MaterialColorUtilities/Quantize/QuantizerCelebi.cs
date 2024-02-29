@@ -25,12 +25,8 @@ namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 ///
 /// <para>This algorithm was designed by M. Emre Celebi, and was found in their 2011 paper, Improving
 /// the Performance of K-Means for Color Quantization. https://arxiv.org/abs/1101.0395</para></summary>
-public sealed class QuantizerCelebi
+public sealed class QuantizerCelebi : IQuantizer
 {
-    private QuantizerCelebi()
-    {
-    }
-
     /// <summary>Reduce the number of colors needed to represented the input, minimizing the difference between
     /// the original image and the recolored image.</summary>
     /// <param name="pixels">Colors in ARGB format.</param>
@@ -38,7 +34,7 @@ public sealed class QuantizerCelebi
     /// returned.</param>
     /// <returns>Map with keys of colors in ARGB format, and values of number of pixels in the original
     /// image that correspond to the color in the quantized image.</returns>
-    public static IDictionary<int, int> Quantize(int[] pixels, int maxColors)
+    public QuantizerResult Quantize(int[] pixels, int maxColors)
     {
         var wu = new QuantizerWu();
         QuantizerResult wuResult = wu.Quantize(pixels, maxColors);
@@ -51,6 +47,6 @@ public sealed class QuantizerCelebi
             wuClusters[index++] = argb;
         }
 
-        return QuantizerWsmeans.Quantize(pixels, wuClusters, maxColors);
+        return new QuantizerWsmeans(wuClusters).Quantize(pixels, maxColors);
     }
 }

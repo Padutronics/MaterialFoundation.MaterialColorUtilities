@@ -27,27 +27,30 @@ namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 ///
 /// <para>This algorithm was designed by M. Emre Celebi, and was found in their 2011 paper, Improving
 /// the Performance of K-Means for Color Quantization. https://arxiv.org/abs/1101.0395</para></summary>
-public sealed class QuantizerWsmeans
+public sealed class QuantizerWsmeans : IQuantizer
 {
     private const int MaxIterations = 10;
     private const double MinMovementDistance = 3.0;
 
-    private QuantizerWsmeans()
+    private readonly int[] startingClusters;
+
+    /// <param name="startingClusters">Defines the initial state of the quantizer. Passing an empty array is
+    /// fine, the implementation will create its own initial state that leads to reproducible
+    /// results for the same inputs. Passing an array that is the result of Wu quantization leads
+    /// to higher quality results.</param>
+    public QuantizerWsmeans(int[] startingClusters)
     {
+        this.startingClusters = startingClusters;
     }
 
     /// <summary>Reduce the number of colors needed to represented the input, minimizing the difference between
     /// the original image and the recolored image.</summary>
     /// <param name="inputPixels">Colors in ARGB format.</param>
-    /// <param name="startingClusters">Defines the initial state of the quantizer. Passing an empty array is
-    /// fine, the implementation will create its own initial state that leads to reproducible
-    /// results for the same inputs. Passing an array that is the result of Wu quantization leads
-    /// to higher quality results.</param>
     /// <param name="maxColors">The number of colors to divide the image into. A lower number of colors may be
     /// returned.</param>
     /// <returns>Map with keys of colors in ARGB format, values of how many of the input pixels belong
     /// to the color.</returns>
-    public static IDictionary<int, int> Quantize(int[] inputPixels, int[] startingClusters, int maxColors)
+    public QuantizerResult Quantize(int[] inputPixels, int maxColors)
     {
         // Uses a seeded random number generator to ensure consistent results.
         var random = new Random(0x42688);
@@ -236,7 +239,7 @@ public sealed class QuantizerWsmeans
             argbToPopulation.Add(possibleNewCluster, count);
         }
 
-        return argbToPopulation;
+        return new QuantizerResult(argbToPopulation);
     }
 
     private sealed class Distance : IComparable<Distance>
