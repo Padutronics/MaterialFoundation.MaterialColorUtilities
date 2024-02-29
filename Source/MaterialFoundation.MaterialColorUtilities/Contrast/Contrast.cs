@@ -48,7 +48,7 @@ public static class Contrast
     /// it will return a valid luminance but that luminance may not meet the requested contrast ratio.
     ///
     /// 0.04 selected because it ensures the resulting ratio rounds to the same tenth.</summary>
-    private const double ConstantRatioEpsilon = 0.04;
+    private const double ContrastRatioEpsilon = 0.04;
     /// <summary>Color spaces that measure luminance, such as Y in XYZ, L* in L*a*b*, or T in HCT, are known as
     /// perceptually accurate color spaces.
     ///
@@ -125,7 +125,7 @@ public static class Contrast
         }
         double realContrast = RatioOfYs(lightY, darkY);
         double delta = Math.Abs(realContrast - ratio);
-        if (realContrast < ratio && delta > ConstantRatioEpsilon)
+        if (realContrast < ratio && delta > ContrastRatioEpsilon)
         {
             return -1.0;
         }
@@ -169,7 +169,7 @@ public static class Contrast
         }
         double realContrast = RatioOfYs(lightY, darkY);
         double delta = Math.Abs(realContrast - ratio);
-        if (realContrast < ratio && delta > ConstantRatioEpsilon)
+        if (realContrast < ratio && delta > ContrastRatioEpsilon)
         {
             return -1.0;
         }
