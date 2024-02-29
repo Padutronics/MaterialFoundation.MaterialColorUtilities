@@ -22,24 +22,21 @@ namespace MaterialFoundation.MaterialColorUtilities.Hct;
 /// <summary>A class that solves the HCT equation.</summary>
 public static class HctSolver
 {
-    private static readonly double[][] ScaledDiscountFfromLinRgb = new double[][]
-    {
-        new double[] { 0.001200833568784504, 0.002389694492170889, 0.0002795742885861124, },
-        new double[] { 0.0005891086651375999, 0.0029785502573438758, 0.0003270666104008398, },
-        new double[] { 0.00010146692491640572, 0.0005364214359186694, 0.0032979401770712076, },
-    };
+    private static readonly double[][] ScaledDiscountFfromLinRgb = [
+        [0.001200833568784504, 0.002389694492170889, 0.0002795742885861124,],
+        [0.0005891086651375999, 0.0029785502573438758, 0.0003270666104008398,],
+        [0.00010146692491640572, 0.0005364214359186694, 0.0032979401770712076,],
+    ];
 
-    private static readonly double[][] LinRgbFromScaledDiscount = new double[][]
-    {
-        new double[] { 1373.2198709594231, -1100.4251190754821, -7.278681089101213, },
-        new double[] { -271.815969077903, 559.6580465940733, -32.46047482791194, },
-        new double[] { 1.9622899599665666, -57.173814538844006, 308.7233197812385, },
-    };
+    private static readonly double[][] LinRgbFromScaledDiscount = [
+        [1373.2198709594231, -1100.4251190754821, -7.278681089101213,],
+        [-271.815969077903, 559.6580465940733, -32.46047482791194,],
+        [1.9622899599665666, -57.173814538844006, 308.7233197812385,],
+    ];
 
-    private static readonly double[] YFromLinRgb = new double[] { 0.2126, 0.7152, 0.0722 };
+    private static readonly double[] YFromLinRgb = [0.2126, 0.7152, 0.0722];
 
-    private static readonly double[] CriticalPlanes = new double[]
-    {
+    private static readonly double[] CriticalPlanes = [
         0.015176349177441876,
         0.045529047532325624,
         0.07588174588720938,
@@ -295,7 +292,7 @@ public static class HctSolver
         97.78421388448044,
         98.6670533535366,
         99.55452497210776,
-    };
+    ];
 
     /// <summary>Sanitizes a small enough angle in radians.</summary>
     /// <param name="angle">An angle in radians; must not deviate too much from 0.</param>
@@ -364,12 +361,11 @@ public static class HctSolver
 
     private static double[] LerpPoint(double[] source, double t, double[] target)
     {
-        return new double[]
-        {
+        return [
             source[0] + (target[0] - source[0]) * t,
             source[1] + (target[1] - source[1]) * t,
             source[2] + (target[2] - source[2]) * t,
-        };
+        ];
     }
 
     /// <summary>Intersects a segment with a plane.</summary>
@@ -410,11 +406,11 @@ public static class HctSolver
             double r = (y - g * kG - b * kB) / kR;
             if (IsBounded(r))
             {
-                return new double[] { r, g, b };
+                return [r, g, b];
             }
             else
             {
-                return new double[] { -1.0, -1.0, -1.0 };
+                return [-1.0, -1.0, -1.0];
             }
         }
         else if (n < 8)
@@ -424,11 +420,11 @@ public static class HctSolver
             double g = (y - r * kR - b * kB) / kG;
             if (IsBounded(g))
             {
-                return new double[] { r, g, b };
+                return [r, g, b];
             }
             else
             {
-                return new double[] { -1.0, -1.0, -1.0 };
+                return [-1.0, -1.0, -1.0];
             }
         }
         else
@@ -438,11 +434,11 @@ public static class HctSolver
             double b = (y - r * kR - g * kG) / kB;
             if (IsBounded(b))
             {
-                return new double[] { r, g, b };
+                return [r, g, b];
             }
             else
             {
-                return new double[] { -1.0, -1.0, -1.0 };
+                return [-1.0, -1.0, -1.0];
             }
         }
     }
@@ -454,7 +450,7 @@ public static class HctSolver
     /// segment containing the desired color.</returns>
     private static double[][] BisectToSegment(double y, double targetHue)
     {
-        double[] left = new double[] { -1.0, -1.0, -1.0 };
+        double[] left = [-1.0, -1.0, -1.0];
         double[] right = left;
         double leftHue = 0.0;
         double rightHue = 0.0;
@@ -492,12 +488,12 @@ public static class HctSolver
                 }
             }
         }
-        return new double[][] { left, right };
+        return [left, right];
     }
 
     private static double[] Midpoint(double[] a, double[] b)
     {
-        return new double[] { (a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2, };
+        return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2,];
     }
 
     private static int CriticalPlaneBelow(double x)
@@ -610,7 +606,7 @@ public static class HctSolver
             double rCScaled = InverseChromaticAdaptation(rA);
             double gCScaled = InverseChromaticAdaptation(gA);
             double bCScaled = InverseChromaticAdaptation(bA);
-            double[] linrgb = MathUtils.MatrixMultiply(new double[] { rCScaled, gCScaled, bCScaled }, LinRgbFromScaledDiscount);
+            double[] linrgb = MathUtils.MatrixMultiply([rCScaled, gCScaled, bCScaled], LinRgbFromScaledDiscount);
             // ===========================================================
             // Operations inlined from Cam16 to avoid repeated calculation
             // ===========================================================

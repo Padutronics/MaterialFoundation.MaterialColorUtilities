@@ -221,7 +221,7 @@ public sealed class QuantizerWsmeans
                 int count = pixelCountSums[i];
                 if (count == 0)
                 {
-                    clusters[i] = new double[] { 0.0, 0.0, 0.0 };
+                    clusters[i] = [0.0, 0.0, 0.0];
                     continue;
                 }
                 double a = componentASums[i] / count;

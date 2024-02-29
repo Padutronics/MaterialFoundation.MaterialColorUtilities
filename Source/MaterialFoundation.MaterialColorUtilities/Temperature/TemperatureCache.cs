@@ -113,8 +113,10 @@ public sealed class TemperatureCache
         Hct.Hct startHct = GetHctsByHue()[startHue];
         double lastTemp = GetRelativeTemperature(startHct);
 
-        var allColors = new List<Hct.Hct>();
-        allColors.Add(startHct);
+        var allColors = new List<Hct.Hct>
+        {
+            startHct
+        };
 
         double absoluteTotalTempDelta = 0.0;
         for (int i = 0; i < 360; i++)
@@ -170,8 +172,10 @@ public sealed class TemperatureCache
             }
         }
 
-        var answers = new List<Hct.Hct>();
-        answers.Add(input);
+        var answers = new List<Hct.Hct>
+        {
+            input
+        };
 
         int ccwCount = (int)Math.Floor(((double)count - 1.0) / 2.0);
         for (int i = 1; i < ccwCount + 1; i++)
@@ -277,8 +281,10 @@ public sealed class TemperatureCache
             return precomputedHctsByTemp;
         }
 
-        var hcts = new List<Hct.Hct>(GetHctsByHue());
-        hcts.Add(input);
+        var hcts = new List<Hct.Hct>(GetHctsByHue())
+        {
+            input
+        };
         hcts = hcts
             .Select(hct => new { hct, temp = GetTempsByHct()[hct] })
             .OrderBy(x => x.temp)
@@ -296,8 +302,10 @@ public sealed class TemperatureCache
             return precomputedTempsByHct;
         }
 
-        var allHcts = new List<Hct.Hct>(GetHctsByHue());
-        allHcts.Add(input);
+        var allHcts = new List<Hct.Hct>(GetHctsByHue())
+        {
+            input
+        };
 
         var temperaturesByHct = new Dictionary<Hct.Hct, double>();
         foreach (Hct.Hct hct in allHcts)

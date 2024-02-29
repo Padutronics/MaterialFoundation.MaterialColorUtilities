@@ -128,7 +128,7 @@ public static class MathUtils
         double a = row[0] * matrix[0][0] + row[1] * matrix[0][1] + row[2] * matrix[0][2];
         double b = row[0] * matrix[1][0] + row[1] * matrix[1][1] + row[2] * matrix[1][2];
         double c = row[0] * matrix[2][0] + row[1] * matrix[2][1] + row[2] * matrix[2][2];
-        return new double[] { a, b, c };
+        return [a, b, c];
     }
 
     public static double ToDegrees(double radians)

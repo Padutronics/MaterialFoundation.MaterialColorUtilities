@@ -62,7 +62,7 @@ public sealed class Cam16
     private readonly double bstar;
 
     /// <summary>Avoid allocations during conversion by pre-allocating an array.</summary>
-    private readonly double[] tempArray = new double[] { 0.0, 0.0, 0.0 };
+    private readonly double[] tempArray = [0.0, 0.0, 0.0];
 
     /// <summary>CAM16 instances also have coordinates in the CAM16-UCS space, called J*, a*, b*, or jstar,
     /// astar, bstar in code. CAM16-UCS is included in the CAM16 specification, and is used to measure
@@ -383,7 +383,7 @@ public sealed class Cam16
         }
         else
         {
-            return new double[] { x, y, z };
+            return [x, y, z];
         }
     }
 }

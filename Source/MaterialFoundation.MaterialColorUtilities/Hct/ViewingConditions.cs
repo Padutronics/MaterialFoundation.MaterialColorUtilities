@@ -129,7 +129,7 @@ public sealed class ViewingConditions
             : f * (1.0 - 1.0 / 3.6 * Math.Exp((-adaptingLuminance - 42.0) / 92.0));
         d = MathUtils.ClampDouble(0.0, 1.0, d);
         double nc = f;
-        double[] rgbD = new double[] { d * (100.0 / rW) + 1.0 - d, d * (100.0 / gW) + 1.0 - d, d * (100.0 / bW) + 1.0 - d };
+        double[] rgbD = [d * (100.0 / rW) + 1.0 - d, d * (100.0 / gW) + 1.0 - d, d * (100.0 / bW) + 1.0 - d];
         double k = 1.0 / (5.0 * adaptingLuminance + 1.0);
         double k4 = k * k * k * k;
         double k4F = 1.0 - k4;
@@ -138,19 +138,17 @@ public sealed class ViewingConditions
         double z = 1.48 + Math.Sqrt(n);
         double nbb = 0.725 / Math.Pow(n, 0.2);
         double ncb = nbb;
-        double[] rgbAFactors = new double[]
-        {
+        double[] rgbAFactors = [
             Math.Pow(fl * rgbD[0] * rW / 100.0, 0.42),
             Math.Pow(fl * rgbD[1] * gW / 100.0, 0.42),
             Math.Pow(fl * rgbD[2] * bW / 100.0, 0.42)
-        };
+        ];
 
-        double[] rgbA = new double[]
-        {
+        double[] rgbA = [
             400.0 * rgbAFactors[0] / (rgbAFactors[0] + 27.13),
             400.0 * rgbAFactors[1] / (rgbAFactors[1] + 27.13),
             400.0 * rgbAFactors[2] / (rgbAFactors[2] + 27.13)
-        };
+        ];
 
         double aw = (2.0 * rgbA[0] + rgbA[1] + 0.05 * rgbA[2]) * nbb;
         return new ViewingConditions(n, aw, nbb, ncb, c, nc, rgbD, fl, Math.Pow(fl, 0.25), z);

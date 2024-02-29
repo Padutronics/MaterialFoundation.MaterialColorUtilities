@@ -24,21 +24,19 @@ namespace MaterialFoundation.MaterialColorUtilities.Utils;
 /// CAM16.</para></summary>
 public static class ColorUtils
 {
-    private static readonly double[][] SrgbToXyz = new double[][]
-    {
-        new double[] { 0.41233895, 0.35762064, 0.18051042 },
-        new double[] { 0.2126, 0.7152, 0.0722 },
-        new double[] { 0.01932141, 0.11916382, 0.95034478 },
-    };
+    private static readonly double[][] SrgbToXyz = [
+        [0.41233895, 0.35762064, 0.18051042],
+        [0.2126, 0.7152, 0.0722],
+        [0.01932141, 0.11916382, 0.95034478],
+    ];
 
-    private static readonly double[][] XyzToSrgb = new double[][]
-    {
-        new double[] { 3.2413774792388685, -1.5376652402851851, -0.49885366846268053, },
-        new double[] { -0.9691452513005321, 1.8758853451067872, 0.04156585616912061, },
-        new double[] { 0.05562093689691305, -0.20395524564742123, 1.0571799111220335, },
-    };
+    private static readonly double[][] XyzToSrgb = [
+        [3.2413774792388685, -1.5376652402851851, -0.49885366846268053,],
+        [-0.9691452513005321, 1.8758853451067872, 0.04156585616912061,],
+        [0.05562093689691305, -0.20395524564742123, 1.0571799111220335,],
+    ];
 
-    private static readonly double[] WhitePointD65 = new double[] { 95.047, 100.0, 108.883 };
+    private static readonly double[] WhitePointD65 = [95.047, 100.0, 108.883];
 
     /// <summary>Converts a color from RGB components to ARGB format.</summary>
     public static int ArgbFromRgb(int red, int green, int blue)
@@ -104,7 +102,7 @@ public static class ColorUtils
         double r = Linearized(RedFromArgb(argb));
         double g = Linearized(GreenFromArgb(argb));
         double b = Linearized(BlueFromArgb(argb));
-        return MathUtils.MatrixMultiply(new double[] { r, g, b }, SrgbToXyz);
+        return MathUtils.MatrixMultiply([r, g, b], SrgbToXyz);
     }
 
     /// <summary>Converts a color represented in Lab color space into an ARGB integer.</summary>
@@ -145,7 +143,7 @@ public static class ColorUtils
         double l = 116.0 * fy - 16;
         double a = 500.0 * (fx - fy);
         double b = 200.0 * (fy - fz);
-        return new double[] { l, a, b };
+        return [l, a, b];
     }
 
     /// <summary>Converts an L* value to an ARGB representation.</summary>

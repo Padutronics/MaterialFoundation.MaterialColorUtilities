@@ -23,9 +23,9 @@ namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 public class SchemeExpressive : DynamicScheme
 {
     // NOMUTANTS--arbitrary increments/decrements, correctly, still passes tests.
-    private static readonly double[] Hues = { 0, 21, 51, 121, 151, 191, 271, 321, 360 };
-    private static readonly double[] SecondaryRotations = { 45, 95, 45, 20, 45, 90, 45, 45, 45 };
-    private static readonly double[] TertiaryRotations = { 120, 120, 20, 45, 20, 15, 20, 120, 120 };
+    private static readonly double[] Hues = [0, 21, 51, 121, 151, 191, 271, 321, 360];
+    private static readonly double[] SecondaryRotations = [45, 95, 45, 20, 45, 90, 45, 45, 45];
+    private static readonly double[] TertiaryRotations = [120, 120, 20, 45, 20, 15, 20, 120, 120];
 
     public SchemeExpressive(Hct.Hct sourceColorHct, bool isDark, double contrastLevel) :
         base(

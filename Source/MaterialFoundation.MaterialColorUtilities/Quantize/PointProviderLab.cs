@@ -26,7 +26,7 @@ public sealed class PointProviderLab : IPointProvider
     public double[] FromInt(int argb)
     {
         double[] lab = ColorUtils.LabFromArgb(argb);
-        return new double[] { lab[0], lab[1], lab[2] };
+        return [lab[0], lab[1], lab[2]];
     }
 
     /// <summary>Convert a 3-element array to a color represented in ARGB.</summary>
