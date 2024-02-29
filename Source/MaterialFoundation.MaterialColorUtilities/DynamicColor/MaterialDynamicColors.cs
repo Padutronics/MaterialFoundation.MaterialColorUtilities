@@ -26,9 +26,9 @@ public sealed class MaterialDynamicColors
     /// <summary>Optionally use fidelity on most color schemes.</summary>
     private readonly bool isExtendedFidelity;
 
-    public MaterialDynamicColors()
+    public MaterialDynamicColors() :
+        this(isExtendedFidelity: false)
     {
-        isExtendedFidelity = false;
     }
 
     public MaterialDynamicColors(bool isExtendedFidelity)
