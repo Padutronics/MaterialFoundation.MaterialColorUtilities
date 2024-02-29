@@ -84,8 +84,8 @@ public sealed class MaterialDynamicColors
     {
         return DynamicColor.FromPalette(
             name: "primary_palette_key_color",
-            palette: (s) => s.PrimaryPalette,
-            tone: (s) => s.PrimaryPalette.KeyColor.Tone
+            palette: s => s.PrimaryPalette,
+            tone: s => s.PrimaryPalette.KeyColor.Tone
         );
     }
 
@@ -93,8 +93,8 @@ public sealed class MaterialDynamicColors
     {
         return DynamicColor.FromPalette(
             name: "secondary_palette_key_color",
-            palette: (s) => s.SecondaryPalette,
-            tone: (s) => s.SecondaryPalette.KeyColor.Tone
+            palette: s => s.SecondaryPalette,
+            tone: s => s.SecondaryPalette.KeyColor.Tone
         );
     }
 
@@ -102,8 +102,8 @@ public sealed class MaterialDynamicColors
     {
         return DynamicColor.FromPalette(
             name: "tertiary_palette_key_color",
-            palette: (s) => s.TertiaryPalette,
-            tone: (s) => s.TertiaryPalette.KeyColor.Tone
+            palette: s => s.TertiaryPalette,
+            tone: s => s.TertiaryPalette.KeyColor.Tone
         );
     }
 
@@ -111,8 +111,8 @@ public sealed class MaterialDynamicColors
     {
         return DynamicColor.FromPalette(
             name: "neutral_palette_key_color",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.NeutralPalette.KeyColor.Tone
+            palette: s => s.NeutralPalette,
+            tone: s => s.NeutralPalette.KeyColor.Tone
         );
     }
 
@@ -120,8 +120,8 @@ public sealed class MaterialDynamicColors
     {
         return DynamicColor.FromPalette(
             name: "neutral_variant_palette_key_color",
-            palette: (s) => s.NeutralVariantPalette,
-            tone: (s) => s.NeutralVariantPalette.KeyColor.Tone
+            palette: s => s.NeutralVariantPalette,
+            tone: s => s.NeutralVariantPalette.KeyColor.Tone
         );
     }
 
@@ -129,8 +129,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "background",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.IsDark ? 6.0 : 98.0,
+            palette: s => s.NeutralPalette,
+            tone: s => s.IsDark ? 6.0 : 98.0,
             isBackground: true,
             background: null,
             secondBackground: null,
@@ -143,10 +143,10 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_background",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.IsDark ? 90.0 : 10.0,
+            palette: s => s.NeutralPalette,
+            tone: s => s.IsDark ? 90.0 : 10.0,
             isBackground: false,
-            background: (s) => Background(),
+            background: s => Background(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 3.0, 4.5, 7.0),
             toneDeltaPair: null
@@ -157,8 +157,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "surface",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.IsDark ? 6.0 : 98.0,
+            palette: s => s.NeutralPalette,
+            tone: s => s.IsDark ? 6.0 : 98.0,
             isBackground: true,
             background: null,
             secondBackground: null,
@@ -171,8 +171,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "surface_dim",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.IsDark ? 6.0 : new ContrastCurve(87.0, 87.0, 80.0, 75.0).Get(s.ContrastLevel),
+            palette: s => s.NeutralPalette,
+            tone: s => s.IsDark ? 6.0 : new ContrastCurve(87.0, 87.0, 80.0, 75.0).Get(s.ContrastLevel),
             isBackground: true,
             background: null,
             secondBackground: null,
@@ -185,8 +185,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "surface_bright",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.IsDark ? new ContrastCurve(24.0, 24.0, 29.0, 34.0).Get(s.ContrastLevel) : 98.0,
+            palette: s => s.NeutralPalette,
+            tone: s => s.IsDark ? new ContrastCurve(24.0, 24.0, 29.0, 34.0).Get(s.ContrastLevel) : 98.0,
             isBackground: true,
             background: null,
             secondBackground: null,
@@ -199,8 +199,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "surface_container_lowest",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.IsDark ? new ContrastCurve(4.0, 4.0, 2.0, 0.0).Get(s.ContrastLevel) : 100.0,
+            palette: s => s.NeutralPalette,
+            tone: s => s.IsDark ? new ContrastCurve(4.0, 4.0, 2.0, 0.0).Get(s.ContrastLevel) : 100.0,
             isBackground: true,
             background: null,
             secondBackground: null,
@@ -213,8 +213,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "surface_container_low",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.IsDark
+            palette: s => s.NeutralPalette,
+            tone: s => s.IsDark
                 ? new ContrastCurve(10.0, 10.0, 11.0, 12.0).Get(s.ContrastLevel)
                 : new ContrastCurve(96.0, 96.0, 96.0, 95.0).Get(s.ContrastLevel),
             isBackground: true,
@@ -229,8 +229,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "surface_container",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.IsDark
+            palette: s => s.NeutralPalette,
+            tone: s => s.IsDark
                 ? new ContrastCurve(12.0, 12.0, 16.0, 20.0).Get(s.ContrastLevel)
                 : new ContrastCurve(94.0, 94.0, 92.0, 90.0).Get(s.ContrastLevel),
             isBackground: true,
@@ -245,8 +245,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "surface_container_high",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.IsDark
+            palette: s => s.NeutralPalette,
+            tone: s => s.IsDark
                 ? new ContrastCurve(17.0, 17.0, 21.0, 25.0).Get(s.ContrastLevel)
                 : new ContrastCurve(92.0, 92.0, 88.0, 85.0).Get(s.ContrastLevel),
             isBackground: true,
@@ -261,8 +261,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "surface_container_highest",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.IsDark
+            palette: s => s.NeutralPalette,
+            tone: s => s.IsDark
                 ? new ContrastCurve(22.0, 22.0, 26.0, 30.0).Get(s.ContrastLevel)
                 : new ContrastCurve(90.0, 90.0, 84.0, 80.0).Get(s.ContrastLevel),
             isBackground: true,
@@ -277,8 +277,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_surface",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.IsDark ? 90.0 : 10.0,
+            palette: s => s.NeutralPalette,
+            tone: s => s.IsDark ? 90.0 : 10.0,
             isBackground: false,
             background: HighestSurface,
             secondBackground: null,
@@ -291,8 +291,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "surface_variant",
-            palette: (s) => s.NeutralVariantPalette,
-            tone: (s) => s.IsDark ? 30.0 : 90.0,
+            palette: s => s.NeutralVariantPalette,
+            tone: s => s.IsDark ? 30.0 : 90.0,
             isBackground: true,
             background: null,
             secondBackground: null,
@@ -305,8 +305,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_surface_variant",
-            palette: (s) => s.NeutralVariantPalette,
-            tone: (s) => s.IsDark ? 80.0 : 30.0,
+            palette: s => s.NeutralVariantPalette,
+            tone: s => s.IsDark ? 80.0 : 30.0,
             isBackground: false,
             background: HighestSurface,
             secondBackground: null,
@@ -319,8 +319,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "inverse_surface",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.IsDark ? 90.0 : 20.0,
+            palette: s => s.NeutralPalette,
+            tone: s => s.IsDark ? 90.0 : 20.0,
             isBackground: false,
             background: null,
             secondBackground: null,
@@ -333,10 +333,10 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "inverse_on_surface",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.IsDark ? 20.0 : 95.0,
+            palette: s => s.NeutralPalette,
+            tone: s => s.IsDark ? 20.0 : 95.0,
             isBackground: false,
-            background: (s) => InverseSurface(),
+            background: s => InverseSurface(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
@@ -347,8 +347,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "outline",
-            palette: (s) => s.NeutralVariantPalette,
-            tone: (s) => s.IsDark ? 60.0 : 50.0,
+            palette: s => s.NeutralVariantPalette,
+            tone: s => s.IsDark ? 60.0 : 50.0,
             isBackground: false,
             background: HighestSurface,
             secondBackground: null,
@@ -361,8 +361,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "outline_variant",
-            palette: (s) => s.NeutralVariantPalette,
-            tone: (s) => s.IsDark ? 30.0 : 80.0,
+            palette: s => s.NeutralVariantPalette,
+            tone: s => s.IsDark ? 30.0 : 80.0,
             isBackground: false,
             background: HighestSurface,
             secondBackground: null,
@@ -375,8 +375,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "shadow",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => 0.0,
+            palette: s => s.NeutralPalette,
+            tone: s => 0.0,
             isBackground: false,
             background: null,
             secondBackground: null,
@@ -389,8 +389,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "scrim",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => 0.0,
+            palette: s => s.NeutralPalette,
+            tone: s => 0.0,
             isBackground: false,
             background: null,
             secondBackground: null,
@@ -403,8 +403,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "surface_tint",
-            palette: (s) => s.PrimaryPalette,
-            tone: (s) => s.IsDark ? 80.0 : 40.0,
+            palette: s => s.PrimaryPalette,
+            tone: s => s.IsDark ? 80.0 : 40.0,
             isBackground: true,
             background: null,
             secondBackground: null,
@@ -417,8 +417,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "primary",
-            palette: (s) => s.PrimaryPalette,
-            tone: (s) =>
+            palette: s => s.PrimaryPalette,
+            tone: s =>
             {
                 if (IsMonochrome(s))
                 {
@@ -430,7 +430,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryContainer(), Primary(), 10.0, TonePolarity.Nearer, false)
+            toneDeltaPair: s => new ToneDeltaPair(PrimaryContainer(), Primary(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -438,8 +438,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_primary",
-            palette: (s) => s.PrimaryPalette,
-            tone: (s) =>
+            palette: s => s.PrimaryPalette,
+            tone: s =>
             {
                 if (IsMonochrome(s))
                 {
@@ -448,7 +448,7 @@ public sealed class MaterialDynamicColors
                 return s.IsDark ? 20.0 : 100.0;
             },
             isBackground: false,
-            background: (s) => Primary(),
+            background: s => Primary(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
@@ -459,8 +459,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "primary_container",
-            palette: (s) => s.PrimaryPalette,
-            tone: (s) =>
+            palette: s => s.PrimaryPalette,
+            tone: s =>
             {
                 if (IsFidelity(s))
                 {
@@ -476,7 +476,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryContainer(), Primary(), 10.0, TonePolarity.Nearer, false)
+            toneDeltaPair: s => new ToneDeltaPair(PrimaryContainer(), Primary(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -484,8 +484,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_primary_container",
-            palette: (s) => s.PrimaryPalette,
-            tone: (s) =>
+            palette: s => s.PrimaryPalette,
+            tone: s =>
             {
                 if (IsFidelity(s))
                 {
@@ -498,7 +498,7 @@ public sealed class MaterialDynamicColors
                 return s.IsDark ? 90.0 : 10.0;
             },
             isBackground: false,
-            background: (s) => PrimaryContainer(),
+            background: s => PrimaryContainer(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
@@ -509,10 +509,10 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "inverse_primary",
-            palette: (s) => s.PrimaryPalette,
-            tone: (s) => s.IsDark ? 40.0 : 80.0,
+            palette: s => s.PrimaryPalette,
+            tone: s => s.IsDark ? 40.0 : 80.0,
             isBackground: false,
-            background: (s) => InverseSurface(),
+            background: s => InverseSurface(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 7.0),
             toneDeltaPair: null
@@ -523,13 +523,13 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "secondary",
-            palette: (s) => s.SecondaryPalette,
-            tone: (s) => s.IsDark ? 80.0 : 40.0,
+            palette: s => s.SecondaryPalette,
+            tone: s => s.IsDark ? 80.0 : 40.0,
             isBackground: true,
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryContainer(), Secondary(), 10.0, TonePolarity.Nearer, false)
+            toneDeltaPair: s => new ToneDeltaPair(SecondaryContainer(), Secondary(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -537,8 +537,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_secondary",
-            palette: (s) => s.SecondaryPalette,
-            tone: (s) =>
+            palette: s => s.SecondaryPalette,
+            tone: s =>
             {
                 if (IsMonochrome(s))
                 {
@@ -550,7 +550,7 @@ public sealed class MaterialDynamicColors
                 }
             },
             isBackground: false,
-            background: (s) => Secondary(),
+            background: s => Secondary(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
@@ -561,8 +561,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "secondary_container",
-            palette: (s) => s.SecondaryPalette,
-            tone: (s) =>
+            palette: s => s.SecondaryPalette,
+            tone: s =>
             {
                 double initialTone = s.IsDark ? 30.0 : 90.0;
                 if (IsMonochrome(s))
@@ -579,7 +579,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryContainer(), Secondary(), 10.0, TonePolarity.Nearer, false)
+            toneDeltaPair: s => new ToneDeltaPair(SecondaryContainer(), Secondary(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -587,8 +587,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_secondary_container",
-            palette: (s) => s.SecondaryPalette,
-            tone: (s) =>
+            palette: s => s.SecondaryPalette,
+            tone: s =>
             {
                 if (!IsFidelity(s))
                 {
@@ -597,7 +597,7 @@ public sealed class MaterialDynamicColors
                 return DynamicColor.ForegroundTone(SecondaryContainer().tone(s), 4.5);
             },
             isBackground: false,
-            background: (s) => SecondaryContainer(),
+            background: s => SecondaryContainer(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
@@ -608,8 +608,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "tertiary",
-            palette: (s) => s.TertiaryPalette,
-            tone: (s) =>
+            palette: s => s.TertiaryPalette,
+            tone: s =>
             {
                 if (IsMonochrome(s))
                 {
@@ -621,7 +621,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryContainer(), Tertiary(), 10.0, TonePolarity.Nearer, false)
+            toneDeltaPair: s => new ToneDeltaPair(TertiaryContainer(), Tertiary(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -629,8 +629,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_tertiary",
-            palette: (s) => s.TertiaryPalette,
-            tone: (s) =>
+            palette: s => s.TertiaryPalette,
+            tone: s =>
             {
                 if (IsMonochrome(s))
                 {
@@ -639,7 +639,7 @@ public sealed class MaterialDynamicColors
                 return s.IsDark ? 20.0 : 100.0;
             },
             isBackground: false,
-            background: (s) => Tertiary(),
+            background: s => Tertiary(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
@@ -650,8 +650,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "tertiary_container",
-            palette: (s) => s.TertiaryPalette,
-            tone: (s) =>
+            palette: s => s.TertiaryPalette,
+            tone: s =>
             {
                 if (IsMonochrome(s))
                 {
@@ -668,7 +668,7 @@ public sealed class MaterialDynamicColors
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryContainer(), Tertiary(), 10.0, TonePolarity.Nearer, false)
+            toneDeltaPair: s => new ToneDeltaPair(TertiaryContainer(), Tertiary(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -676,8 +676,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_tertiary_container",
-            palette: (s) => s.TertiaryPalette,
-            tone: (s) =>
+            palette: s => s.TertiaryPalette,
+            tone: s =>
             {
                 if (IsMonochrome(s))
                 {
@@ -690,7 +690,7 @@ public sealed class MaterialDynamicColors
                 return DynamicColor.ForegroundTone(TertiaryContainer().tone(s), 4.5);
             },
             isBackground: false,
-            background: (s) => TertiaryContainer(),
+            background: s => TertiaryContainer(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
@@ -701,13 +701,13 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "error",
-            palette: (s) => s.ErrorPalette,
-            tone: (s) => s.IsDark ? 80.0 : 40.0,
+            palette: s => s.ErrorPalette,
+            tone: s => s.IsDark ? 80.0 : 40.0,
             isBackground: true,
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 7.0),
-            toneDeltaPair: (s) => new ToneDeltaPair(ErrorContainer(), Error(), 10.0, TonePolarity.Nearer, false)
+            toneDeltaPair: s => new ToneDeltaPair(ErrorContainer(), Error(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -715,10 +715,10 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_error",
-            palette: (s) => s.ErrorPalette,
-            tone: (s) => s.IsDark ? 20.0 : 100.0,
+            palette: s => s.ErrorPalette,
+            tone: s => s.IsDark ? 20.0 : 100.0,
             isBackground: false,
-            background: (s) => Error(),
+            background: s => Error(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
@@ -729,13 +729,13 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "error_container",
-            palette: (s) => s.ErrorPalette,
-            tone: (s) => s.IsDark ? 30.0 : 90.0,
+            palette: s => s.ErrorPalette,
+            tone: s => s.IsDark ? 30.0 : 90.0,
             isBackground: true,
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(ErrorContainer(), Error(), 10.0, TonePolarity.Nearer, false)
+            toneDeltaPair: s => new ToneDeltaPair(ErrorContainer(), Error(), 10.0, TonePolarity.Nearer, false)
         );
     }
 
@@ -743,10 +743,10 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_error_container",
-            palette: (s) => s.ErrorPalette,
-            tone: (s) => s.IsDark ? 90.0 : 10.0,
+            palette: s => s.ErrorPalette,
+            tone: s => s.IsDark ? 90.0 : 10.0,
             isBackground: false,
-            background: (s) => ErrorContainer(),
+            background: s => ErrorContainer(),
             secondBackground: null,
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
@@ -757,13 +757,13 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "primary_fixed",
-            palette: (s) => s.PrimaryPalette,
-            tone: (s) => IsMonochrome(s) ? 40.0 : 90.0,
+            palette: s => s.PrimaryPalette,
+            tone: s => IsMonochrome(s) ? 40.0 : 90.0,
             isBackground: true,
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryFixed(), PrimaryFixedDim(), 10.0, TonePolarity.Lighter, true)
+            toneDeltaPair: s => new ToneDeltaPair(PrimaryFixed(), PrimaryFixedDim(), 10.0, TonePolarity.Lighter, true)
         );
     }
 
@@ -771,13 +771,13 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "primary_fixed_dim",
-            palette: (s) => s.PrimaryPalette,
-            tone: (s) => IsMonochrome(s) ? 30.0 : 80.0,
+            palette: s => s.PrimaryPalette,
+            tone: s => IsMonochrome(s) ? 30.0 : 80.0,
             isBackground: true,
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(PrimaryFixed(), PrimaryFixedDim(), 10.0, TonePolarity.Lighter, true)
+            toneDeltaPair: s => new ToneDeltaPair(PrimaryFixed(), PrimaryFixedDim(), 10.0, TonePolarity.Lighter, true)
         );
     }
 
@@ -785,11 +785,11 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_primary_fixed",
-            palette: (s) => s.PrimaryPalette,
-            tone: (s) => IsMonochrome(s) ? 100.0 : 10.0,
+            palette: s => s.PrimaryPalette,
+            tone: s => IsMonochrome(s) ? 100.0 : 10.0,
             isBackground: false,
-            background: (s) => PrimaryFixedDim(),
-            secondBackground: (s) => PrimaryFixed(),
+            background: s => PrimaryFixedDim(),
+            secondBackground: s => PrimaryFixed(),
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
@@ -799,11 +799,11 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_primary_fixed_variant",
-            palette: (s) => s.PrimaryPalette,
-            tone: (s) => IsMonochrome(s) ? 90.0 : 30.0,
+            palette: s => s.PrimaryPalette,
+            tone: s => IsMonochrome(s) ? 90.0 : 30.0,
             isBackground: false,
-            background: (s) => PrimaryFixedDim(),
-            secondBackground: (s) => PrimaryFixed(),
+            background: s => PrimaryFixedDim(),
+            secondBackground: s => PrimaryFixed(),
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 11.0),
             toneDeltaPair: null
         );
@@ -813,13 +813,13 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "secondary_fixed",
-            palette: (s) => s.SecondaryPalette,
-            tone: (s) => IsMonochrome(s) ? 80.0 : 90.0,
+            palette: s => s.SecondaryPalette,
+            tone: s => IsMonochrome(s) ? 80.0 : 90.0,
             isBackground: true,
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryFixed(), SecondaryFixedDim(), 10.0, TonePolarity.Lighter, true)
+            toneDeltaPair: s => new ToneDeltaPair(SecondaryFixed(), SecondaryFixedDim(), 10.0, TonePolarity.Lighter, true)
         );
     }
 
@@ -827,13 +827,13 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "secondary_fixed_dim",
-            palette: (s) => s.SecondaryPalette,
-            tone: (s) => IsMonochrome(s) ? 70.0 : 80.0,
+            palette: s => s.SecondaryPalette,
+            tone: s => IsMonochrome(s) ? 70.0 : 80.0,
             isBackground: true,
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(SecondaryFixed(), SecondaryFixedDim(), 10.0, TonePolarity.Lighter, true)
+            toneDeltaPair: s => new ToneDeltaPair(SecondaryFixed(), SecondaryFixedDim(), 10.0, TonePolarity.Lighter, true)
         );
     }
 
@@ -841,11 +841,11 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_secondary_fixed",
-            palette: (s) => s.SecondaryPalette,
-            tone: (s) => 10.0,
+            palette: s => s.SecondaryPalette,
+            tone: s => 10.0,
             isBackground: false,
-            background: (s) => SecondaryFixedDim(),
-            secondBackground: (s) => SecondaryFixed(),
+            background: s => SecondaryFixedDim(),
+            secondBackground: s => SecondaryFixed(),
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
@@ -855,11 +855,11 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_secondary_fixed_variant",
-            palette: (s) => s.SecondaryPalette,
-            tone: (s) => IsMonochrome(s) ? 25.0 : 30.0,
+            palette: s => s.SecondaryPalette,
+            tone: s => IsMonochrome(s) ? 25.0 : 30.0,
             isBackground: false,
-            background: (s) => SecondaryFixedDim(),
-            secondBackground: (s) => SecondaryFixed(),
+            background: s => SecondaryFixedDim(),
+            secondBackground: s => SecondaryFixed(),
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 11.0),
             toneDeltaPair: null
         );
@@ -869,13 +869,13 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "tertiary_fixed",
-            palette: (s) => s.TertiaryPalette,
-            tone: (s) => IsMonochrome(s) ? 40.0 : 90.0,
+            palette: s => s.TertiaryPalette,
+            tone: s => IsMonochrome(s) ? 40.0 : 90.0,
             isBackground: true,
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryFixed(), TertiaryFixedDim(), 10.0, TonePolarity.Lighter, true)
+            toneDeltaPair: s => new ToneDeltaPair(TertiaryFixed(), TertiaryFixedDim(), 10.0, TonePolarity.Lighter, true)
         );
     }
 
@@ -883,13 +883,13 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "tertiary_fixed_dim",
-            palette: (s) => s.TertiaryPalette,
-            tone: (s) => IsMonochrome(s) ? 30.0 : 80.0,
+            palette: s => s.TertiaryPalette,
+            tone: s => IsMonochrome(s) ? 30.0 : 80.0,
             isBackground: true,
             background: HighestSurface,
             secondBackground: null,
             contrastCurve: new ContrastCurve(1.0, 1.0, 3.0, 4.5),
-            toneDeltaPair: (s) => new ToneDeltaPair(TertiaryFixed(), TertiaryFixedDim(), 10.0, TonePolarity.Lighter, true)
+            toneDeltaPair: s => new ToneDeltaPair(TertiaryFixed(), TertiaryFixedDim(), 10.0, TonePolarity.Lighter, true)
         );
     }
 
@@ -897,11 +897,11 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_tertiary_fixed",
-            palette: (s) => s.TertiaryPalette,
-            tone: (s) => IsMonochrome(s) ? 100.0 : 10.0,
+            palette: s => s.TertiaryPalette,
+            tone: s => IsMonochrome(s) ? 100.0 : 10.0,
             isBackground: false,
-            background: (s) => TertiaryFixedDim(),
-            secondBackground: (s) => TertiaryFixed(),
+            background: s => TertiaryFixedDim(),
+            secondBackground: s => TertiaryFixed(),
             contrastCurve: new ContrastCurve(4.5, 7.0, 11.0, 21.0),
             toneDeltaPair: null
         );
@@ -911,11 +911,11 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "on_tertiary_fixed_variant",
-            palette: (s) => s.TertiaryPalette,
-            tone: (s) => IsMonochrome(s) ? 90.0 : 30.0,
+            palette: s => s.TertiaryPalette,
+            tone: s => IsMonochrome(s) ? 90.0 : 30.0,
             isBackground: false,
-            background: (s) => TertiaryFixedDim(),
-            secondBackground: (s) => TertiaryFixed(),
+            background: s => TertiaryFixedDim(),
+            secondBackground: s => TertiaryFixed(),
             contrastCurve: new ContrastCurve(3.0, 4.5, 7.0, 11.0),
             toneDeltaPair: null
         );
@@ -934,7 +934,7 @@ public sealed class MaterialDynamicColors
     /// Therefore, this is a duplicated version of Primary Container.</remarks>
     public DynamicColor ControlActivated()
     {
-        return DynamicColor.FromPalette("control_activated", (s) => s.PrimaryPalette, (s) => s.IsDark ? 30.0 : 90.0);
+        return DynamicColor.FromPalette("control_activated", s => s.PrimaryPalette, s => s.IsDark ? 30.0 : 90.0);
     }
 
     /// <remarks>colorControlNormal documented as textColorSecondary in M3 & GM3.
@@ -942,7 +942,7 @@ public sealed class MaterialDynamicColors
     /// which is Neutral Variant T30/80 in light/dark.</remarks>
     public DynamicColor ControlNormal()
     {
-        return DynamicColor.FromPalette("control_normal", (s) => s.NeutralVariantPalette, (s) => s.IsDark ? 80.0 : 30.0);
+        return DynamicColor.FromPalette("control_normal", s => s.NeutralVariantPalette, s => s.IsDark ? 80.0 : 30.0);
     }
 
     /// <remarks>colorControlHighlight documented, in both M3 & GM3:
@@ -957,8 +957,8 @@ public sealed class MaterialDynamicColors
     {
         return new DynamicColor(
             name: "control_highlight",
-            palette: (s) => s.NeutralPalette,
-            tone: (s) => s.IsDark ? 100.0 : 0.0,
+            palette: s => s.NeutralPalette,
+            tone: s => s.IsDark ? 100.0 : 0.0,
             isBackground: false,
             background: null,
             secondBackground: null,
@@ -971,7 +971,7 @@ public sealed class MaterialDynamicColors
     /// <remarks>textColorPrimaryInverse documented, in both M3 & GM3, documented as N10/N90.</remarks>
     public DynamicColor TextPrimaryInverse()
     {
-        return DynamicColor.FromPalette("text_primary_inverse", (s) => s.NeutralPalette, (s) => s.IsDark ? 10.0 : 90.0);
+        return DynamicColor.FromPalette("text_primary_inverse", s => s.NeutralPalette, s => s.IsDark ? 10.0 : 90.0);
     }
 
     /// <remarks>textColorSecondaryInverse and textColorTertiaryInverse both documented, in both M3 & GM3, as
@@ -980,8 +980,8 @@ public sealed class MaterialDynamicColors
     {
         return DynamicColor.FromPalette(
             "text_secondary_and_tertiary_inverse",
-            (s) => s.NeutralVariantPalette,
-            (s) => s.IsDark ? 30.0 : 80.0
+            s => s.NeutralVariantPalette,
+            s => s.IsDark ? 30.0 : 80.0
         );
     }
 
@@ -990,8 +990,8 @@ public sealed class MaterialDynamicColors
     {
         return DynamicColor.FromPalette(
             "text_primary_inverse_disable_only",
-            (s) => s.NeutralPalette,
-            (s) => s.IsDark ? 10.0 : 90.0
+            s => s.NeutralPalette,
+            s => s.IsDark ? 10.0 : 90.0
         );
     }
 
@@ -1001,15 +1001,15 @@ public sealed class MaterialDynamicColors
     {
         return DynamicColor.FromPalette(
             "text_secondary_and_tertiary_inverse_disabled",
-            (s) => s.NeutralPalette,
-            (s) => s.IsDark ? 10.0 : 90.0
+            s => s.NeutralPalette,
+            s => s.IsDark ? 10.0 : 90.0
         );
     }
 
     /// <remarks>textColorHintInverse documented, in both M3 & GM3, as N10/N90</remarks>
     public DynamicColor TextHintInverse()
     {
-        return DynamicColor.FromPalette("text_hint_inverse", (s) => s.NeutralPalette, (s) => s.IsDark ? 10.0 : 90.0);
+        return DynamicColor.FromPalette("text_hint_inverse", s => s.NeutralPalette, s => s.IsDark ? 10.0 : 90.0);
     }
 
     private bool IsFidelity(DynamicScheme scheme)

@@ -206,7 +206,7 @@ public sealed class DynamicColor
     {
         Hct.Hct hct = Hct.Hct.FromInt(argb);
         TonalPalette palette = TonalPalette.FromInt(argb);
-        return FromPalette(name, (s) => palette, (s) => hct.Tone);
+        return FromPalette(name, s => palette, s => hct.Tone);
     }
 
     /// <summary>Given a background tone, find a foreground tone, while ensuring they reach a contrast ratio
