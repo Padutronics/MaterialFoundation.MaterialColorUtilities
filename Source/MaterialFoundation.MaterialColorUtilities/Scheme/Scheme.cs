@@ -58,63 +58,63 @@ public sealed class Scheme
         InversePrimary = inversePrimary;
     }
 
-    public int Primary { get; private set; }
+    public int Primary { get; set; }
 
-    public int OnPrimary { get; private set; }
+    public int OnPrimary { get; set; }
 
-    public int PrimaryContainer { get; private set; }
+    public int PrimaryContainer { get; set; }
 
-    public int OnPrimaryContainer { get; private set; }
+    public int OnPrimaryContainer { get; set; }
 
-    public int Secondary { get; private set; }
+    public int Secondary { get; set; }
 
-    public int OnSecondary { get; private set; }
+    public int OnSecondary { get; set; }
 
-    public int SecondaryContainer { get; private set; }
+    public int SecondaryContainer { get; set; }
 
-    public int OnSecondaryContainer { get; private set; }
+    public int OnSecondaryContainer { get; set; }
 
-    public int Tertiary { get; private set; }
+    public int Tertiary { get; set; }
 
-    public int OnTertiary { get; private set; }
+    public int OnTertiary { get; set; }
 
-    public int TertiaryContainer { get; private set; }
+    public int TertiaryContainer { get; set; }
 
-    public int OnTertiaryContainer { get; private set; }
+    public int OnTertiaryContainer { get; set; }
 
-    public int Error { get; private set; }
+    public int Error { get; set; }
 
-    public int OnError { get; private set; }
+    public int OnError { get; set; }
 
-    public int ErrorContainer { get; private set; }
+    public int ErrorContainer { get; set; }
 
-    public int OnErrorContainer { get; private set; }
+    public int OnErrorContainer { get; set; }
 
-    public int Background { get; private set; }
+    public int Background { get; set; }
 
-    public int OnBackground { get; private set; }
+    public int OnBackground { get; set; }
 
-    public int Surface { get; private set; }
+    public int Surface { get; set; }
 
-    public int OnSurface { get; private set; }
+    public int OnSurface { get; set; }
 
-    public int SurfaceVariant { get; private set; }
+    public int SurfaceVariant { get; set; }
 
-    public int OnSurfaceVariant { get; private set; }
+    public int OnSurfaceVariant { get; set; }
 
-    public int Outline { get; private set; }
+    public int Outline { get; set; }
 
-    public int OutlineVariant { get; private set; }
+    public int OutlineVariant { get; set; }
 
-    public int Shadow { get; private set; }
+    public int Shadow { get; set; }
 
-    public int Scrim { get; private set; }
+    public int Scrim { get; set; }
 
-    public int InverseSurface { get; private set; }
+    public int InverseSurface { get; set; }
 
-    public int InverseOnSurface { get; private set; }
+    public int InverseOnSurface { get; set; }
 
-    public int InversePrimary { get; private set; }
+    public int InversePrimary { get; set; }
 
     /// <summary>Creates a light theme Scheme from a source color in ARGB, i.e. a hex code.</summary>
     public static Scheme Light(int argb)
