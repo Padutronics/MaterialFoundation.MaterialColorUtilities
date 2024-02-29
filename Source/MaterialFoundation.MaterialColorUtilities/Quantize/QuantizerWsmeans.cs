@@ -246,8 +246,8 @@ public sealed class QuantizerWsmeans
 
         public Distance()
         {
-            this.index = -1;
-            this.distance = -1;
+            index = -1;
+            distance = -1;
         }
 
         public int CompareTo(Distance? other)

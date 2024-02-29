@@ -38,7 +38,7 @@ public class DynamicScheme
 
     public DynamicScheme(Hct.Hct sourceColorHct, Variant variant, bool isDark, double contrastLevel, TonalPalette primaryPalette, TonalPalette secondaryPalette, TonalPalette tertiaryPalette, TonalPalette neutralPalette, TonalPalette neutralVariantPalette)
     {
-        this.sourceColorArgb = sourceColorHct.ToInt();
+        sourceColorArgb = sourceColorHct.ToInt();
         this.sourceColorHct = sourceColorHct;
         this.variant = variant;
         this.isDark = isDark;
@@ -49,7 +49,7 @@ public class DynamicScheme
         this.tertiaryPalette = tertiaryPalette;
         this.neutralPalette = neutralPalette;
         this.neutralVariantPalette = neutralVariantPalette;
-        this.errorPalette = TonalPalette.FromHueAndChroma(25.0, 84.0);
+        errorPalette = TonalPalette.FromHueAndChroma(25.0, 84.0);
     }
 
     /// <summary>Given a set of hues and set of hue rotations, locate which hues the source color's hue is

@@ -400,8 +400,8 @@ public sealed class QuantizerWu : IQuantizer
 
         public MaximizeResult(int cut, double max)
         {
-            this.cutLocation = cut;
-            this.maximum = max;
+            cutLocation = cut;
+            maximum = max;
         }
     }
 

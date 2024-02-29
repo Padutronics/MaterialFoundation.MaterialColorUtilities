@@ -36,21 +36,21 @@ public sealed class CorePalette
         double chroma = hct.Chroma;
         if (isContent)
         {
-            this.a1 = TonalPalette.FromHueAndChroma(hue, chroma);
-            this.a2 = TonalPalette.FromHueAndChroma(hue, chroma / 3.0);
-            this.a3 = TonalPalette.FromHueAndChroma(hue + 60.0, chroma / 2.0);
-            this.n1 = TonalPalette.FromHueAndChroma(hue, Math.Min(chroma / 12.0, 4.0));
-            this.n2 = TonalPalette.FromHueAndChroma(hue, Math.Min(chroma / 6.0, 8.0));
+            a1 = TonalPalette.FromHueAndChroma(hue, chroma);
+            a2 = TonalPalette.FromHueAndChroma(hue, chroma / 3.0);
+            a3 = TonalPalette.FromHueAndChroma(hue + 60.0, chroma / 2.0);
+            n1 = TonalPalette.FromHueAndChroma(hue, Math.Min(chroma / 12.0, 4.0));
+            n2 = TonalPalette.FromHueAndChroma(hue, Math.Min(chroma / 6.0, 8.0));
         }
         else
         {
-            this.a1 = TonalPalette.FromHueAndChroma(hue, Math.Max(48.0, chroma));
-            this.a2 = TonalPalette.FromHueAndChroma(hue, 16.0);
-            this.a3 = TonalPalette.FromHueAndChroma(hue + 60.0, 24.0);
-            this.n1 = TonalPalette.FromHueAndChroma(hue, 4.0);
-            this.n2 = TonalPalette.FromHueAndChroma(hue, 8.0);
+            a1 = TonalPalette.FromHueAndChroma(hue, Math.Max(48.0, chroma));
+            a2 = TonalPalette.FromHueAndChroma(hue, 16.0);
+            a3 = TonalPalette.FromHueAndChroma(hue + 60.0, 24.0);
+            n1 = TonalPalette.FromHueAndChroma(hue, 4.0);
+            n2 = TonalPalette.FromHueAndChroma(hue, 8.0);
         }
-        this.error = TonalPalette.FromHueAndChroma(25, 84.0);
+        error = TonalPalette.FromHueAndChroma(25, 84.0);
     }
 
     /// <summary>Create key tones from a color.</summary>

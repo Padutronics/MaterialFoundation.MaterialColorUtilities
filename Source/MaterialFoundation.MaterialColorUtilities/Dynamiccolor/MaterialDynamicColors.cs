@@ -1014,7 +1014,7 @@ public sealed class MaterialDynamicColors
 
     private bool IsFidelity(DynamicScheme scheme)
     {
-        if (this.isExtendedFidelity && scheme.variant != Variant.Monochrome && scheme.variant != Variant.Neutral)
+        if (isExtendedFidelity && scheme.variant != Variant.Monochrome && scheme.variant != Variant.Neutral)
         {
             return true;
         }

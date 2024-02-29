@@ -54,23 +54,23 @@ public sealed class ContrastCurve
     {
         if (contrastLevel <= -1.0)
         {
-            return this.low;
+            return low;
         }
         else if (contrastLevel < 0.0)
         {
-            return MathUtils.Lerp(this.low, this.normal, (contrastLevel - -1) / 1);
+            return MathUtils.Lerp(low, normal, (contrastLevel - -1) / 1);
         }
         else if (contrastLevel < 0.5)
         {
-            return MathUtils.Lerp(this.normal, this.medium, (contrastLevel - 0) / 0.5);
+            return MathUtils.Lerp(normal, medium, (contrastLevel - 0) / 0.5);
         }
         else if (contrastLevel < 1.0)
         {
-            return MathUtils.Lerp(this.medium, this.high, (contrastLevel - 0.5) / 0.5);
+            return MathUtils.Lerp(medium, high, (contrastLevel - 0.5) / 0.5);
         }
         else
         {
-            return this.high;
+            return high;
         }
     }
 }
