@@ -41,7 +41,7 @@ public sealed class Cam16
         [-0.002079, 0.048952, 0.953127]
     ];
     /// <summary>Transforms 'cone'/'RGB' responses in CAM16 to XYZ color space coordinates.</summary>
-    private static readonly double[][] Cam16RgbToXyz = [
+    public static readonly double[][] Cam16RgbToXyz = [
         [1.8620678, -1.0112547, 0.14918678],
         [0.38752654, 0.62144744, -0.00897398],
         [-0.01584150, -0.03412294, 1.0499644]
@@ -127,7 +127,7 @@ public sealed class Cam16
     /// <remarks>The RGB => XYZ conversion matrix elements are derived scientific constants. While the values
     /// may differ at runtime due to floating point imprecision, keeping the values the same, and
     /// accurate, across implementations takes precedence.</remarks>
-    private static Cam16 FromIntInViewingConditions(int argb, ViewingConditions viewingConditions)
+    public static Cam16 FromIntInViewingConditions(int argb, ViewingConditions viewingConditions)
     {
         // Transform ARGB int to XYZ
         int red = (argb & 0x00ff0000) >> 16;
@@ -211,7 +211,7 @@ public sealed class Cam16
     /// <param name="j">CAM16 lightness</param>
     /// <param name="c">CAM16 chroma</param>
     /// <param name="h">CAM16 hue</param>
-    private static Cam16 FromJch(double j, double c, double h)
+    public static Cam16 FromJch(double j, double c, double h)
     {
         return FromJchInViewingConditions(j, c, h, ViewingConditions.Default);
     }
@@ -220,7 +220,7 @@ public sealed class Cam16
     /// <param name="c">CAM16 chroma</param>
     /// <param name="h">CAM16 hue</param>
     /// <param name="viewingConditions">Information about the environment where the color was observed.</param>
-    private static Cam16 FromJchInViewingConditions(double j, double c, double h, ViewingConditions viewingConditions)
+    public static Cam16 FromJchInViewingConditions(double j, double c, double h, ViewingConditions viewingConditions)
     {
         double q = 4.0 / viewingConditions.C * Math.Sqrt(j / 100.0) * (viewingConditions.Aw + 4.0) * viewingConditions.FlRoot;
         double m = c * viewingConditions.FlRoot;
@@ -290,7 +290,7 @@ public sealed class Cam16
     /// <summary>ARGB representation of the color, in defined viewing conditions.</summary>
     /// <param name="viewingConditions">Information about the environment where the color will be viewed.</param>
     /// <returns>ARGB representation of color</returns>
-    private int Viewed(ViewingConditions viewingConditions)
+    public int Viewed(ViewingConditions viewingConditions)
     {
         double[] xyz = XyzInViewingConditions(viewingConditions, tempArray);
         return ColorUtils.ArgbFromXyz(xyz[0], xyz[1], xyz[2]);
