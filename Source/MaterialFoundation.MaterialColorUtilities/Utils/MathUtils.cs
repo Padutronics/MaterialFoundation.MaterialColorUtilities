@@ -19,7 +19,7 @@ using System;
 namespace MaterialFoundation.MaterialColorUtilities.Utils;
 
 /// <summary>Utility methods for mathematical operations.</summary>
-public static class MathUtils
+internal static class MathUtils
 {
     /// <summary>The signum function.</summary>
     /// <returns>1 if num > 0, -1 if num < 0, and 0 if num = 0</returns>
