@@ -117,7 +117,9 @@ public sealed class QuantizerWsmeans
         int additionalClustersNeeded = clusterCount - clustersCreated;
         if (additionalClustersNeeded > 0)
         {
-            for (int i = 0; i < additionalClustersNeeded; i++) { }
+            for (int i = 0; i < additionalClustersNeeded; i++)
+            {
+            }
         }
 
         int[] clusterIndices = new int[pointCount];
