@@ -34,19 +34,6 @@ namespace MaterialFoundation.MaterialColorUtilities.Hct;
 /// measured as a slightly chromatic blue by CAM16. (roughly, hue 203, chroma 3, lightness 100)</para></summary>
 public sealed class Cam16
 {
-    /// <summary>Transforms XYZ color space coordinates to 'cone'/'RGB' responses in CAM16.</summary>
-    public static readonly double[][] XyzToCam16Rgb = [
-        [0.401288, 0.650173, -0.051461],
-        [-0.250268, 1.204414, 0.045854],
-        [-0.002079, 0.048952, 0.953127]
-    ];
-    /// <summary>Transforms 'cone'/'RGB' responses in CAM16 to XYZ color space coordinates.</summary>
-    public static readonly double[][] Cam16RgbToXyz = [
-        [1.8620678, -1.0112547, 0.14918678],
-        [0.38752654, 0.62144744, -0.00897398],
-        [-0.01584150, -0.03412294, 1.0499644]
-    ];
-
     /// <summary>Avoid allocations during conversion by pre-allocating an array.</summary>
     private readonly double[] tempArray = [0.0, 0.0, 0.0];
 
@@ -76,6 +63,20 @@ public sealed class Cam16
         Astar = astar;
         Bstar = bstar;
     }
+
+    /// <summary>Transforms XYZ color space coordinates to 'cone'/'RGB' responses in CAM16.</summary>
+    public static double[][] XyzToCam16Rgb { get; } = [
+        [0.401288, 0.650173, -0.051461],
+        [-0.250268, 1.204414, 0.045854],
+        [-0.002079, 0.048952, 0.953127]
+    ];
+
+    /// <summary>Transforms 'cone'/'RGB' responses in CAM16 to XYZ color space coordinates.</summary>
+    public static double[][] Cam16RgbToXyz { get; } = [
+        [1.8620678, -1.0112547, 0.14918678],
+        [0.38752654, 0.62144744, -0.00897398],
+        [-0.01584150, -0.03412294, 1.0499644]
+    ];
 
     /// <summary>Hue in CAM16</summary>
     public double Hue { get; }

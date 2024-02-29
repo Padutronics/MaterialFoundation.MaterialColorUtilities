@@ -30,9 +30,6 @@ namespace MaterialFoundation.MaterialColorUtilities.Hct;
 /// viewing conditions, enabling speed ups.</para></summary>
 public sealed class ViewingConditions
 {
-    /// <summary>sRGB-like viewing conditions.</summary>
-    public static readonly ViewingConditions Default = DefaultWithBackgroundLstar(50.0);
-
     /// <summary>Parameters are intermediate values of the CAM16 conversion process. Their names are shorthand
     /// for technical color science terminology, this class would not benefit from documenting them
     /// individually. A brief overview is available in the CAM16 specification, and a complete overview
@@ -50,6 +47,9 @@ public sealed class ViewingConditions
         FlRoot = flRoot;
         Z = z;
     }
+
+    /// <summary>sRGB-like viewing conditions.</summary>
+    public static ViewingConditions Default { get; } = DefaultWithBackgroundLstar(50.0);
 
     public double Aw { get; }
 
