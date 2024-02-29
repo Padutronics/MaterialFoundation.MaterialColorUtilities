@@ -22,13 +22,6 @@ namespace MaterialFoundation.MaterialColorUtilities.Palettes;
 /// tones are generated, all except one use the same hue as the key color, and all vary in chroma.</summary>
 public sealed class CorePalette
 {
-    public TonalPalette a1;
-    public TonalPalette a2;
-    public TonalPalette a3;
-    public TonalPalette n1;
-    public TonalPalette n2;
-    public TonalPalette error;
-
     private CorePalette(int argb, bool isContent)
     {
         Hct.Hct hct = Hct.Hct.FromInt(argb);
@@ -36,22 +29,34 @@ public sealed class CorePalette
         double chroma = hct.Chroma;
         if (isContent)
         {
-            a1 = TonalPalette.FromHueAndChroma(hue, chroma);
-            a2 = TonalPalette.FromHueAndChroma(hue, chroma / 3.0);
-            a3 = TonalPalette.FromHueAndChroma(hue + 60.0, chroma / 2.0);
-            n1 = TonalPalette.FromHueAndChroma(hue, Math.Min(chroma / 12.0, 4.0));
-            n2 = TonalPalette.FromHueAndChroma(hue, Math.Min(chroma / 6.0, 8.0));
+            A1 = TonalPalette.FromHueAndChroma(hue, chroma);
+            A2 = TonalPalette.FromHueAndChroma(hue, chroma / 3.0);
+            A3 = TonalPalette.FromHueAndChroma(hue + 60.0, chroma / 2.0);
+            N1 = TonalPalette.FromHueAndChroma(hue, Math.Min(chroma / 12.0, 4.0));
+            N2 = TonalPalette.FromHueAndChroma(hue, Math.Min(chroma / 6.0, 8.0));
         }
         else
         {
-            a1 = TonalPalette.FromHueAndChroma(hue, Math.Max(48.0, chroma));
-            a2 = TonalPalette.FromHueAndChroma(hue, 16.0);
-            a3 = TonalPalette.FromHueAndChroma(hue + 60.0, 24.0);
-            n1 = TonalPalette.FromHueAndChroma(hue, 4.0);
-            n2 = TonalPalette.FromHueAndChroma(hue, 8.0);
+            A1 = TonalPalette.FromHueAndChroma(hue, Math.Max(48.0, chroma));
+            A2 = TonalPalette.FromHueAndChroma(hue, 16.0);
+            A3 = TonalPalette.FromHueAndChroma(hue + 60.0, 24.0);
+            N1 = TonalPalette.FromHueAndChroma(hue, 4.0);
+            N2 = TonalPalette.FromHueAndChroma(hue, 8.0);
         }
-        error = TonalPalette.FromHueAndChroma(25, 84.0);
+        Error = TonalPalette.FromHueAndChroma(25, 84.0);
     }
+
+    public TonalPalette A1 { get; }
+
+    public TonalPalette A2 { get; }
+
+    public TonalPalette A3 { get; }
+
+    public TonalPalette N1 { get; }
+
+    public TonalPalette N2 { get; }
+
+    public TonalPalette Error { get; }
 
     /// <summary>Create key tones from a color.</summary>
     /// <param name="argb">ARGB representation of a color</param>
