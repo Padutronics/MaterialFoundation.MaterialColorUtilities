@@ -31,7 +31,7 @@ namespace MaterialFoundation.MaterialColorUtilities.Hct;
 public sealed class ViewingConditions
 {
     /// <summary>sRGB-like viewing conditions.</summary>
-    public static readonly ViewingConditions Default = ViewingConditions.DefaultWithBackgroundLstar(50.0);
+    public static readonly ViewingConditions Default = DefaultWithBackgroundLstar(50.0);
 
     /// <summary>Parameters are intermediate values of the CAM16 conversion process. Their names are shorthand
     /// for technical color science terminology, this class would not benefit from documenting them
@@ -136,6 +136,6 @@ public sealed class ViewingConditions
     /// <para>Default viewing conditions have a lstar of 50, midgray.</para></summary>
     public static ViewingConditions DefaultWithBackgroundLstar(double lstar)
     {
-        return ViewingConditions.Make(ColorUtils.GetWhitePointD65(), 200.0 / Math.PI * ColorUtils.YFromLstar(50.0) / 100.0, lstar, 2.0, false);
+        return Make(ColorUtils.GetWhitePointD65(), 200.0 / Math.PI * ColorUtils.YFromLstar(50.0) / 100.0, lstar, 2.0, false);
     }
 }

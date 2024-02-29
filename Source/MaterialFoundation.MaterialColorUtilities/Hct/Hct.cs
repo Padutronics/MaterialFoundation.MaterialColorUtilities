@@ -120,7 +120,7 @@ public sealed class Hct
         // 3. Create HCT from:
         // - CAM16 using default VC with XYZ coordinates in specified VC.
         // - L* converted from Y in XYZ coordinates in specified VC.
-        return Hct.From(recastInVc.Hue, recastInVc.Chroma, ColorUtils.LstarFromY(viewedInVc[1]));
+        return From(recastInVc.Hue, recastInVc.Chroma, ColorUtils.LstarFromY(viewedInVc[1]));
     }
 
     private void SetInternalState(int argb)

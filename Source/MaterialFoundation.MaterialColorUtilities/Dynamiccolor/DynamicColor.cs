@@ -206,7 +206,7 @@ public sealed class DynamicColor
     {
         Hct.Hct hct = Hct.Hct.FromInt(argb);
         TonalPalette palette = TonalPalette.FromInt(argb);
-        return DynamicColor.FromPalette(name, (s) => palette, (s) => hct.Tone);
+        return FromPalette(name, (s) => palette, (s) => hct.Tone);
     }
 
     /// <summary>Given a background tone, find a foreground tone, while ensuring they reach a contrast ratio
@@ -347,19 +347,19 @@ public sealed class DynamicColor
             double nInitialTone = nearer.tone(scheme);
             double nTone = Contrast.Contrast.RatioOfTones(bgTone, nInitialTone) >= nContrast
                 ? nInitialTone
-                : DynamicColor.ForegroundTone(bgTone, nContrast);
+                : ForegroundTone(bgTone, nContrast);
             // Initial and adjusted tones for `farther`
             double fInitialTone = farther.tone(scheme);
             double fTone = Contrast.Contrast.RatioOfTones(bgTone, fInitialTone) >= fContrast
                 ? fInitialTone
-                : DynamicColor.ForegroundTone(bgTone, fContrast);
+                : ForegroundTone(bgTone, fContrast);
 
             if (decreasingContrast)
             {
                 // If decreasing contrast, adjust color to the "bare minimum"
                 // that satisfies contrast.
-                nTone = DynamicColor.ForegroundTone(bgTone, nContrast);
-                fTone = DynamicColor.ForegroundTone(bgTone, fContrast);
+                nTone = ForegroundTone(bgTone, nContrast);
+                fTone = ForegroundTone(bgTone, fContrast);
             }
 
             // If constraint is not satisfied, try another round.
@@ -446,12 +446,12 @@ public sealed class DynamicColor
             else
             {
                 // Rough improvement.
-                answer = DynamicColor.ForegroundTone(bgTone, desiredRatio);
+                answer = ForegroundTone(bgTone, desiredRatio);
             }
 
             if (decreasingContrast)
             {
-                answer = DynamicColor.ForegroundTone(bgTone, desiredRatio);
+                answer = ForegroundTone(bgTone, desiredRatio);
             }
 
             if (isBackground && 50 <= answer && answer < 60)
@@ -501,7 +501,7 @@ public sealed class DynamicColor
                     availables.Add(darkOption);
                 }
 
-                bool prefersLight = DynamicColor.TonePrefersLightForeground(bgTone1) || DynamicColor.TonePrefersLightForeground(bgTone2);
+                bool prefersLight = TonePrefersLightForeground(bgTone1) || TonePrefersLightForeground(bgTone2);
                 if (prefersLight)
                 {
                     return (lightOption == -1) ? 100 : lightOption;

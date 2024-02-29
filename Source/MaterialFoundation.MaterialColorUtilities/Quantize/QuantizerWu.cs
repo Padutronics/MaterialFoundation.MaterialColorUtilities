@@ -254,9 +254,9 @@ public sealed class QuantizerWu : IQuantizer
 
     private double Variance(Box cube)
     {
-        int dr = QuantizerWu.Volume(cube, momentsR);
-        int dg = QuantizerWu.Volume(cube, momentsG);
-        int db = QuantizerWu.Volume(cube, momentsB);
+        int dr = Volume(cube, momentsR);
+        int dg = Volume(cube, momentsG);
+        int db = Volume(cube, momentsB);
         double xx = moments[GetIndex(cube.r1, cube.g1, cube.b1)] -
             moments[GetIndex(cube.r1, cube.g1, cube.b0)] -
             moments[GetIndex(cube.r1, cube.g0, cube.b1)] +
@@ -267,7 +267,7 @@ public sealed class QuantizerWu : IQuantizer
             moments[GetIndex(cube.r0, cube.g0, cube.b0)];
 
         int hypotenuse = dr * dr + dg * dg + db * db;
-        int volume = QuantizerWu.Volume(cube, weights);
+        int volume = Volume(cube, weights);
         return xx - hypotenuse / (double)volume;
     }
 
