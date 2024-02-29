@@ -317,7 +317,7 @@ public sealed class DynamicColor
     /// <summary>Returns the tone in HCT, ranging from 0 to 100, of the resolved color given scheme.</summary>
     public double GetTone(DynamicScheme scheme)
     {
-        bool decreasingContrast = scheme.contrastLevel < 0;
+        bool decreasingContrast = scheme.ContrastLevel < 0;
 
         // Case 1: dual foreground, pair of colors with delta constraint.
         if (toneDeltaPair != null)
@@ -332,15 +332,15 @@ public sealed class DynamicColor
             DynamicColor bg = background!(scheme);
             double bgTone = bg.GetTone(scheme);
 
-            bool aIsNearer = polarity == TonePolarity.Nearer || polarity == TonePolarity.Lighter && !scheme.isDark || polarity == TonePolarity.Darker && scheme.isDark;
+            bool aIsNearer = polarity == TonePolarity.Nearer || polarity == TonePolarity.Lighter && !scheme.IsDark || polarity == TonePolarity.Darker && scheme.IsDark;
             DynamicColor nearer = aIsNearer ? roleA : roleB;
             DynamicColor farther = aIsNearer ? roleB : roleA;
             bool amNearer = name.Equals(nearer.name);
-            double expansionDir = scheme.isDark ? 1 : -1;
+            double expansionDir = scheme.IsDark ? 1 : -1;
 
             // 1st round: solve to min, each
-            double nContrast = nearer.contrastCurve!.Get(scheme.contrastLevel);
-            double fContrast = farther.contrastCurve!.Get(scheme.contrastLevel);
+            double nContrast = nearer.contrastCurve!.Get(scheme.ContrastLevel);
+            double fContrast = farther.contrastCurve!.Get(scheme.ContrastLevel);
 
             // If a color is good enough, it is not adjusted.
             // Initial and adjusted tones for `nearer`
@@ -437,7 +437,7 @@ public sealed class DynamicColor
 
             double bgTone = background(scheme).GetTone(scheme);
 
-            double desiredRatio = contrastCurve!.Get(scheme.contrastLevel);
+            double desiredRatio = contrastCurve!.Get(scheme.ContrastLevel);
 
             if (Contrast.Contrast.RatioOfTones(bgTone, answer) >= desiredRatio)
             {

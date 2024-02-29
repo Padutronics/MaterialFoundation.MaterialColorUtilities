@@ -24,33 +24,43 @@ namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 /// (-1 to 1, currently contrast ratio 3.0 and 7.0)</summary>
 public class DynamicScheme
 {
-    public readonly int sourceColorArgb;
-    public readonly Hct.Hct sourceColorHct;
-    public readonly Variant variant;
-    public readonly bool isDark;
-    public readonly double contrastLevel;
-    public readonly TonalPalette primaryPalette;
-    public readonly TonalPalette secondaryPalette;
-    public readonly TonalPalette tertiaryPalette;
-    public readonly TonalPalette neutralPalette;
-    public readonly TonalPalette neutralVariantPalette;
-    public readonly TonalPalette errorPalette;
-
     public DynamicScheme(Hct.Hct sourceColorHct, Variant variant, bool isDark, double contrastLevel, TonalPalette primaryPalette, TonalPalette secondaryPalette, TonalPalette tertiaryPalette, TonalPalette neutralPalette, TonalPalette neutralVariantPalette)
     {
-        sourceColorArgb = sourceColorHct.ToInt();
-        this.sourceColorHct = sourceColorHct;
-        this.variant = variant;
-        this.isDark = isDark;
-        this.contrastLevel = contrastLevel;
+        SourceColorArgb = sourceColorHct.ToInt();
+        SourceColorHct = sourceColorHct;
+        Variant = variant;
+        IsDark = isDark;
+        ContrastLevel = contrastLevel;
 
-        this.primaryPalette = primaryPalette;
-        this.secondaryPalette = secondaryPalette;
-        this.tertiaryPalette = tertiaryPalette;
-        this.neutralPalette = neutralPalette;
-        this.neutralVariantPalette = neutralVariantPalette;
-        errorPalette = TonalPalette.FromHueAndChroma(25.0, 84.0);
+        PrimaryPalette = primaryPalette;
+        SecondaryPalette = secondaryPalette;
+        TertiaryPalette = tertiaryPalette;
+        NeutralPalette = neutralPalette;
+        NeutralVariantPalette = neutralVariantPalette;
+        ErrorPalette = TonalPalette.FromHueAndChroma(25.0, 84.0);
     }
+
+    public int SourceColorArgb { get; }
+
+    public Hct.Hct SourceColorHct { get; }
+
+    public Variant Variant { get; }
+
+    public bool IsDark { get; }
+
+    public double ContrastLevel { get; }
+
+    public TonalPalette PrimaryPalette { get; }
+
+    public TonalPalette SecondaryPalette { get; }
+
+    public TonalPalette TertiaryPalette { get; }
+
+    public TonalPalette NeutralPalette { get; }
+
+    public TonalPalette NeutralVariantPalette { get; }
+
+    public TonalPalette ErrorPalette { get; }
 
     /// <summary>Given a set of hues and set of hue rotations, locate which hues the source color's hue is
     /// between, apply the rotation at the same index as the first hue in the range, and return the
