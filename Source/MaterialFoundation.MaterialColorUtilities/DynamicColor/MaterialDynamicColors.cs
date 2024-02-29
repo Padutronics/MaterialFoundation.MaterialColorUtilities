@@ -125,6 +125,15 @@ public sealed class MaterialDynamicColors
         );
     }
 
+    public DynamicColor ErrorPaletteKeyColor()
+    {
+        return DynamicColor.FromPalette(
+            name: "error_palette_key_color",
+            palette: s => s.ErrorPalette,
+            tone: s => s.ErrorPalette.KeyColor.Tone
+        );
+    }
+
     public DynamicColor Background()
     {
         return new DynamicColor(
