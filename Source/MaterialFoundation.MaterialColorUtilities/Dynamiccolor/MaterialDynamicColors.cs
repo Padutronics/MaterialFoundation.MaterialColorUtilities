@@ -28,7 +28,7 @@ public sealed class MaterialDynamicColors
 
     public MaterialDynamicColors()
     {
-        this.isExtendedFidelity = false;
+        isExtendedFidelity = false;
     }
 
     public MaterialDynamicColors(bool isExtendedFidelity)
