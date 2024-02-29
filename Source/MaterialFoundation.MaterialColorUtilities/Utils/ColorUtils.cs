@@ -34,7 +34,10 @@ internal static class ColorUtils
         [-0.9691452513005321, 1.8758853451067872, 0.04156585616912061],
         [0.05562093689691305, -0.20395524564742123, 1.0571799111220335]
     ];
-    private static readonly double[] WhitePointD65 = [95.047, 100.0, 108.883];
+
+    /// <summary>Returns the standard white point; white on a sunny day.</summary>
+    /// <returns>The white point</returns>
+    public static double[] WhitePointD65 { get; } = [95.047, 100.0, 108.883];
 
     /// <summary>Converts a color from RGB components to ARGB format.</summary>
     public static int ArgbFromRgb(int red, int green, int blue)
@@ -221,13 +224,6 @@ internal static class ColorUtils
             delinearized = 1.055 * Math.Pow(normalized, 1.0 / 2.4) - 0.055;
         }
         return MathUtils.ClampInt(0, 255, (int)Math.Round(delinearized * 255.0));
-    }
-
-    /// <summary>Returns the standard white point; white on a sunny day.</summary>
-    /// <returns>The white point</returns>
-    public static double[] GetWhitePointD65()
-    {
-        return WhitePointD65;
     }
 
     private static double LabF(double t)

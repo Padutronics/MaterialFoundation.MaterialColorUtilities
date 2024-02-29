@@ -136,6 +136,6 @@ public sealed class ViewingConditions
     /// <para>Default viewing conditions have a lstar of 50, midgray.</para></summary>
     public static ViewingConditions DefaultWithBackgroundLstar(double lstar)
     {
-        return Make(ColorUtils.GetWhitePointD65(), 200.0 / Math.PI * ColorUtils.YFromLstar(50.0) / 100.0, lstar, 2.0, false);
+        return Make(ColorUtils.WhitePointD65, 200.0 / Math.PI * ColorUtils.YFromLstar(50.0) / 100.0, lstar, 2.0, false);
     }
 }
