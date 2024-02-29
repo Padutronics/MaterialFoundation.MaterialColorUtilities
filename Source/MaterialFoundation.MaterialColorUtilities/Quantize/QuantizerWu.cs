@@ -98,21 +98,6 @@ public sealed class QuantizerWu : IQuantizer
         };
     }
 
-    public QuantizerResult Quantize(int[] pixels, int colorCount)
-    {
-        QuantizerResult mapResult = new QuantizerMap().Quantize(pixels, colorCount);
-        ConstructHistogram(mapResult.ColorToCount);
-        CreateMoments();
-        CreateBoxesResult createBoxesResult = CreateBoxes(colorCount);
-        ICollection<int> colors = CreateResult(createBoxesResult.resultCount);
-        var resultMap = new Dictionary<int, int>();
-        foreach (int color in colors)
-        {
-            resultMap.Add(color, 0);
-        }
-        return new QuantizerResult(resultMap);
-    }
-
     private void ConstructHistogram(IDictionary<int, int> pixels)
     {
         weights = new int[TotalSize];
@@ -383,6 +368,21 @@ public sealed class QuantizerWu : IQuantizer
             }
         }
         return new MaximizeResult(cut, max);
+    }
+
+    public QuantizerResult Quantize(int[] pixels, int colorCount)
+    {
+        QuantizerResult mapResult = new QuantizerMap().Quantize(pixels, colorCount);
+        ConstructHistogram(mapResult.ColorToCount);
+        CreateMoments();
+        CreateBoxesResult createBoxesResult = CreateBoxes(colorCount);
+        ICollection<int> colors = CreateResult(createBoxesResult.resultCount);
+        var resultMap = new Dictionary<int, int>();
+        foreach (int color in colors)
+        {
+            resultMap.Add(color, 0);
+        }
+        return new QuantizerResult(resultMap);
     }
 
     private enum Direction
