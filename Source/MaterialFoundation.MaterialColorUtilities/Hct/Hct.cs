@@ -42,6 +42,12 @@ public sealed class Hct
         SetInternalState(argb);
     }
 
+    public double Hue { get; private set; }
+
+    public double Chroma { get; private set; }
+
+    public double Tone { get; private set; }
+
     /// <summary>Create an HCT color from hue, chroma, and tone.</summary>
     /// <param name="hue">0 <= hue < 360; invalid values are corrected.</param>
     /// <param name="chroma">0 <= chroma < ?; Informally, colorfulness. The color returned may be lower than
@@ -61,12 +67,6 @@ public sealed class Hct
     {
         return new Hct(argb);
     }
-
-    public double Hue { get; private set; }
-
-    public double Chroma { get; private set; }
-
-    public double Tone { get; private set; }
 
     public int ToInt()
     {
