@@ -306,7 +306,6 @@ public sealed class DynamicColor
         // "recover" intended chroma as contrast increases.
         double tone = GetTone(scheme);
         Hct.Hct answer = palette(scheme).GetHct(tone);
-
         if (hctCache.Count > 4)
         {
             hctCache.Clear();
@@ -346,13 +345,11 @@ public sealed class DynamicColor
             // If a color is good enough, it is not adjusted.
             // Initial and adjusted tones for `nearer`
             double nInitialTone = nearer.tone(scheme);
-
             double nTone = Contrast.Contrast.RatioOfTones(bgTone, nInitialTone) >= nContrast
                 ? nInitialTone
                 : DynamicColor.ForegroundTone(bgTone, nContrast);
             // Initial and adjusted tones for `farther`
             double fInitialTone = farther.tone(scheme);
-
             double fTone = Contrast.Contrast.RatioOfTones(bgTone, fInitialTone) >= fContrast
                 ? fInitialTone
                 : DynamicColor.ForegroundTone(bgTone, fContrast);
