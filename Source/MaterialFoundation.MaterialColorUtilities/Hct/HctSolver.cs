@@ -23,14 +23,14 @@ namespace MaterialFoundation.MaterialColorUtilities.Hct;
 public static class HctSolver
 {
     private static readonly double[][] ScaledDiscountFfromLinRgb = [
-        [0.001200833568784504, 0.002389694492170889, 0.0002795742885861124,],
-        [0.0005891086651375999, 0.0029785502573438758, 0.0003270666104008398,],
-        [0.00010146692491640572, 0.0005364214359186694, 0.0032979401770712076,],
+        [0.001200833568784504, 0.002389694492170889, 0.0002795742885861124],
+        [0.0005891086651375999, 0.0029785502573438758, 0.0003270666104008398],
+        [0.00010146692491640572, 0.0005364214359186694, 0.0032979401770712076]
     ];
     private static readonly double[][] LinRgbFromScaledDiscount = [
-        [1373.2198709594231, -1100.4251190754821, -7.278681089101213,],
-        [-271.815969077903, 559.6580465940733, -32.46047482791194,],
-        [1.9622899599665666, -57.173814538844006, 308.7233197812385,],
+        [1373.2198709594231, -1100.4251190754821, -7.278681089101213],
+        [-271.815969077903, 559.6580465940733, -32.46047482791194],
+        [1.9622899599665666, -57.173814538844006, 308.7233197812385]
     ];
     private static readonly double[] YFromLinRgb = [0.2126, 0.7152, 0.0722];
     private static readonly double[] CriticalPlanes = [
@@ -288,7 +288,7 @@ public static class HctSolver
         96.9059996312159,
         97.78421388448044,
         98.6670533535366,
-        99.55452497210776,
+        99.55452497210776
     ];
 
     /// <summary>Sanitizes a small enough angle in radians.</summary>
@@ -361,7 +361,7 @@ public static class HctSolver
         return [
             source[0] + (target[0] - source[0]) * t,
             source[1] + (target[1] - source[1]) * t,
-            source[2] + (target[2] - source[2]) * t,
+            source[2] + (target[2] - source[2]) * t
         ];
     }
 
@@ -490,7 +490,7 @@ public static class HctSolver
 
     private static double[] Midpoint(double[] a, double[] b)
     {
-        return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2,];
+        return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2];
     }
 
     private static int CriticalPlaneBelow(double x)
