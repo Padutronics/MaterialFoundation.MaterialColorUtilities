@@ -19,7 +19,7 @@ using MaterialFoundation.MaterialColorUtilities.Palettes;
 namespace MaterialFoundation.MaterialColorUtilities.Scheme;
 
 /// <summary>Represents a Material color scheme, a mapping of color roles to colors.</summary>
-public class Scheme
+public sealed class Scheme
 {
     public Scheme()
     {
