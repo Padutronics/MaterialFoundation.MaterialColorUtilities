@@ -392,17 +392,15 @@ public sealed class QuantizerWu : IQuantizer
         Blue
     }
 
-    private sealed class MaximizeResult
+    private sealed class Box
     {
-        // < 0 if cut impossible
-        public int cutLocation;
-        public double maximum;
-
-        public MaximizeResult(int cut, double max)
-        {
-            cutLocation = cut;
-            maximum = max;
-        }
+        public int r0 = 0;
+        public int r1 = 0;
+        public int g0 = 0;
+        public int g1 = 0;
+        public int b0 = 0;
+        public int b1 = 0;
+        public int vol = 0;
     }
 
     private sealed class CreateBoxesResult
@@ -417,14 +415,16 @@ public sealed class QuantizerWu : IQuantizer
         }
     }
 
-    private sealed class Box
+    private sealed class MaximizeResult
     {
-        public int r0 = 0;
-        public int r1 = 0;
-        public int g0 = 0;
-        public int g1 = 0;
-        public int b0 = 0;
-        public int b1 = 0;
-        public int vol = 0;
+        // < 0 if cut impossible
+        public int cutLocation;
+        public double maximum;
+
+        public MaximizeResult(int cut, double max)
+        {
+            cutLocation = cut;
+            maximum = max;
+        }
     }
 }
