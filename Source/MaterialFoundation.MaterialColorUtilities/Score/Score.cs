@@ -91,7 +91,7 @@ public static class Score
 
         // Scores each HCT color based on usage and chroma, while optionally
         // filtering out values that do not have enough chroma or usage.
-        var scoredHcts = new List<ScoredHCT>();
+        var scoredHcts = new List<ScoredHct>();
         foreach (Hct.Hct hct in colorsHct)
         {
             int hue = MathUtils.SanitizeDegreesInt((int)Math.Round(hct.Hue));
@@ -105,7 +105,7 @@ public static class Score
             double chromaWeight = hct.Chroma < TargetChroma ? WeightChromaBelow : WeightChromaAbove;
             double chromaScore = (hct.Chroma - TargetChroma) * chromaWeight;
             double score = proportionScore + chromaScore;
-            scoredHcts.Add(new ScoredHCT(hct, score));
+            scoredHcts.Add(new ScoredHct(hct, score));
         }
         // Sorted so that colors with higher scores come first.
         scoredHcts.Sort(new ScoredComparator());
@@ -118,7 +118,7 @@ public static class Score
         for (int differenceDegrees = 90; differenceDegrees >= 15; differenceDegrees--)
         {
             chosenColors.Clear();
-            foreach (ScoredHCT entry in scoredHcts)
+            foreach (ScoredHct entry in scoredHcts)
             {
                 Hct.Hct hct = entry.hct;
                 bool hasDuplicateHue = false;
@@ -156,21 +156,21 @@ public static class Score
         return colors;
     }
 
-    private sealed class ScoredHCT
+    private sealed class ScoredHct
     {
         public readonly Hct.Hct hct;
         public readonly double score;
 
-        public ScoredHCT(Hct.Hct hct, double score)
+        public ScoredHct(Hct.Hct hct, double score)
         {
             this.hct = hct;
             this.score = score;
         }
     }
 
-    private sealed class ScoredComparator : IComparer<ScoredHCT>
+    private sealed class ScoredComparator : IComparer<ScoredHct>
     {
-        public int Compare(ScoredHCT? entry1, ScoredHCT? entry2)
+        public int Compare(ScoredHct? entry1, ScoredHct? entry2)
         {
             return entry2!.score.CompareTo(entry1!.score);
         }
