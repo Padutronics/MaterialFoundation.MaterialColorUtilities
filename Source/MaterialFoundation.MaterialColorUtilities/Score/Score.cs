@@ -72,7 +72,7 @@ public static class Score
         {
             Hct.Hct hct = Hct.Hct.FromInt(entry.Key);
             colorsHct.Add(hct);
-            int hue = (int)Math.Floor(hct.GetHue());
+            int hue = (int)Math.Floor(hct.Hue);
             huePopulation[hue] += entry.Value;
             populationSum += entry.Value;
         }
@@ -94,16 +94,16 @@ public static class Score
         var scoredHcts = new List<ScoredHCT>();
         foreach (Hct.Hct hct in colorsHct)
         {
-            int hue = MathUtils.SanitizeDegreesInt((int)Math.Round(hct.GetHue()));
+            int hue = MathUtils.SanitizeDegreesInt((int)Math.Round(hct.Hue));
             double proportion = hueExcitedProportions[hue];
-            if (filter && (hct.GetChroma() < CutoffChroma || proportion <= CutoffExcitedProportion))
+            if (filter && (hct.Chroma < CutoffChroma || proportion <= CutoffExcitedProportion))
             {
                 continue;
             }
 
             double proportionScore = proportion * 100.0 * WeightProportion;
-            double chromaWeight = hct.GetChroma() < TargetChroma ? WeightChromaBelow : WeightChromaAbove;
-            double chromaScore = (hct.GetChroma() - TargetChroma) * chromaWeight;
+            double chromaWeight = hct.Chroma < TargetChroma ? WeightChromaBelow : WeightChromaAbove;
+            double chromaScore = (hct.Chroma - TargetChroma) * chromaWeight;
             double score = proportionScore + chromaScore;
             scoredHcts.Add(new ScoredHCT(hct, score));
         }
@@ -124,7 +124,7 @@ public static class Score
                 bool hasDuplicateHue = false;
                 foreach (Hct.Hct chosenHct in chosenColors)
                 {
-                    if (MathUtils.DifferenceDegrees(hct.GetHue(), chosenHct.GetHue()) < differenceDegrees)
+                    if (MathUtils.DifferenceDegrees(hct.Hue, chosenHct.Hue) < differenceDegrees)
                     {
                         hasDuplicateHue = true;
                         break;

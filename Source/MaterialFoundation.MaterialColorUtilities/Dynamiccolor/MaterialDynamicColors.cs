@@ -46,29 +46,29 @@ public sealed class MaterialDynamicColors
         double answer = tone;
 
         Hct.Hct closestToChroma = Hct.Hct.From(hue, chroma, tone);
-        if (closestToChroma.GetChroma() < chroma)
+        if (closestToChroma.Chroma < chroma)
         {
-            double chromaPeak = closestToChroma.GetChroma();
-            while (closestToChroma.GetChroma() < chroma)
+            double chromaPeak = closestToChroma.Chroma;
+            while (closestToChroma.Chroma < chroma)
             {
                 answer += byDecreasingTone ? -1.0 : 1.0;
                 Hct.Hct potentialSolution = Hct.Hct.From(hue, chroma, answer);
-                if (chromaPeak > potentialSolution.GetChroma())
+                if (chromaPeak > potentialSolution.Chroma)
                 {
                     break;
                 }
-                if (Math.Abs(potentialSolution.GetChroma() - chroma) < 0.4)
+                if (Math.Abs(potentialSolution.Chroma - chroma) < 0.4)
                 {
                     break;
                 }
 
-                double potentialDelta = Math.Abs(potentialSolution.GetChroma() - chroma);
-                double currentDelta = Math.Abs(closestToChroma.GetChroma() - chroma);
+                double potentialDelta = Math.Abs(potentialSolution.Chroma - chroma);
+                double currentDelta = Math.Abs(closestToChroma.Chroma - chroma);
                 if (potentialDelta < currentDelta)
                 {
                     closestToChroma = potentialSolution;
                 }
-                chromaPeak = Math.Max(chromaPeak, potentialSolution.GetChroma());
+                chromaPeak = Math.Max(chromaPeak, potentialSolution.Chroma);
             }
         }
 
@@ -85,7 +85,7 @@ public sealed class MaterialDynamicColors
         return DynamicColor.FromPalette(
             name: "primary_palette_key_color",
             palette: (s) => s.primaryPalette,
-            tone: (s) => s.primaryPalette.GetKeyColor().GetTone()
+            tone: (s) => s.primaryPalette.KeyColor.Tone
         );
     }
 
@@ -94,7 +94,7 @@ public sealed class MaterialDynamicColors
         return DynamicColor.FromPalette(
             name: "secondary_palette_key_color",
             palette: (s) => s.secondaryPalette,
-            tone: (s) => s.secondaryPalette.GetKeyColor().GetTone()
+            tone: (s) => s.secondaryPalette.KeyColor.Tone
         );
     }
 
@@ -103,7 +103,7 @@ public sealed class MaterialDynamicColors
         return DynamicColor.FromPalette(
             name: "tertiary_palette_key_color",
             palette: (s) => s.tertiaryPalette,
-            tone: (s) => s.tertiaryPalette.GetKeyColor().GetTone()
+            tone: (s) => s.tertiaryPalette.KeyColor.Tone
         );
     }
 
@@ -112,7 +112,7 @@ public sealed class MaterialDynamicColors
         return DynamicColor.FromPalette(
             name: "neutral_palette_key_color",
             palette: (s) => s.neutralPalette,
-            tone: (s) => s.neutralPalette.GetKeyColor().GetTone()
+            tone: (s) => s.neutralPalette.KeyColor.Tone
         );
     }
 
@@ -121,7 +121,7 @@ public sealed class MaterialDynamicColors
         return DynamicColor.FromPalette(
             name: "neutral_variant_palette_key_color",
             palette: (s) => s.neutralVariantPalette,
-            tone: (s) => s.neutralVariantPalette.GetKeyColor().GetTone()
+            tone: (s) => s.neutralVariantPalette.KeyColor.Tone
         );
     }
 
@@ -464,7 +464,7 @@ public sealed class MaterialDynamicColors
             {
                 if (IsFidelity(s))
                 {
-                    return s.sourceColorHct.GetTone();
+                    return s.sourceColorHct.Tone;
                 }
                 if (IsMonochrome(s))
                 {
@@ -573,7 +573,7 @@ public sealed class MaterialDynamicColors
                 {
                     return initialTone;
                 }
-                return FindDesiredChromaByTone(s.secondaryPalette.GetHue(), s.secondaryPalette.GetChroma(), initialTone, !s.isDark);
+                return FindDesiredChromaByTone(s.secondaryPalette.Hue, s.secondaryPalette.Chroma, initialTone, !s.isDark);
             },
             isBackground: true,
             background: HighestSurface,
@@ -661,8 +661,8 @@ public sealed class MaterialDynamicColors
                 {
                     return s.isDark ? 30.0 : 90.0;
                 }
-                Hct.Hct proposedHct = s.tertiaryPalette.GetHct(s.sourceColorHct.GetTone());
-                return DislikeAnalyzer.FixIfDisliked(proposedHct).GetTone();
+                Hct.Hct proposedHct = s.tertiaryPalette.GetHct(s.sourceColorHct.Tone);
+                return DislikeAnalyzer.FixIfDisliked(proposedHct).Tone;
             },
             isBackground: true,
             background: HighestSurface,

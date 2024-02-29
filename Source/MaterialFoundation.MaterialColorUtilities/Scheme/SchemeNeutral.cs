@@ -27,11 +27,11 @@ public class SchemeNeutral : DynamicScheme
             Variant.Neutral,
             isDark,
             contrastLevel,
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 12.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 8.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 16.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 2.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 2.0)
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 12.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 8.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 16.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 2.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 2.0)
         )
     {
     }

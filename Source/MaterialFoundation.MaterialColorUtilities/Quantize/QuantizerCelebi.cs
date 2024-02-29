@@ -43,7 +43,7 @@ public sealed class QuantizerCelebi
         var wu = new QuantizerWu();
         QuantizerResult wuResult = wu.Quantize(pixels, maxColors);
 
-        ICollection<int> wuClustersAsObjects = wuResult.colorToCount.Keys;
+        ICollection<int> wuClustersAsObjects = wuResult.ColorToCount.Keys;
         int index = 0;
         int[] wuClusters = new int[wuClustersAsObjects.Count];
         foreach (int argb in wuClustersAsObjects)

@@ -84,18 +84,18 @@ public sealed class TemperatureCache
             return precomputedComplement;
         }
 
-        double coldestHue = GetColdest().GetHue();
+        double coldestHue = GetColdest().Hue;
         double coldestTemp = GetTempsByHct()[GetColdest()];
 
-        double warmestHue = GetWarmest().GetHue();
+        double warmestHue = GetWarmest().Hue;
         double warmestTemp = GetTempsByHct()[GetWarmest()];
         double range = warmestTemp - coldestTemp;
-        bool startHueIsColdestToWarmest = IsBetween(input.GetHue(), coldestHue, warmestHue);
+        bool startHueIsColdestToWarmest = IsBetween(input.Hue, coldestHue, warmestHue);
         double startHue = startHueIsColdestToWarmest ? warmestHue : coldestHue;
         double endHue = startHueIsColdestToWarmest ? coldestHue : warmestHue;
         double directionOfRotation = 1.0;
         double smallestError = 1000.0;
-        Hct.Hct answer = GetHctsByHue()[(int)Math.Round(input.GetHue())];
+        Hct.Hct answer = GetHctsByHue()[(int)Math.Round(input.Hue)];
 
         double complementRelativeTemp = 1.0 - GetRelativeTemperature(input);
         // Find the color in the other section, closest to the inverse percentile
@@ -139,7 +139,7 @@ public sealed class TemperatureCache
     public List<Hct.Hct> GetAnalogousColors(int count, int divisions)
     {
         // The starting hue is the hue of the input color.
-        int startHue = (int)Math.Round(input.GetHue());
+        int startHue = (int)Math.Round(input.Hue);
         Hct.Hct startHct = GetHctsByHue()[startHue];
         double lastTemp = GetRelativeTemperature(startHct);
 
@@ -274,7 +274,7 @@ public sealed class TemperatureCache
         var hcts = new List<Hct.Hct>();
         for (double hue = 0.0; hue <= 360.0; hue += 1.0)
         {
-            Hct.Hct colorAtHue = Hct.Hct.From(hue, input.GetChroma(), input.GetTone());
+            Hct.Hct colorAtHue = Hct.Hct.From(hue, input.Chroma, input.Tone);
             hcts.Add(colorAtHue);
         }
         precomputedHctsByHue = hcts.AsReadOnly();

@@ -579,9 +579,9 @@ public static class HctSolver
         // Operations inlined from Cam16 to avoid repeated calculation
         // ===========================================================
         ViewingConditions viewingConditions = ViewingConditions.Default;
-        double tInnerCoeff = 1 / Math.Pow(1.64 - Math.Pow(0.29, viewingConditions.GetN()), 0.73);
+        double tInnerCoeff = 1 / Math.Pow(1.64 - Math.Pow(0.29, viewingConditions.N), 0.73);
         double eHue = 0.25 * (Math.Cos(hueRadians + 2.0) + 3.8);
-        double p1 = eHue * (50000.0 / 13.0) * viewingConditions.GetNc() * viewingConditions.GetNcb();
+        double p1 = eHue * (50000.0 / 13.0) * viewingConditions.Nc * viewingConditions.Ncb;
         double hSin = Math.Sin(hueRadians);
         double hCos = Math.Cos(hueRadians);
         for (int iterationRound = 0; iterationRound < 5; iterationRound++)
@@ -592,8 +592,8 @@ public static class HctSolver
             double jNormalized = j / 100.0;
             double alpha = chroma == 0.0 || j == 0.0 ? 0.0 : chroma / Math.Sqrt(jNormalized);
             double t = Math.Pow(alpha * tInnerCoeff, 1.0 / 0.9);
-            double ac = viewingConditions.GetAw() * Math.Pow(jNormalized, 1.0 / viewingConditions.GetC() / viewingConditions.GetZ());
-            double p2 = ac / viewingConditions.GetNbb();
+            double ac = viewingConditions.Aw * Math.Pow(jNormalized, 1.0 / viewingConditions.C / viewingConditions.Z);
+            double p2 = ac / viewingConditions.Nbb;
             double gamma = 23.0 * (p2 + 0.305) * t / (23.0 * p1 + 11 * t * hCos + 108.0 * t * hSin);
             double a = gamma * hCos;
             double b = gamma * hSin;

@@ -33,10 +33,10 @@ public static class Blend
     {
         Hct.Hct fromHct = Hct.Hct.FromInt(designColor);
         Hct.Hct toHct = Hct.Hct.FromInt(sourceColor);
-        double differenceDegrees = MathUtils.DifferenceDegrees(fromHct.GetHue(), toHct.GetHue());
+        double differenceDegrees = MathUtils.DifferenceDegrees(fromHct.Hue, toHct.Hue);
         double rotationDegrees = Math.Min(differenceDegrees * 0.5, 15.0);
-        double outputHue = MathUtils.SanitizeDegreesDouble(fromHct.GetHue() + rotationDegrees * MathUtils.RotationDirection(fromHct.GetHue(), toHct.GetHue()));
-        return Hct.Hct.From(outputHue, fromHct.GetChroma(), fromHct.GetTone()).ToInt();
+        double outputHue = MathUtils.SanitizeDegreesDouble(fromHct.Hue + rotationDegrees * MathUtils.RotationDirection(fromHct.Hue, toHct.Hue));
+        return Hct.Hct.From(outputHue, fromHct.Chroma, fromHct.Tone).ToInt();
     }
 
     /// <summary>Blends hue from one color into another. The chroma and tone of the original color are
@@ -50,7 +50,7 @@ public static class Blend
         int ucs = Cam16Ucs(from, to, amount);
         Cam16 ucsCam = Cam16.FromInt(ucs);
         Cam16 fromCam = Cam16.FromInt(from);
-        Hct.Hct blended = Hct.Hct.From(ucsCam.GetHue(), fromCam.GetChroma(), ColorUtils.LstarFromArgb(from));
+        Hct.Hct blended = Hct.Hct.From(ucsCam.Hue, fromCam.Chroma, ColorUtils.LstarFromArgb(from));
         return blended.ToInt();
     }
 
@@ -63,12 +63,12 @@ public static class Blend
     {
         Cam16 fromCam = Cam16.FromInt(from);
         Cam16 toCam = Cam16.FromInt(to);
-        double fromJ = fromCam.GetJstar();
-        double fromA = fromCam.GetAstar();
-        double fromB = fromCam.GetBstar();
-        double toJ = toCam.GetJstar();
-        double toA = toCam.GetAstar();
-        double toB = toCam.GetBstar();
+        double fromJ = fromCam.Jstar;
+        double fromA = fromCam.Astar;
+        double fromB = fromCam.Bstar;
+        double toJ = toCam.Jstar;
+        double toA = toCam.Astar;
+        double toB = toCam.Bstar;
         double jstar = fromJ + (toJ - fromJ) * amount;
         double astar = fromA + (toA - fromA) * amount;
         double bstar = fromB + (toB - fromB) * amount;

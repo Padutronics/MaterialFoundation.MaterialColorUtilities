@@ -206,7 +206,7 @@ public sealed class DynamicColor
     {
         Hct.Hct hct = Hct.Hct.FromInt(argb);
         TonalPalette palette = TonalPalette.FromInt(argb);
-        return DynamicColor.FromPalette(name, (s) => palette, (s) => hct.GetTone());
+        return DynamicColor.FromPalette(name, (s) => palette, (s) => hct.Tone);
     }
 
     /// <summary>Given a background tone, find a foreground tone, while ensuring they reach a contrast ratio
@@ -324,11 +324,11 @@ public sealed class DynamicColor
         if (toneDeltaPair != null)
         {
             ToneDeltaPair toneDeltaPair = this.toneDeltaPair(scheme);
-            DynamicColor roleA = toneDeltaPair.GetRoleA();
-            DynamicColor roleB = toneDeltaPair.GetRoleB();
-            double delta = toneDeltaPair.GetDelta();
-            TonePolarity polarity = toneDeltaPair.GetPolarity();
-            bool stayTogether = toneDeltaPair.GetStayTogether();
+            DynamicColor roleA = toneDeltaPair.RoleA;
+            DynamicColor roleB = toneDeltaPair.RoleB;
+            double delta = toneDeltaPair.Delta;
+            TonePolarity polarity = toneDeltaPair.Polarity;
+            bool stayTogether = toneDeltaPair.StayTogether;
 
             DynamicColor bg = background!(scheme);
             double bgTone = bg.GetTone(scheme);

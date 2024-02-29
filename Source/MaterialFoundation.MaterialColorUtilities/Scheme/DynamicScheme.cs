@@ -61,7 +61,7 @@ public class DynamicScheme
     /// <returns>Color's hue with a rotation applied.</returns>
     public static double GetRotatedHue(Hct.Hct sourceColorHct, double[] hues, double[] rotations)
     {
-        double sourceHue = sourceColorHct.GetHue();
+        double sourceHue = sourceColorHct.Hue;
         if (rotations.Length == 1)
         {
             return MathUtils.SanitizeDegreesDouble(sourceHue + rotations[0]);

@@ -101,7 +101,7 @@ public sealed class QuantizerWu : IQuantizer
     public QuantizerResult Quantize(int[] pixels, int colorCount)
     {
         QuantizerResult mapResult = new QuantizerMap().Quantize(pixels, colorCount);
-        ConstructHistogram(mapResult.colorToCount);
+        ConstructHistogram(mapResult.ColorToCount);
         CreateMoments();
         CreateBoxesResult createBoxesResult = CreateBoxes(colorCount);
         ICollection<int> colors = CreateResult(createBoxesResult.resultCount);

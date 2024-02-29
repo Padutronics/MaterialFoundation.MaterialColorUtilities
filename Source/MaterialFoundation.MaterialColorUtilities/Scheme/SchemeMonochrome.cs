@@ -27,11 +27,11 @@ public class SchemeMonochrome : DynamicScheme
             Variant.Monochrome,
             isDark,
             contrastLevel,
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 0.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 0.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 0.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 0.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 0.0)
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 0.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 0.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 0.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 0.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 0.0)
         )
     {
     }

@@ -21,10 +21,10 @@ namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 /// <summary>Represents result of a quantizer run</summary>
 public sealed class QuantizerResult
 {
-    public readonly IDictionary<int, int> colorToCount;
-
     public QuantizerResult(IDictionary<int, int> colorToCount)
     {
-        this.colorToCount = colorToCount;
+        ColorToCount = colorToCount;
     }
+
+    public IDictionary<int, int> ColorToCount { get; }
 }

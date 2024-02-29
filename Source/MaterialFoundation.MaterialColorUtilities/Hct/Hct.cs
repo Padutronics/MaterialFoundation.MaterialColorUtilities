@@ -35,9 +35,6 @@ namespace MaterialFoundation.MaterialColorUtilities.Hct;
 /// lighting environments.</para></summary>
 public sealed class Hct
 {
-    private double hue;
-    private double chroma;
-    private double tone;
     private int argb;
 
     private Hct(int argb)
@@ -65,20 +62,11 @@ public sealed class Hct
         return new Hct(argb);
     }
 
-    public double GetHue()
-    {
-        return hue;
-    }
+    public double Hue { get; private set; }
 
-    public double GetChroma()
-    {
-        return chroma;
-    }
+    public double Chroma { get; private set; }
 
-    public double GetTone()
-    {
-        return tone;
-    }
+    public double Tone { get; private set; }
 
     public int ToInt()
     {
@@ -90,7 +78,7 @@ public sealed class Hct
     /// <param name="newHue">0 <= newHue < 360; invalid values are corrected.</param>
     public void SetHue(double newHue)
     {
-        SetInternalState(HctSolver.SolveToInt(newHue, chroma, tone));
+        SetInternalState(HctSolver.SolveToInt(newHue, Chroma, Tone));
     }
 
     /// <summary>Set the chroma of this color. Chroma may decrease because chroma has a different maximum for
@@ -98,7 +86,7 @@ public sealed class Hct
     /// <param name="newChroma">0 <= newChroma < ?</param>
     public void SetChroma(double newChroma)
     {
-        SetInternalState(HctSolver.SolveToInt(hue, newChroma, tone));
+        SetInternalState(HctSolver.SolveToInt(Hue, newChroma, Tone));
     }
 
     /// <summary>Set the tone of this color. Chroma may decrease because chroma has a different maximum for any
@@ -106,7 +94,7 @@ public sealed class Hct
     /// <param name="newTone">0 <= newTone <= 100; invalid valids are corrected.</param>
     public void SetTone(double newTone)
     {
-        SetInternalState(HctSolver.SolveToInt(hue, chroma, newTone));
+        SetInternalState(HctSolver.SolveToInt(Hue, Chroma, newTone));
     }
 
     /// <summary>Translate a color into different ViewingConditions.
@@ -132,15 +120,15 @@ public sealed class Hct
         // 3. Create HCT from:
         // - CAM16 using default VC with XYZ coordinates in specified VC.
         // - L* converted from Y in XYZ coordinates in specified VC.
-        return Hct.From(recastInVc.GetHue(), recastInVc.GetChroma(), ColorUtils.LstarFromY(viewedInVc[1]));
+        return Hct.From(recastInVc.Hue, recastInVc.Chroma, ColorUtils.LstarFromY(viewedInVc[1]));
     }
 
     private void SetInternalState(int argb)
     {
         this.argb = argb;
         Cam16 cam = Cam16.FromInt(argb);
-        hue = cam.GetHue();
-        chroma = cam.GetChroma();
-        this.tone = ColorUtils.LstarFromArgb(argb);
+        Hue = cam.Hue;
+        Chroma = cam.Chroma;
+        Tone = ColorUtils.LstarFromArgb(argb);
     }
 }

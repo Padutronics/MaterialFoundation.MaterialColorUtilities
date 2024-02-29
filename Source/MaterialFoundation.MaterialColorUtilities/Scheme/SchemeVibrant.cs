@@ -31,11 +31,11 @@ public class SchemeVibrant : DynamicScheme
             Variant.Vibrant,
             isDark,
             contrastLevel,
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 200.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 200.0),
             TonalPalette.FromHueAndChroma(DynamicScheme.GetRotatedHue(sourceColorHct, Hues, SecondaryRotations), 24.0),
             TonalPalette.FromHueAndChroma(DynamicScheme.GetRotatedHue(sourceColorHct, Hues, TertiaryRotations), 32.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 10.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 12.0)
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 10.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 12.0)
         )
     {
     }

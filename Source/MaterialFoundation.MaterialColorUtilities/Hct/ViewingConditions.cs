@@ -33,34 +33,43 @@ public sealed class ViewingConditions
     /// <summary>sRGB-like viewing conditions.</summary>
     public static readonly ViewingConditions Default = ViewingConditions.DefaultWithBackgroundLstar(50.0);
 
-    private readonly double aw;
-    private readonly double nbb;
-    private readonly double ncb;
-    private readonly double c;
-    private readonly double nc;
-    private readonly double n;
-    private readonly double[] rgbD;
-    private readonly double fl;
-    private readonly double flRoot;
-    private readonly double z;
-
     /// <summary>Parameters are intermediate values of the CAM16 conversion process. Their names are shorthand
     /// for technical color science terminology, this class would not benefit from documenting them
     /// individually. A brief overview is available in the CAM16 specification, and a complete overview
     /// requires a color science textbook, such as Fairchild's Color Appearance Models.</summary>
     private ViewingConditions(double n, double aw, double nbb, double ncb, double c, double nc, double[] rgbD, double fl, double flRoot, double z)
     {
-        this.n = n;
-        this.aw = aw;
-        this.nbb = nbb;
-        this.ncb = ncb;
-        this.c = c;
-        this.nc = nc;
-        this.rgbD = rgbD;
-        this.fl = fl;
-        this.flRoot = flRoot;
-        this.z = z;
+        N = n;
+        Aw = aw;
+        Nbb = nbb;
+        Ncb = ncb;
+        C = c;
+        Nc = nc;
+        RgbD = rgbD;
+        Fl = fl;
+        FlRoot = flRoot;
+        Z = z;
     }
+
+    public double Aw { get; }
+
+    public double N { get; }
+
+    public double Nbb { get; }
+
+    public double Ncb { get; }
+
+    public double C { get; }
+
+    public double Nc { get; }
+
+    public double[] RgbD { get; }
+
+    public double Fl { get; }
+
+    public double FlRoot { get; }
+
+    public double Z { get; }
 
     /// <summary>Create ViewingConditions from a simple, physically relevant, set of parameters.</summary>
     /// <param name="whitePoint">White point, measured in the XYZ color space. default = D65, or sunny day
@@ -128,55 +137,5 @@ public sealed class ViewingConditions
     public static ViewingConditions DefaultWithBackgroundLstar(double lstar)
     {
         return ViewingConditions.Make(ColorUtils.GetWhitePointD65(), 200.0 / Math.PI * ColorUtils.YFromLstar(50.0) / 100.0, lstar, 2.0, false);
-    }
-
-    public double GetAw()
-    {
-        return aw;
-    }
-
-    public double GetN()
-    {
-        return n;
-    }
-
-    public double GetNbb()
-    {
-        return nbb;
-    }
-
-    public double GetNcb()
-    {
-        return ncb;
-    }
-
-    public double GetC()
-    {
-        return c;
-    }
-
-    public double GetNc()
-    {
-        return nc;
-    }
-
-    public double[] GetRgbD()
-    {
-        return rgbD;
-    }
-
-    public double GetFl()
-    {
-        return fl;
-    }
-
-    public double GetFlRoot()
-    {
-        return flRoot;
-    }
-
-    public double GetZ()
-    {
-        return z;
     }
 }

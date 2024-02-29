@@ -28,11 +28,11 @@ public class SchemeTonalSpot : DynamicScheme
             Variant.TonalSpot,
             isDark,
             contrastLevel,
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 36.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 16.0),
-            TonalPalette.FromHueAndChroma(MathUtils.SanitizeDegreesDouble(sourceColorHct.GetHue() + 60.0), 24.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 6.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 8.0)
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 36.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 16.0),
+            TonalPalette.FromHueAndChroma(MathUtils.SanitizeDegreesDouble(sourceColorHct.Hue + 60.0), 24.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 6.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 8.0)
         )
     {
     }

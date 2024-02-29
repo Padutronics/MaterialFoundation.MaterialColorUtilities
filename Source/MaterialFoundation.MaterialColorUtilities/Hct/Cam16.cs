@@ -47,17 +47,6 @@ public sealed class Cam16
         [-0.01584150, -0.03412294, 1.0499644]
     ];
 
-    /// <summary>CAM16 color dimensions, see getters for documentation.</summary>
-    private readonly double hue;
-    private readonly double chroma;
-    private readonly double j;
-    private readonly double q;
-    private readonly double m;
-    private readonly double s;
-    /// <summary>Coordinates in UCS space. Used to determine color distance, like delta E equations in L*a*b*.</summary>
-    private readonly double jstar;
-    private readonly double astar;
-    private readonly double bstar;
     /// <summary>Avoid allocations during conversion by pre-allocating an array.</summary>
     private readonly double[] tempArray = [0.0, 0.0, 0.0];
 
@@ -77,16 +66,53 @@ public sealed class Cam16
     /// <param name="bstar">CAM16-UCS b coordinate</param>
     private Cam16(double hue, double chroma, double j, double q, double m, double s, double jstar, double astar, double bstar)
     {
-        this.hue = hue;
-        this.chroma = chroma;
-        this.j = j;
-        this.q = q;
-        this.m = m;
-        this.s = s;
-        this.jstar = jstar;
-        this.astar = astar;
-        this.bstar = bstar;
+        Hue = hue;
+        Chroma = chroma;
+        J = j;
+        Q = q;
+        M = m;
+        S = s;
+        Jstar = jstar;
+        Astar = astar;
+        Bstar = bstar;
     }
+
+    /// <summary>Hue in CAM16</summary>
+    public double Hue { get; }
+
+    /// <summary>Chroma in CAM16</summary>
+    public double Chroma { get; }
+
+    /// <summary>Lightness in CAM16</summary>
+    public double J { get; }
+
+    /// <summary>Brightness in CAM16.
+    ///
+    /// <para>Prefer lightness, brightness is an absolute quantity. For example, a sheet of white paper is
+    /// much brighter viewed in sunlight than in indoor light, but it is the lightest object under any
+    /// lighting.</para></summary>
+    public double Q { get; }
+
+    /// <summary>Colorfulness in CAM16.
+    ///
+    /// <para>Prefer chroma, colorfulness is an absolute quantity. For example, a yellow toy car is much
+    /// more colorful outside than inside, but it has the same chroma in both environments.</para></summary>
+    public double M { get; }
+
+    /// <summary>Saturation in CAM16.
+    ///
+    /// <para>Colorfulness in proportion to brightness. Prefer chroma, saturation measures colorfulness
+    /// relative to the color's own brightness, where chroma is colorfulness relative to white.</para></summary>
+    public double S { get; }
+
+    /// <summary>Lightness coordinate in CAM16-UCS</summary>
+    public double Jstar { get; }
+
+    /// <summary>a* coordinate in CAM16-UCS</summary>
+    public double Astar { get; }
+
+    /// <summary>b* coordinate in CAM16-UCS</summary>
+    public double Bstar { get; }
 
     /// <summary>Create a CAM16 color from a color, assuming the color was viewed in default viewing conditions.</summary>
     /// <param name="argb">ARGB representation of a color.</param>
@@ -126,14 +152,14 @@ public sealed class Cam16
         double bT = x * matrix[2][0] + y * matrix[2][1] + z * matrix[2][2];
 
         // Discount illuminant
-        double rD = viewingConditions.GetRgbD()[0] * rT;
-        double gD = viewingConditions.GetRgbD()[1] * gT;
-        double bD = viewingConditions.GetRgbD()[2] * bT;
+        double rD = viewingConditions.RgbD[0] * rT;
+        double gD = viewingConditions.RgbD[1] * gT;
+        double bD = viewingConditions.RgbD[2] * bT;
 
         // Chromatic adaptation
-        double rAF = Math.Pow(viewingConditions.GetFl() * Math.Abs(rD) / 100.0, 0.42);
-        double gAF = Math.Pow(viewingConditions.GetFl() * Math.Abs(gD) / 100.0, 0.42);
-        double bAF = Math.Pow(viewingConditions.GetFl() * Math.Abs(bD) / 100.0, 0.42);
+        double rAF = Math.Pow(viewingConditions.Fl * Math.Abs(rD) / 100.0, 0.42);
+        double gAF = Math.Pow(viewingConditions.Fl * Math.Abs(gD) / 100.0, 0.42);
+        double bAF = Math.Pow(viewingConditions.Fl * Math.Abs(bD) / 100.0, 0.42);
         double rA = Math.Sign(rD) * 400.0 * rAF / (rAF + 27.13);
         double gA = Math.Sign(gD) * 400.0 * gAF / (gAF + 27.13);
         double bA = Math.Sign(bD) * 400.0 * bAF / (bAF + 27.13);
@@ -156,22 +182,22 @@ public sealed class Cam16
         double hueRadians = MathUtils.ToRadians(hue);
 
         // achromatic response to color
-        double ac = p2 * viewingConditions.GetNbb();
+        double ac = p2 * viewingConditions.Nbb;
 
         // CAM16 lightness and brightness
-        double j = 100.0 * Math.Pow(ac / viewingConditions.GetAw(), viewingConditions.GetC() * viewingConditions.GetZ());
-        double q = 4.0 / viewingConditions.GetC() * Math.Sqrt(j / 100.0) * (viewingConditions.GetAw() + 4.0) * viewingConditions.GetFlRoot();
+        double j = 100.0 * Math.Pow(ac / viewingConditions.Aw, viewingConditions.C * viewingConditions.Z);
+        double q = 4.0 / viewingConditions.C * Math.Sqrt(j / 100.0) * (viewingConditions.Aw + 4.0) * viewingConditions.FlRoot;
 
         // CAM16 chroma, colorfulness, and saturation.
         double huePrime = (hue < 20.14) ? hue + 360 : hue;
         double eHue = 0.25 * (Math.Cos(MathUtils.ToRadians(huePrime) + 2.0) + 3.8);
-        double p1 = 50000.0 / 13.0 * eHue * viewingConditions.GetNc() * viewingConditions.GetNcb();
+        double p1 = 50000.0 / 13.0 * eHue * viewingConditions.Nc * viewingConditions.Ncb;
         double t = p1 * double.Hypot(a, b) / (u + 0.305);
-        double alpha = Math.Pow(1.64 - Math.Pow(0.29, viewingConditions.GetN()), 0.73) * Math.Pow(t, 0.9);
+        double alpha = Math.Pow(1.64 - Math.Pow(0.29, viewingConditions.N), 0.73) * Math.Pow(t, 0.9);
         // CAM16 chroma, colorfulness, saturation
         double c = alpha * Math.Sqrt(j / 100.0);
-        double m = c * viewingConditions.GetFlRoot();
-        double s = 50.0 * Math.Sqrt(alpha * viewingConditions.GetC() / (viewingConditions.GetAw() + 4.0));
+        double m = c * viewingConditions.FlRoot;
+        double s = 50.0 * Math.Sqrt(alpha * viewingConditions.C / (viewingConditions.Aw + 4.0));
 
         // CAM16-UCS components
         double jstar = (1.0 + 100.0 * 0.007) * j / (1.0 + 0.007 * j);
@@ -196,10 +222,10 @@ public sealed class Cam16
     /// <param name="viewingConditions">Information about the environment where the color was observed.</param>
     private static Cam16 FromJchInViewingConditions(double j, double c, double h, ViewingConditions viewingConditions)
     {
-        double q = 4.0 / viewingConditions.GetC() * Math.Sqrt(j / 100.0) * (viewingConditions.GetAw() + 4.0) * viewingConditions.GetFlRoot();
-        double m = c * viewingConditions.GetFlRoot();
+        double q = 4.0 / viewingConditions.C * Math.Sqrt(j / 100.0) * (viewingConditions.Aw + 4.0) * viewingConditions.FlRoot;
+        double m = c * viewingConditions.FlRoot;
         double alpha = c / Math.Sqrt(j / 100.0);
-        double s = 50.0 * Math.Sqrt(alpha * viewingConditions.GetC() / (viewingConditions.GetAw() + 4.0));
+        double s = 50.0 * Math.Sqrt(alpha * viewingConditions.C / (viewingConditions.Aw + 4.0));
 
         double hueRadians = MathUtils.ToRadians(h);
         double jstar = (1.0 + 100.0 * 0.007) * j / (1.0 + 0.007 * j);
@@ -231,7 +257,7 @@ public sealed class Cam16
     {
         double m = double.Hypot(astar, bstar);
         double m2 = double.ExpM1(m * 0.0228) / 0.0228;
-        double c = m2 / viewingConditions.GetFlRoot();
+        double c = m2 / viewingConditions.FlRoot;
         double h = Math.Atan2(bstar, astar) * (180.0 / Math.PI);
         if (h < 0.0)
         {
@@ -246,76 +272,12 @@ public sealed class Cam16
     /// distances between colors.</summary>
     public double Distance(Cam16 other)
     {
-        double dJ = GetJstar() - other.GetJstar();
-        double dA = GetAstar() - other.GetAstar();
-        double dB = GetBstar() - other.GetBstar();
+        double dJ = Jstar - other.Jstar;
+        double dA = Astar - other.Astar;
+        double dB = Bstar - other.Bstar;
         double dEPrime = Math.Sqrt(dJ * dJ + dA * dA + dB * dB);
         double dE = 1.41 * Math.Pow(dEPrime, 0.63);
         return dE;
-    }
-
-    /// <summary>Hue in CAM16</summary>
-    public double GetHue()
-    {
-        return hue;
-    }
-
-    /// <summary>Chroma in CAM16</summary>
-    public double GetChroma()
-    {
-        return chroma;
-    }
-
-    /// <summary>Lightness in CAM16</summary>
-    public double GetJ()
-    {
-        return j;
-    }
-
-    /// <summary>Brightness in CAM16.
-    ///
-    /// <para>Prefer lightness, brightness is an absolute quantity. For example, a sheet of white paper is
-    /// much brighter viewed in sunlight than in indoor light, but it is the lightest object under any
-    /// lighting.</para></summary>
-    public double GetQ()
-    {
-        return q;
-    }
-
-    /// <summary>Colorfulness in CAM16.
-    ///
-    /// <para>Prefer chroma, colorfulness is an absolute quantity. For example, a yellow toy car is much
-    /// more colorful outside than inside, but it has the same chroma in both environments.</para></summary>
-    public double GetM()
-    {
-        return m;
-    }
-
-    /// <summary>Saturation in CAM16.
-    ///
-    /// <para>Colorfulness in proportion to brightness. Prefer chroma, saturation measures colorfulness
-    /// relative to the color's own brightness, where chroma is colorfulness relative to white.</para></summary>
-    public double GetS()
-    {
-        return s;
-    }
-
-    /// <summary>Lightness coordinate in CAM16-UCS</summary>
-    public double GetJstar()
-    {
-        return jstar;
-    }
-
-    /// <summary>a* coordinate in CAM16-UCS</summary>
-    public double GetAstar()
-    {
-        return astar;
-    }
-
-    /// <summary>b* coordinate in CAM16-UCS</summary>
-    public double GetBstar()
-    {
-        return bstar;
     }
 
     /// <summary>ARGB representation of the color. Assumes the color was viewed in default viewing conditions,
@@ -336,15 +298,15 @@ public sealed class Cam16
 
     public double[] XyzInViewingConditions(ViewingConditions viewingConditions, double[]? returnArray)
     {
-        double alpha = (GetChroma() == 0.0 || GetJ() == 0.0) ? 0.0 : GetChroma() / Math.Sqrt(GetJ() / 100.0);
+        double alpha = (Chroma == 0.0 || J == 0.0) ? 0.0 : Chroma / Math.Sqrt(J / 100.0);
 
-        double t = Math.Pow(alpha / Math.Pow(1.64 - Math.Pow(0.29, viewingConditions.GetN()), 0.73), 1.0 / 0.9);
-        double hRad = MathUtils.ToRadians(GetHue());
+        double t = Math.Pow(alpha / Math.Pow(1.64 - Math.Pow(0.29, viewingConditions.N), 0.73), 1.0 / 0.9);
+        double hRad = MathUtils.ToRadians(Hue);
 
         double eHue = 0.25 * (Math.Cos(hRad + 2.0) + 3.8);
-        double ac = viewingConditions.GetAw() * Math.Pow(GetJ() / 100.0, 1.0 / viewingConditions.GetC() / viewingConditions.GetZ());
-        double p1 = eHue * (50000.0 / 13.0) * viewingConditions.GetNc() * viewingConditions.GetNcb();
-        double p2 = ac / viewingConditions.GetNbb();
+        double ac = viewingConditions.Aw * Math.Pow(J / 100.0, 1.0 / viewingConditions.C / viewingConditions.Z);
+        double p1 = eHue * (50000.0 / 13.0) * viewingConditions.Nc * viewingConditions.Ncb;
+        double p2 = ac / viewingConditions.Nbb;
 
         double hSin = Math.Sin(hRad);
         double hCos = Math.Cos(hRad);
@@ -357,14 +319,14 @@ public sealed class Cam16
         double bA = (460.0 * p2 - 220.0 * a - 6300.0 * b) / 1403.0;
 
         double rCBase = Math.Max(0, 27.13 * Math.Abs(rA) / (400.0 - Math.Abs(rA)));
-        double rC = Math.Sign(rA) * (100.0 / viewingConditions.GetFl()) * Math.Pow(rCBase, 1.0 / 0.42);
+        double rC = Math.Sign(rA) * (100.0 / viewingConditions.Fl) * Math.Pow(rCBase, 1.0 / 0.42);
         double gCBase = Math.Max(0, 27.13 * Math.Abs(gA) / (400.0 - Math.Abs(gA)));
-        double gC = Math.Sign(gA) * (100.0 / viewingConditions.GetFl()) * Math.Pow(gCBase, 1.0 / 0.42);
+        double gC = Math.Sign(gA) * (100.0 / viewingConditions.Fl) * Math.Pow(gCBase, 1.0 / 0.42);
         double bCBase = Math.Max(0, 27.13 * Math.Abs(bA) / (400.0 - Math.Abs(bA)));
-        double bC = Math.Sign(bA) * (100.0 / viewingConditions.GetFl()) * Math.Pow(bCBase, 1.0 / 0.42);
-        double rF = rC / viewingConditions.GetRgbD()[0];
-        double gF = gC / viewingConditions.GetRgbD()[1];
-        double bF = bC / viewingConditions.GetRgbD()[2];
+        double bC = Math.Sign(bA) * (100.0 / viewingConditions.Fl) * Math.Pow(bCBase, 1.0 / 0.42);
+        double rF = rC / viewingConditions.RgbD[0];
+        double gF = gC / viewingConditions.RgbD[1];
+        double bF = bC / viewingConditions.RgbD[2];
 
         double[][] matrix = Cam16RgbToXyz;
         double x = rF * matrix[0][0] + gF * matrix[0][1] + bF * matrix[0][2];

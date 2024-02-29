@@ -28,11 +28,11 @@ public class SchemeRainbow : DynamicScheme
             Variant.Rainbow,
             isDark,
             contrastLevel,
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 48.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 16.0),
-            TonalPalette.FromHueAndChroma(MathUtils.SanitizeDegreesDouble(sourceColorHct.GetHue() + 60.0), 24.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 0.0),
-            TonalPalette.FromHueAndChroma(sourceColorHct.GetHue(), 0.0)
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 48.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 16.0),
+            TonalPalette.FromHueAndChroma(MathUtils.SanitizeDegreesDouble(sourceColorHct.Hue + 60.0), 24.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 0.0),
+            TonalPalette.FromHueAndChroma(sourceColorHct.Hue, 0.0)
         )
     {
     }

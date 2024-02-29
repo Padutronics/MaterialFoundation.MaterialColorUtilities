@@ -24,18 +24,6 @@ namespace MaterialFoundation.MaterialColorUtilities.Dynamiccolor;
 /// relationship or a contrast guarantee.</para></summary>
 public sealed class ToneDeltaPair
 {
-    /// <summary>The first role in a pair.</summary>
-    private readonly DynamicColor roleA;
-    /// <summary>The second role in a pair.</summary>
-    private readonly DynamicColor roleB;
-    /// <summary>Required difference between tones. Absolute value, negative values have undefined behavior.</summary>
-    private readonly double delta;
-    /// <summary>The relative relation between tones of roleA and roleB, as described above.</summary>
-    private readonly TonePolarity polarity;
-    /// <summary>Whether these two roles should stay on the same side of the "awkward zone" (T50-59). This is
-    /// necessary for certain cases where one role has two backgrounds.</summary>
-    private readonly bool stayTogether;
-
     /// <summary>Documents a constraint in tone distance between two DynamicColors.
     ///
     /// <para>The polarity is an adjective that describes "A", compared to "B".</para>
@@ -55,35 +43,26 @@ public sealed class ToneDeltaPair
     /// (T50-59). This is necessary for certain cases where one role has two backgrounds.</param>
     public ToneDeltaPair(DynamicColor roleA, DynamicColor roleB, double delta, TonePolarity polarity, bool stayTogether)
     {
-        this.roleA = roleA;
-        this.roleB = roleB;
-        this.delta = delta;
-        this.polarity = polarity;
-        this.stayTogether = stayTogether;
+        RoleA = roleA;
+        RoleB = roleB;
+        Delta = delta;
+        Polarity = polarity;
+        StayTogether = stayTogether;
     }
 
-    public DynamicColor GetRoleA()
-    {
-        return roleA;
-    }
+    /// <summary>The first role in a pair.</summary>
+    public DynamicColor RoleA { get; }
 
-    public DynamicColor GetRoleB()
-    {
-        return roleB;
-    }
+    /// <summary>The second role in a pair.</summary>
+    public DynamicColor RoleB { get; }
 
-    public double GetDelta()
-    {
-        return delta;
-    }
+    /// <summary>Required difference between tones. Absolute value, negative values have undefined behavior.</summary>
+    public double Delta { get; }
 
-    public TonePolarity GetPolarity()
-    {
-        return polarity;
-    }
+    /// <summary>The relative relation between tones of roleA and roleB, as described above.</summary>
+    public TonePolarity Polarity { get; }
 
-    public bool GetStayTogether()
-    {
-        return stayTogether;
-    }
+    /// <summary>Whether these two roles should stay on the same side of the "awkward zone" (T50-59). This is
+    /// necessary for certain cases where one role has two backgrounds.</summary>
+    public bool StayTogether { get; }
 }
