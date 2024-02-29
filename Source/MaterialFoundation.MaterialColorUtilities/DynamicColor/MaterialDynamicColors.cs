@@ -18,7 +18,7 @@ using MaterialFoundation.MaterialColorUtilities.Dislike;
 using MaterialFoundation.MaterialColorUtilities.Scheme;
 using System;
 
-namespace MaterialFoundation.MaterialColorUtilities.Dynamicolor;
+namespace MaterialFoundation.MaterialColorUtilities.DynamicColor;
 
 /// <summary>Named colors, otherwise known as tokens, or roles, in the Material Design system.</summary>
 public sealed class MaterialDynamicColors
