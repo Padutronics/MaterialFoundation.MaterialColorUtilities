@@ -29,7 +29,6 @@ public class DynamicScheme
     public readonly Variant variant;
     public readonly bool isDark;
     public readonly double contrastLevel;
-
     public readonly TonalPalette primaryPalette;
     public readonly TonalPalette secondaryPalette;
     public readonly TonalPalette tertiaryPalette;

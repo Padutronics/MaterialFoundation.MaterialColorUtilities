@@ -31,7 +31,6 @@ public static class Contrast
     /// <summary>The minimum contrast ratio of two colors.
     /// Contrast ratio equation = lighter + 5 / darker + 5, if lighter == darker, ratio == 1.</summary>
     public const double RatioMin = 1.0;
-
     /// <summary>The maximum contrast ratio of two colors.
     /// Contrast ratio equation = lighter + 5 / darker + 5. Lighter and darker scale from 0 to 100.
     /// If lighter == 100, darker = 0, ratio == 21.</summary>
@@ -39,7 +38,6 @@ public static class Contrast
     public const double Ratio3_0 = 3.0;
     public const double Ratio4_5 = 4.5;
     public const double Ratio7_0 = 7.0;
-
     /// <summary>Given a color and a contrast ratio to reach, the luminance of a color that reaches that ratio
     /// with the color can be calculated. However, that luminance may not contrast as desired, i.e. the
     /// contrast ratio of the input color and the returned luminance may not reach the contrast ratio
@@ -51,7 +49,6 @@ public static class Contrast
     ///
     /// 0.04 selected because it ensures the resulting ratio rounds to the same tenth.</summary>
     private const double ConstantRatioEpsilon = 0.04;
-
     /// <summary>Color spaces that measure luminance, such as Y in XYZ, L* in L*a*b*, or T in HCT, are known as
     /// perceptually accurate color spaces.
     ///

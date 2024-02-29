@@ -29,29 +29,12 @@ namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 /// the Performance of K-Means for Color Quantization. https://arxiv.org/abs/1101.0395</para></summary>
 public sealed class QuantizerWsmeans
 {
+    private const int MaxIterations = 10;
+    private const double MinMovementDistance = 3.0;
+
     private QuantizerWsmeans()
     {
     }
-
-    private sealed class Distance : IComparable<Distance>
-    {
-        public int index;
-        public double distance;
-
-        public Distance()
-        {
-            this.index = -1;
-            this.distance = -1;
-        }
-
-        public int CompareTo(Distance? other)
-        {
-            return distance.CompareTo(other?.distance);
-        }
-    }
-
-    private const int MaxIterations = 10;
-    private const double MinMovementDistance = 3.0;
 
     /// <summary>Reduce the number of colors needed to represented the input, minimizing the difference between
     /// the original image and the recolored image.</summary>
@@ -254,5 +237,22 @@ public sealed class QuantizerWsmeans
         }
 
         return argbToPopulation;
+    }
+
+    private sealed class Distance : IComparable<Distance>
+    {
+        public int index;
+        public double distance;
+
+        public Distance()
+        {
+            this.index = -1;
+            this.distance = -1;
+        }
+
+        public int CompareTo(Distance? other)
+        {
+            return distance.CompareTo(other?.distance);
+        }
     }
 }

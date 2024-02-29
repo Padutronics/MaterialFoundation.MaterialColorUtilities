@@ -40,6 +40,11 @@ public sealed class Hct
     private double tone;
     private int argb;
 
+    private Hct(int argb)
+    {
+        SetInternalState(argb);
+    }
+
     /// <summary>Create an HCT color from hue, chroma, and tone.</summary>
     /// <param name="hue">0 <= hue < 360; invalid values are corrected.</param>
     /// <param name="chroma">0 <= chroma < ?; Informally, colorfulness. The color returned may be lower than
@@ -58,11 +63,6 @@ public sealed class Hct
     public static Hct FromInt(int argb)
     {
         return new Hct(argb);
-    }
-
-    private Hct(int argb)
-    {
-        SetInternalState(argb);
     }
 
     public double GetHue()

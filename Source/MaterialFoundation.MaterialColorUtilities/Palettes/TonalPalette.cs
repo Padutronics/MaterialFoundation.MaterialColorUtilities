@@ -27,6 +27,14 @@ public sealed class TonalPalette
     private readonly double hue;
     private readonly double chroma;
 
+    private TonalPalette(double hue, double chroma, Hct.Hct keyColor)
+    {
+        cache = new Dictionary<int, int>();
+        this.hue = hue;
+        this.chroma = chroma;
+        this.keyColor = keyColor;
+    }
+
     /// <summary>Create tones using the HCT hue and chroma from a color.</summary>
     /// <param name="argb">ARGB representation of a color</param>
     /// <returns>Tones matching that color's hue and chroma.</returns>
@@ -50,14 +58,6 @@ public sealed class TonalPalette
     public static TonalPalette FromHueAndChroma(double hue, double chroma)
     {
         return new TonalPalette(hue, chroma, CreateKeyColor(hue, chroma));
-    }
-
-    private TonalPalette(double hue, double chroma, Hct.Hct keyColor)
-    {
-        cache = new Dictionary<int, int>();
-        this.hue = hue;
-        this.chroma = chroma;
-        this.keyColor = keyColor;
     }
 
     /// <summary>The key color is the first tone, starting from T50, matching the given hue and chroma.</summary>

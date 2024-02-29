@@ -26,13 +26,6 @@ namespace MaterialFoundation.MaterialColorUtilities.Quantize;
 /// <para>The algorithm was described by Xiaolin Wu in Graphic Gems II, published in 1991.</para></summary>
 public sealed class QuantizerWu : IQuantizer
 {
-    private int[] weights = [];
-    private int[] momentsR = [];
-    private int[] momentsG = [];
-    private int[] momentsB = [];
-    private double[] moments = [];
-    private Box[] cubes = [];
-
     /// <summary>A histogram of all the input colors is constructed. It has the shape of a
     /// cube. The cube would be too large if it contained all 16 million colors:
     /// historical best practice is to use 5 bits  of the 8 in each channel,
@@ -40,6 +33,70 @@ public sealed class QuantizerWu : IQuantizer
     private const int IndexBits = 5;
     private const int IndexCount = 33; // ((1 << IndexBits) + 1)
     private const int TotalSize = 35937; // IndexCount * IndexCount * IndexCount
+
+    private int[] weights = [];
+    private int[] momentsR = [];
+    private int[] momentsG = [];
+    private int[] momentsB = [];
+    private double[] moments = [];
+    private Box[] cubes = [];
+
+    private static int GetIndex(int r, int g, int b)
+    {
+        return (r << (IndexBits * 2)) + (r << (IndexBits + 1)) + r + (g << IndexBits) + g + b;
+    }
+
+    private static int Volume(Box cube, int[] moment)
+    {
+        return moment[GetIndex(cube.r1, cube.g1, cube.b1)] -
+            moment[GetIndex(cube.r1, cube.g1, cube.b0)] -
+            moment[GetIndex(cube.r1, cube.g0, cube.b1)] +
+            moment[GetIndex(cube.r1, cube.g0, cube.b0)] -
+            moment[GetIndex(cube.r0, cube.g1, cube.b1)] +
+            moment[GetIndex(cube.r0, cube.g1, cube.b0)] +
+            moment[GetIndex(cube.r0, cube.g0, cube.b1)] -
+            moment[GetIndex(cube.r0, cube.g0, cube.b0)];
+    }
+
+    private static int Bottom(Box cube, Direction direction, int[] moment)
+    {
+        return direction switch
+        {
+            Direction.Red => -moment[GetIndex(cube.r0, cube.g1, cube.b1)] +
+                moment[GetIndex(cube.r0, cube.g1, cube.b0)] +
+                moment[GetIndex(cube.r0, cube.g0, cube.b1)] -
+                moment[GetIndex(cube.r0, cube.g0, cube.b0)],
+            Direction.Green => -moment[GetIndex(cube.r1, cube.g0, cube.b1)] +
+                moment[GetIndex(cube.r1, cube.g0, cube.b0)] +
+                moment[GetIndex(cube.r0, cube.g0, cube.b1)] -
+                moment[GetIndex(cube.r0, cube.g0, cube.b0)],
+            Direction.Blue => -moment[GetIndex(cube.r1, cube.g1, cube.b0)] +
+                moment[GetIndex(cube.r1, cube.g0, cube.b0)] +
+                moment[GetIndex(cube.r0, cube.g1, cube.b0)] -
+                moment[GetIndex(cube.r0, cube.g0, cube.b0)],
+            _ => throw new ArgumentException("unexpected direction " + direction),
+        };
+    }
+
+    private static int Top(Box cube, Direction direction, int position, int[] moment)
+    {
+        return direction switch
+        {
+            Direction.Red => moment[GetIndex(position, cube.g1, cube.b1)] -
+                moment[GetIndex(position, cube.g1, cube.b0)] -
+                moment[GetIndex(position, cube.g0, cube.b1)] +
+                moment[GetIndex(position, cube.g0, cube.b0)],
+            Direction.Green => moment[GetIndex(cube.r1, position, cube.b1)] -
+                moment[GetIndex(cube.r1, position, cube.b0)] -
+                moment[GetIndex(cube.r0, position, cube.b1)] +
+                moment[GetIndex(cube.r0, position, cube.b0)],
+            Direction.Blue => moment[GetIndex(cube.r1, cube.g1, position)] -
+                moment[GetIndex(cube.r1, cube.g0, position)] -
+                moment[GetIndex(cube.r0, cube.g1, position)] +
+                moment[GetIndex(cube.r0, cube.g0, position)],
+            _ => throw new ArgumentException("unexpected direction " + direction),
+        };
+    }
 
     public QuantizerResult Quantize(int[] pixels, int colorCount)
     {
@@ -54,11 +111,6 @@ public sealed class QuantizerWu : IQuantizer
             resultMap.Add(color, 0);
         }
         return new QuantizerResult(resultMap);
-    }
-
-    private static int GetIndex(int r, int g, int b)
-    {
-        return (r << (IndexBits * 2)) + (r << (IndexBits + 1)) + r + (g << IndexBits) + g + b;
     }
 
     private void ConstructHistogram(IDictionary<int, int> pixels)
@@ -331,58 +383,6 @@ public sealed class QuantizerWu : IQuantizer
             }
         }
         return new MaximizeResult(cut, max);
-    }
-
-    private static int Volume(Box cube, int[] moment)
-    {
-        return moment[GetIndex(cube.r1, cube.g1, cube.b1)] -
-            moment[GetIndex(cube.r1, cube.g1, cube.b0)] -
-            moment[GetIndex(cube.r1, cube.g0, cube.b1)] +
-            moment[GetIndex(cube.r1, cube.g0, cube.b0)] -
-            moment[GetIndex(cube.r0, cube.g1, cube.b1)] +
-            moment[GetIndex(cube.r0, cube.g1, cube.b0)] +
-            moment[GetIndex(cube.r0, cube.g0, cube.b1)] -
-            moment[GetIndex(cube.r0, cube.g0, cube.b0)];
-    }
-
-    private static int Bottom(Box cube, Direction direction, int[] moment)
-    {
-        return direction switch
-        {
-            Direction.Red => -moment[GetIndex(cube.r0, cube.g1, cube.b1)] +
-                moment[GetIndex(cube.r0, cube.g1, cube.b0)] +
-                moment[GetIndex(cube.r0, cube.g0, cube.b1)] -
-                moment[GetIndex(cube.r0, cube.g0, cube.b0)],
-            Direction.Green => -moment[GetIndex(cube.r1, cube.g0, cube.b1)] +
-                moment[GetIndex(cube.r1, cube.g0, cube.b0)] +
-                moment[GetIndex(cube.r0, cube.g0, cube.b1)] -
-                moment[GetIndex(cube.r0, cube.g0, cube.b0)],
-            Direction.Blue => -moment[GetIndex(cube.r1, cube.g1, cube.b0)] +
-                moment[GetIndex(cube.r1, cube.g0, cube.b0)] +
-                moment[GetIndex(cube.r0, cube.g1, cube.b0)] -
-                moment[GetIndex(cube.r0, cube.g0, cube.b0)],
-            _ => throw new ArgumentException("unexpected direction " + direction),
-        };
-    }
-
-    private static int Top(Box cube, Direction direction, int position, int[] moment)
-    {
-        return direction switch
-        {
-            Direction.Red => moment[GetIndex(position, cube.g1, cube.b1)] -
-                moment[GetIndex(position, cube.g1, cube.b0)] -
-                moment[GetIndex(position, cube.g0, cube.b1)] +
-                moment[GetIndex(position, cube.g0, cube.b0)],
-            Direction.Green => moment[GetIndex(cube.r1, position, cube.b1)] -
-                moment[GetIndex(cube.r1, position, cube.b0)] -
-                moment[GetIndex(cube.r0, position, cube.b1)] +
-                moment[GetIndex(cube.r0, position, cube.b0)],
-            Direction.Blue => moment[GetIndex(cube.r1, cube.g1, position)] -
-                moment[GetIndex(cube.r1, cube.g0, position)] -
-                moment[GetIndex(cube.r0, cube.g1, position)] +
-                moment[GetIndex(cube.r0, cube.g0, position)],
-            _ => throw new ArgumentException("unexpected direction " + direction),
-        };
     }
 
     private enum Direction

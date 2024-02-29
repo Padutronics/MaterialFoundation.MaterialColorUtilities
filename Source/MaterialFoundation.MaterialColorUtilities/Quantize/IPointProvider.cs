@@ -21,10 +21,8 @@ public interface IPointProvider
 {
     /// <summary>The four components in the color space of an sRGB color.</summary>
     double[] FromInt(int argb);
-
     /// <summary>The ARGB (i.e. hex code) representation of this color.</summary>
     int ToInt(double[] point);
-
     /// <summary>Squared distance between two colors. Distance is defined by scientific color spaces and
     /// referred to as delta E.</summary>
     double Distance(double[] a, double[] b);

@@ -43,6 +43,36 @@ public sealed class TemperatureCache
         this.input = input;
     }
 
+    /// <summary>Value representing cool-warm factor of a color. Values below 0 are considered cool, above,
+    /// warm.
+    ///
+    /// <para>Color science has researched emotion and harmony, which art uses to select colors. Warm-cool
+    /// is the foundation of analogous and complementary colors. See: - Li-Chen Ou's Chapter 19 in
+    /// Handbook of Color Psychology (2015). - Josef Albers' Interaction of Color chapters 19 and 21.</para>
+    ///
+    /// <para>Implementation of Ou, Woodcock and Wright's algorithm, which uses Lab/LCH color space.
+    /// Return value has these properties:
+    /// - Values below 0 are cool, above 0 are warm.
+    /// - Lower bound: -9.66. Chroma is infinite. Assuming max of Lab chroma 130.
+    /// - Upper bound: 8.61. Chroma is infinite. Assuming max of Lab chroma 130.</para></summary>
+    public static double RawTemperature(Hct.Hct color)
+    {
+        double[] lab = ColorUtils.LabFromArgb(color.ToInt());
+        double hue = MathUtils.SanitizeDegreesDouble(MathUtils.ToDegrees(Math.Atan2(lab[2], lab[1])));
+        double chroma = double.Hypot(lab[1], lab[2]);
+        return -0.5 + 0.02 * Math.Pow(chroma, 1.07) * Math.Cos(MathUtils.ToRadians(MathUtils.SanitizeDegreesDouble(hue - 50.0)));
+    }
+
+    /// <summary>Determines if an angle is between two other angles, rotating clockwise.</summary>
+    private static bool IsBetween(double angle, double a, double b)
+    {
+        if (a < b)
+        {
+            return a <= angle && angle <= b;
+        }
+        return a <= angle || angle <= b;
+    }
+
     /// <summary>A color that complements the input color aesthetically.
     ///
     /// <para>In art, this is usually described as being across the color wheel. History of this shows
@@ -226,26 +256,6 @@ public sealed class TemperatureCache
         return differenceFromColdest / range;
     }
 
-    /// <summary>Value representing cool-warm factor of a color. Values below 0 are considered cool, above,
-    /// warm.
-    ///
-    /// <para>Color science has researched emotion and harmony, which art uses to select colors. Warm-cool
-    /// is the foundation of analogous and complementary colors. See: - Li-Chen Ou's Chapter 19 in
-    /// Handbook of Color Psychology (2015). - Josef Albers' Interaction of Color chapters 19 and 21.</para>
-    ///
-    /// <para>Implementation of Ou, Woodcock and Wright's algorithm, which uses Lab/LCH color space.
-    /// Return value has these properties:
-    /// - Values below 0 are cool, above 0 are warm.
-    /// - Lower bound: -9.66. Chroma is infinite. Assuming max of Lab chroma 130.
-    /// - Upper bound: 8.61. Chroma is infinite. Assuming max of Lab chroma 130.</para></summary>
-    public static double RawTemperature(Hct.Hct color)
-    {
-        double[] lab = ColorUtils.LabFromArgb(color.ToInt());
-        double hue = MathUtils.SanitizeDegreesDouble(MathUtils.ToDegrees(Math.Atan2(lab[2], lab[1])));
-        double chroma = double.Hypot(lab[1], lab[2]);
-        return -0.5 + 0.02 * Math.Pow(chroma, 1.07) * Math.Cos(MathUtils.ToRadians(MathUtils.SanitizeDegreesDouble(hue - 50.0)));
-    }
-
     /// <summary>Coldest color with same chroma and tone as input.</summary>
     private Hct.Hct GetColdest()
     {
@@ -321,15 +331,5 @@ public sealed class TemperatureCache
     private Hct.Hct GetWarmest()
     {
         return GetHctsByTemp()[GetHctsByTemp().Count - 1];
-    }
-
-    /// <summary>Determines if an angle is between two other angles, rotating clockwise.</summary>
-    private static bool IsBetween(double angle, double a, double b)
-    {
-        if (a < b)
-        {
-            return a <= angle && angle <= b;
-        }
-        return a <= angle || angle <= b;
     }
 }

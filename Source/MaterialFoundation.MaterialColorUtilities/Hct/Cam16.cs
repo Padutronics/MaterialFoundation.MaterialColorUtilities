@@ -40,7 +40,6 @@ public sealed class Cam16
         [-0.250268, 1.204414, 0.045854],
         [-0.002079, 0.048952, 0.953127]
     ];
-
     /// <summary>Transforms 'cone'/'RGB' responses in CAM16 to XYZ color space coordinates.</summary>
     private static readonly double[][] Cam16RgbToXyz = [
         [1.8620678, -1.0112547, 0.14918678],
@@ -55,91 +54,12 @@ public sealed class Cam16
     private readonly double q;
     private readonly double m;
     private readonly double s;
-
     /// <summary>Coordinates in UCS space. Used to determine color distance, like delta E equations in L*a*b*.</summary>
     private readonly double jstar;
     private readonly double astar;
     private readonly double bstar;
-
     /// <summary>Avoid allocations during conversion by pre-allocating an array.</summary>
     private readonly double[] tempArray = [0.0, 0.0, 0.0];
-
-    /// <summary>CAM16 instances also have coordinates in the CAM16-UCS space, called J*, a*, b*, or jstar,
-    /// astar, bstar in code. CAM16-UCS is included in the CAM16 specification, and is used to measure
-    /// distances between colors.</summary>
-    public double Distance(Cam16 other)
-    {
-        double dJ = GetJstar() - other.GetJstar();
-        double dA = GetAstar() - other.GetAstar();
-        double dB = GetBstar() - other.GetBstar();
-        double dEPrime = Math.Sqrt(dJ * dJ + dA * dA + dB * dB);
-        double dE = 1.41 * Math.Pow(dEPrime, 0.63);
-        return dE;
-    }
-
-    /// <summary>Hue in CAM16</summary>
-    public double GetHue()
-    {
-        return hue;
-    }
-
-    /// <summary>Chroma in CAM16</summary>
-    public double GetChroma()
-    {
-        return chroma;
-    }
-
-    /// <summary>Lightness in CAM16</summary>
-    public double GetJ()
-    {
-        return j;
-    }
-
-    /// <summary>Brightness in CAM16.
-    ///
-    /// <para>Prefer lightness, brightness is an absolute quantity. For example, a sheet of white paper is
-    /// much brighter viewed in sunlight than in indoor light, but it is the lightest object under any
-    /// lighting.</para></summary>
-    public double GetQ()
-    {
-        return q;
-    }
-
-    /// <summary>Colorfulness in CAM16.
-    ///
-    /// <para>Prefer chroma, colorfulness is an absolute quantity. For example, a yellow toy car is much
-    /// more colorful outside than inside, but it has the same chroma in both environments.</para></summary>
-    public double GetM()
-    {
-        return m;
-    }
-
-    /// <summary>Saturation in CAM16.
-    ///
-    /// <para>Colorfulness in proportion to brightness. Prefer chroma, saturation measures colorfulness
-    /// relative to the color's own brightness, where chroma is colorfulness relative to white.</para></summary>
-    public double GetS()
-    {
-        return s;
-    }
-
-    /// <summary>Lightness coordinate in CAM16-UCS</summary>
-    public double GetJstar()
-    {
-        return jstar;
-    }
-
-    /// <summary>a* coordinate in CAM16-UCS</summary>
-    public double GetAstar()
-    {
-        return astar;
-    }
-
-    /// <summary>b* coordinate in CAM16-UCS</summary>
-    public double GetBstar()
-    {
-        return bstar;
-    }
 
     /// <summary>All of the CAM16 dimensions can be calculated from 3 of the dimensions, in the following
     /// combinations: - {j or q} and {c, m, or s} and hue - jstar, astar, bstar Prefer using a static
@@ -319,6 +239,83 @@ public sealed class Cam16
         }
         double j = jstar / (1.0 - (jstar - 100.0) * 0.007);
         return FromJchInViewingConditions(j, c, h, viewingConditions);
+    }
+
+    /// <summary>CAM16 instances also have coordinates in the CAM16-UCS space, called J*, a*, b*, or jstar,
+    /// astar, bstar in code. CAM16-UCS is included in the CAM16 specification, and is used to measure
+    /// distances between colors.</summary>
+    public double Distance(Cam16 other)
+    {
+        double dJ = GetJstar() - other.GetJstar();
+        double dA = GetAstar() - other.GetAstar();
+        double dB = GetBstar() - other.GetBstar();
+        double dEPrime = Math.Sqrt(dJ * dJ + dA * dA + dB * dB);
+        double dE = 1.41 * Math.Pow(dEPrime, 0.63);
+        return dE;
+    }
+
+    /// <summary>Hue in CAM16</summary>
+    public double GetHue()
+    {
+        return hue;
+    }
+
+    /// <summary>Chroma in CAM16</summary>
+    public double GetChroma()
+    {
+        return chroma;
+    }
+
+    /// <summary>Lightness in CAM16</summary>
+    public double GetJ()
+    {
+        return j;
+    }
+
+    /// <summary>Brightness in CAM16.
+    ///
+    /// <para>Prefer lightness, brightness is an absolute quantity. For example, a sheet of white paper is
+    /// much brighter viewed in sunlight than in indoor light, but it is the lightest object under any
+    /// lighting.</para></summary>
+    public double GetQ()
+    {
+        return q;
+    }
+
+    /// <summary>Colorfulness in CAM16.
+    ///
+    /// <para>Prefer chroma, colorfulness is an absolute quantity. For example, a yellow toy car is much
+    /// more colorful outside than inside, but it has the same chroma in both environments.</para></summary>
+    public double GetM()
+    {
+        return m;
+    }
+
+    /// <summary>Saturation in CAM16.
+    ///
+    /// <para>Colorfulness in proportion to brightness. Prefer chroma, saturation measures colorfulness
+    /// relative to the color's own brightness, where chroma is colorfulness relative to white.</para></summary>
+    public double GetS()
+    {
+        return s;
+    }
+
+    /// <summary>Lightness coordinate in CAM16-UCS</summary>
+    public double GetJstar()
+    {
+        return jstar;
+    }
+
+    /// <summary>a* coordinate in CAM16-UCS</summary>
+    public double GetAstar()
+    {
+        return astar;
+    }
+
+    /// <summary>b* coordinate in CAM16-UCS</summary>
+    public double GetBstar()
+    {
+        return bstar;
     }
 
     /// <summary>ARGB representation of the color. Assumes the color was viewed in default viewing conditions,

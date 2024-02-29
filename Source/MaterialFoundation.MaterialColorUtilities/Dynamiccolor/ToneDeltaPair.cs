@@ -26,16 +26,12 @@ public sealed class ToneDeltaPair
 {
     /// <summary>The first role in a pair.</summary>
     private readonly DynamicColor roleA;
-
     /// <summary>The second role in a pair.</summary>
     private readonly DynamicColor roleB;
-
     /// <summary>Required difference between tones. Absolute value, negative values have undefined behavior.</summary>
     private readonly double delta;
-
     /// <summary>The relative relation between tones of roleA and roleB, as described above.</summary>
     private readonly TonePolarity polarity;
-
     /// <summary>Whether these two roles should stay on the same side of the "awkward zone" (T50-59). This is
     /// necessary for certain cases where one role has two backgrounds.</summary>
     private readonly bool stayTogether;

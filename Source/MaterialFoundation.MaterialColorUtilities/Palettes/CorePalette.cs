@@ -29,20 +29,6 @@ public sealed class CorePalette
     public TonalPalette n2;
     public TonalPalette error;
 
-    /// <summary>Create key tones from a color.</summary>
-    /// <param name="argb">ARGB representation of a color</param>
-    public static CorePalette Of(int argb)
-    {
-        return new CorePalette(argb, false);
-    }
-
-    /// <summary>Create content key tones from a color.</summary>
-    /// <param name="argb">ARGB representation of a color</param>
-    public static CorePalette ContentOf(int argb)
-    {
-        return new CorePalette(argb, true);
-    }
-
     private CorePalette(int argb, bool isContent)
     {
         Hct.Hct hct = Hct.Hct.FromInt(argb);
@@ -65,5 +51,19 @@ public sealed class CorePalette
             this.n2 = TonalPalette.FromHueAndChroma(hue, 8.0);
         }
         this.error = TonalPalette.FromHueAndChroma(25, 84.0);
+    }
+
+    /// <summary>Create key tones from a color.</summary>
+    /// <param name="argb">ARGB representation of a color</param>
+    public static CorePalette Of(int argb)
+    {
+        return new CorePalette(argb, false);
+    }
+
+    /// <summary>Create content key tones from a color.</summary>
+    /// <param name="argb">ARGB representation of a color</param>
+    public static CorePalette ContentOf(int argb)
+    {
+        return new CorePalette(argb, true);
     }
 }

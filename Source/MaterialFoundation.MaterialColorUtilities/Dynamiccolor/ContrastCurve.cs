@@ -26,13 +26,10 @@ public sealed class ContrastCurve
 {
     /// <summary>Value for contrast level -1.0</summary>
     private readonly double low;
-
     /// <summary>Value for contrast level 0.0</summary>
     private readonly double normal;
-
     /// <summary>Value for contrast level 0.5</summary>
     private readonly double medium;
-
     /// <summary>Value for contrast level 1.0</summary>
     private readonly double high;
 

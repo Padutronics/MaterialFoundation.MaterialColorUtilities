@@ -36,6 +36,45 @@ public sealed class MaterialDynamicColors
         this.isExtendedFidelity = isExtendedFidelity;
     }
 
+    private static bool IsMonochrome(DynamicScheme scheme)
+    {
+        return scheme.variant == Variant.Monochrome;
+    }
+
+    private static double FindDesiredChromaByTone(double hue, double chroma, double tone, bool byDecreasingTone)
+    {
+        double answer = tone;
+
+        Hct.Hct closestToChroma = Hct.Hct.From(hue, chroma, tone);
+        if (closestToChroma.GetChroma() < chroma)
+        {
+            double chromaPeak = closestToChroma.GetChroma();
+            while (closestToChroma.GetChroma() < chroma)
+            {
+                answer += byDecreasingTone ? -1.0 : 1.0;
+                Hct.Hct potentialSolution = Hct.Hct.From(hue, chroma, answer);
+                if (chromaPeak > potentialSolution.GetChroma())
+                {
+                    break;
+                }
+                if (Math.Abs(potentialSolution.GetChroma() - chroma) < 0.4)
+                {
+                    break;
+                }
+
+                double potentialDelta = Math.Abs(potentialSolution.GetChroma() - chroma);
+                double currentDelta = Math.Abs(closestToChroma.GetChroma() - chroma);
+                if (potentialDelta < currentDelta)
+                {
+                    closestToChroma = potentialSolution;
+                }
+                chromaPeak = Math.Max(chromaPeak, potentialSolution.GetChroma());
+            }
+        }
+
+        return answer;
+    }
+
     public DynamicColor HighestSurface(DynamicScheme s)
     {
         return s.isDark ? SurfaceBright() : SurfaceDim();
@@ -980,44 +1019,5 @@ public sealed class MaterialDynamicColors
             return true;
         }
         return scheme.variant == Variant.Fidelity || scheme.variant == Variant.Content;
-    }
-
-    private static bool IsMonochrome(DynamicScheme scheme)
-    {
-        return scheme.variant == Variant.Monochrome;
-    }
-
-    private static double FindDesiredChromaByTone(double hue, double chroma, double tone, bool byDecreasingTone)
-    {
-        double answer = tone;
-
-        Hct.Hct closestToChroma = Hct.Hct.From(hue, chroma, tone);
-        if (closestToChroma.GetChroma() < chroma)
-        {
-            double chromaPeak = closestToChroma.GetChroma();
-            while (closestToChroma.GetChroma() < chroma)
-            {
-                answer += byDecreasingTone ? -1.0 : 1.0;
-                Hct.Hct potentialSolution = Hct.Hct.From(hue, chroma, answer);
-                if (chromaPeak > potentialSolution.GetChroma())
-                {
-                    break;
-                }
-                if (Math.Abs(potentialSolution.GetChroma() - chroma) < 0.4)
-                {
-                    break;
-                }
-
-                double potentialDelta = Math.Abs(potentialSolution.GetChroma() - chroma);
-                double currentDelta = Math.Abs(closestToChroma.GetChroma() - chroma);
-                if (potentialDelta < currentDelta)
-                {
-                    closestToChroma = potentialSolution;
-                }
-                chromaPeak = Math.Max(chromaPeak, potentialSolution.GetChroma());
-            }
-        }
-
-        return answer;
     }
 }

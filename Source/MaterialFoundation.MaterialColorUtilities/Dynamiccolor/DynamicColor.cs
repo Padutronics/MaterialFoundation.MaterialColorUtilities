@@ -49,9 +49,7 @@ public sealed class DynamicColor
     public readonly Func<DynamicScheme, DynamicColor>? secondBackground;
     public readonly ContrastCurve? contrastCurve;
     public readonly Func<DynamicScheme, ToneDeltaPair>? toneDeltaPair;
-
     public readonly Func<DynamicScheme, double>? opacity;
-
     private readonly IDictionary<DynamicScheme, Hct.Hct> hctCache = new Dictionary<DynamicScheme, Hct.Hct>();
 
     /// <summary>A constructor for DynamicColor.
@@ -209,6 +207,71 @@ public sealed class DynamicColor
         Hct.Hct hct = Hct.Hct.FromInt(argb);
         TonalPalette palette = TonalPalette.FromInt(argb);
         return DynamicColor.FromPalette(name, (s) => palette, (s) => hct.GetTone());
+    }
+
+    /// <summary>Given a background tone, find a foreground tone, while ensuring they reach a contrast ratio
+    /// that is as close to ratio as possible.</summary>
+    public static double ForegroundTone(double bgTone, double ratio)
+    {
+        double lighterTone = Contrast.Contrast.LighterUnsafe(bgTone, ratio);
+        double darkerTone = Contrast.Contrast.DarkerUnsafe(bgTone, ratio);
+        double lighterRatio = Contrast.Contrast.RatioOfTones(lighterTone, bgTone);
+        double darkerRatio = Contrast.Contrast.RatioOfTones(darkerTone, bgTone);
+        bool preferLighter = TonePrefersLightForeground(bgTone);
+
+        if (preferLighter)
+        {
+            // "Neglible difference" handles an edge case where the initial contrast ratio is high
+            // (ex. 13.0), and the ratio passed to the function is that high ratio, and both the lighter
+            // and darker ratio fails to pass that ratio.
+            //
+            // This was observed with Tonal Spot's On Primary Container turning black momentarily between
+            // high and max contrast in light mode. PC's standard tone was T90, OPC's was T10, it was
+            // light mode, and the contrast level was 0.6568521221032331.
+            bool negligibleDifference = Math.Abs(lighterRatio - darkerRatio) < 0.1 && lighterRatio < ratio && darkerRatio < ratio;
+            if (lighterRatio >= ratio || lighterRatio >= darkerRatio || negligibleDifference)
+            {
+                return lighterTone;
+            }
+            else
+            {
+                return darkerTone;
+            }
+        }
+        else
+        {
+            return darkerRatio >= ratio || darkerRatio >= lighterRatio ? darkerTone : lighterTone;
+        }
+    }
+
+    /// <summary>Adjust a tone down such that white has 4.5 contrast, if the tone is reasonably close to
+    /// supporting it.</summary>
+    public static double EnableLightForeground(double tone)
+    {
+        if (TonePrefersLightForeground(tone) && !ToneAllowsLightForeground(tone))
+        {
+            return 49.0;
+        }
+        return tone;
+    }
+
+    /// <summary>People prefer white foregrounds on ~T60-70. Observed over time, and also by Andrew Somers
+    /// during research for APCA.
+    ///
+    /// <para>T60 used as to create the smallest discontinuity possible when skipping down to T49 in order
+    /// to ensure light foregrounds.</para>
+    ///
+    /// <para>Since `tertiaryContainer` in dark monochrome scheme requires a tone of 60, it should not be
+    /// adjusted. Therefore, 60 is excluded here.</para></summary>
+    public static bool TonePrefersLightForeground(double tone)
+    {
+        return Math.Round(tone) < 60;
+    }
+
+    /// <summary>Tones less than ~T50 always permit white at 4.5 contrast.</summary>
+    public static bool ToneAllowsLightForeground(double tone)
+    {
+        return Math.Round(tone) <= 49;
     }
 
     /// <summary>Returns an ARGB integer (i.e. a hex code).</summary>
@@ -456,70 +519,5 @@ public sealed class DynamicColor
 
             return answer;
         }
-    }
-
-    /// <summary>Given a background tone, find a foreground tone, while ensuring they reach a contrast ratio
-    /// that is as close to ratio as possible.</summary>
-    public static double ForegroundTone(double bgTone, double ratio)
-    {
-        double lighterTone = Contrast.Contrast.LighterUnsafe(bgTone, ratio);
-        double darkerTone = Contrast.Contrast.DarkerUnsafe(bgTone, ratio);
-        double lighterRatio = Contrast.Contrast.RatioOfTones(lighterTone, bgTone);
-        double darkerRatio = Contrast.Contrast.RatioOfTones(darkerTone, bgTone);
-        bool preferLighter = TonePrefersLightForeground(bgTone);
-
-        if (preferLighter)
-        {
-            // "Neglible difference" handles an edge case where the initial contrast ratio is high
-            // (ex. 13.0), and the ratio passed to the function is that high ratio, and both the lighter
-            // and darker ratio fails to pass that ratio.
-            //
-            // This was observed with Tonal Spot's On Primary Container turning black momentarily between
-            // high and max contrast in light mode. PC's standard tone was T90, OPC's was T10, it was
-            // light mode, and the contrast level was 0.6568521221032331.
-            bool negligibleDifference = Math.Abs(lighterRatio - darkerRatio) < 0.1 && lighterRatio < ratio && darkerRatio < ratio;
-            if (lighterRatio >= ratio || lighterRatio >= darkerRatio || negligibleDifference)
-            {
-                return lighterTone;
-            }
-            else
-            {
-                return darkerTone;
-            }
-        }
-        else
-        {
-            return darkerRatio >= ratio || darkerRatio >= lighterRatio ? darkerTone : lighterTone;
-        }
-    }
-
-    /// <summary>Adjust a tone down such that white has 4.5 contrast, if the tone is reasonably close to
-    /// supporting it.</summary>
-    public static double EnableLightForeground(double tone)
-    {
-        if (TonePrefersLightForeground(tone) && !ToneAllowsLightForeground(tone))
-        {
-            return 49.0;
-        }
-        return tone;
-    }
-
-    /// <summary>People prefer white foregrounds on ~T60-70. Observed over time, and also by Andrew Somers
-    /// during research for APCA.
-    ///
-    /// <para>T60 used as to create the smallest discontinuity possible when skipping down to T49 in order
-    /// to ensure light foregrounds.</para>
-    ///
-    /// <para>Since `tertiaryContainer` in dark monochrome scheme requires a tone of 60, it should not be
-    /// adjusted. Therefore, 60 is excluded here.</para></summary>
-    public static bool TonePrefersLightForeground(double tone)
-    {
-        return Math.Round(tone) < 60;
-    }
-
-    /// <summary>Tones less than ~T50 always permit white at 4.5 contrast.</summary>
-    public static bool ToneAllowsLightForeground(double tone)
-    {
-        return Math.Round(tone) <= 49;
     }
 }
