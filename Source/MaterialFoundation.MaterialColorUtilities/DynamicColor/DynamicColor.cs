@@ -41,15 +41,6 @@ namespace MaterialFoundation.MaterialColorUtilities.DynamicColor;
 /// See the default constructor for more information.</para></summary>
 public sealed class DynamicColor
 {
-    public readonly string name;
-    public readonly Func<DynamicScheme, TonalPalette> palette;
-    public readonly Func<DynamicScheme, double> tone;
-    public readonly bool isBackground;
-    public readonly Func<DynamicScheme, DynamicColor>? background;
-    public readonly Func<DynamicScheme, DynamicColor>? secondBackground;
-    public readonly ContrastCurve? contrastCurve;
-    public readonly Func<DynamicScheme, ToneDeltaPair>? toneDeltaPair;
-    public readonly Func<DynamicScheme, double>? opacity;
     private readonly IDictionary<DynamicScheme, Hct.Hct> hctCache = new Dictionary<DynamicScheme, Hct.Hct>();
 
     /// <summary>A constructor for DynamicColor.
@@ -80,15 +71,15 @@ public sealed class DynamicColor
     /// colors. One of them must be the color being constructed.</param>
     public DynamicColor(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone, bool isBackground, Func<DynamicScheme, DynamicColor>? background, Func<DynamicScheme, DynamicColor>? secondBackground, ContrastCurve? contrastCurve, Func<DynamicScheme, ToneDeltaPair>? toneDeltaPair)
     {
-        this.name = name;
-        this.palette = palette;
-        this.tone = tone;
-        this.isBackground = isBackground;
-        this.background = background;
-        this.secondBackground = secondBackground;
-        this.contrastCurve = contrastCurve;
-        this.toneDeltaPair = toneDeltaPair;
-        this.opacity = null;
+        Name = name;
+        Palette = palette;
+        Tone = tone;
+        IsBackground = isBackground;
+        Background = background;
+        SecondBackground = secondBackground;
+        ContrastCurve = contrastCurve;
+        ToneDeltaPair = toneDeltaPair;
+        Opacity = null;
     }
 
     /// <summary>A constructor for DynamicColor.
@@ -120,16 +111,34 @@ public sealed class DynamicColor
     /// <param name="opacity">A function returning the opacity of a color, as a number between 0 and 1.</param>
     public DynamicColor(string name, Func<DynamicScheme, TonalPalette> palette, Func<DynamicScheme, double> tone, bool isBackground, Func<DynamicScheme, DynamicColor>? background, Func<DynamicScheme, DynamicColor>? secondBackground, ContrastCurve? contrastCurve, Func<DynamicScheme, ToneDeltaPair>? toneDeltaPair, Func<DynamicScheme, double>? opacity)
     {
-        this.name = name;
-        this.palette = palette;
-        this.tone = tone;
-        this.isBackground = isBackground;
-        this.background = background;
-        this.secondBackground = secondBackground;
-        this.contrastCurve = contrastCurve;
-        this.toneDeltaPair = toneDeltaPair;
-        this.opacity = opacity;
+        Name = name;
+        Palette = palette;
+        Tone = tone;
+        IsBackground = isBackground;
+        Background = background;
+        SecondBackground = secondBackground;
+        ContrastCurve = contrastCurve;
+        ToneDeltaPair = toneDeltaPair;
+        Opacity = opacity;
     }
+
+    public string Name { get; }
+
+    public Func<DynamicScheme, TonalPalette> Palette { get; }
+
+    public Func<DynamicScheme, double> Tone { get; }
+
+    public bool IsBackground { get; }
+
+    public Func<DynamicScheme, DynamicColor>? Background { get; }
+
+    public Func<DynamicScheme, DynamicColor>? SecondBackground { get; }
+
+    public ContrastCurve? ContrastCurve { get; }
+
+    public Func<DynamicScheme, ToneDeltaPair>? ToneDeltaPair { get; }
+
+    public Func<DynamicScheme, double>? Opacity { get; }
 
     /// <summary>A convenience constructor for DynamicColor.
     ///
@@ -280,11 +289,11 @@ public sealed class DynamicColor
     public int GetArgb(DynamicScheme scheme)
     {
         int argb = GetHct(scheme).ToInt();
-        if (opacity == null)
+        if (Opacity == null)
         {
             return argb;
         }
-        double percentage = opacity(scheme);
+        double percentage = Opacity(scheme);
         int alpha = MathUtils.ClampInt(0, 255, (int)Math.Round(percentage * 255));
         return (argb & 0x00ffffff) | (alpha << 24);
     }
@@ -305,7 +314,7 @@ public sealed class DynamicColor
         // For example, this enables colors with standard tone of T90, which has limited chroma, to
         // "recover" intended chroma as contrast increases.
         double tone = GetTone(scheme);
-        Hct.Hct answer = palette(scheme).GetHct(tone);
+        Hct.Hct answer = Palette(scheme).GetHct(tone);
         if (hctCache.Count > 4)
         {
             hctCache.Clear();
@@ -320,36 +329,36 @@ public sealed class DynamicColor
         bool decreasingContrast = scheme.ContrastLevel < 0;
 
         // Case 1: dual foreground, pair of colors with delta constraint.
-        if (toneDeltaPair != null)
+        if (ToneDeltaPair != null)
         {
-            ToneDeltaPair toneDeltaPair = this.toneDeltaPair(scheme);
+            ToneDeltaPair toneDeltaPair = ToneDeltaPair(scheme);
             DynamicColor roleA = toneDeltaPair.RoleA;
             DynamicColor roleB = toneDeltaPair.RoleB;
             double delta = toneDeltaPair.Delta;
             TonePolarity polarity = toneDeltaPair.Polarity;
             bool stayTogether = toneDeltaPair.StayTogether;
 
-            DynamicColor bg = background!(scheme);
+            DynamicColor bg = Background!(scheme);
             double bgTone = bg.GetTone(scheme);
 
             bool aIsNearer = polarity == TonePolarity.Nearer || polarity == TonePolarity.Lighter && !scheme.IsDark || polarity == TonePolarity.Darker && scheme.IsDark;
             DynamicColor nearer = aIsNearer ? roleA : roleB;
             DynamicColor farther = aIsNearer ? roleB : roleA;
-            bool amNearer = name.Equals(nearer.name);
+            bool amNearer = Name.Equals(nearer.Name);
             double expansionDir = scheme.IsDark ? 1 : -1;
 
             // 1st round: solve to min, each
-            double nContrast = nearer.contrastCurve!.Get(scheme.ContrastLevel);
-            double fContrast = farther.contrastCurve!.Get(scheme.ContrastLevel);
+            double nContrast = nearer.ContrastCurve!.Get(scheme.ContrastLevel);
+            double fContrast = farther.ContrastCurve!.Get(scheme.ContrastLevel);
 
             // If a color is good enough, it is not adjusted.
             // Initial and adjusted tones for `nearer`
-            double nInitialTone = nearer.tone(scheme);
+            double nInitialTone = nearer.Tone(scheme);
             double nTone = Contrast.Contrast.RatioOfTones(bgTone, nInitialTone) >= nContrast
                 ? nInitialTone
                 : ForegroundTone(bgTone, nContrast);
             // Initial and adjusted tones for `farther`
-            double fInitialTone = farther.tone(scheme);
+            double fInitialTone = farther.Tone(scheme);
             double fTone = Contrast.Contrast.RatioOfTones(bgTone, fInitialTone) >= fContrast
                 ? fInitialTone
                 : ForegroundTone(bgTone, fContrast);
@@ -428,16 +437,16 @@ public sealed class DynamicColor
         else
         {
             // Case 2: No contrast pair; just solve for itself.
-            double answer = tone(scheme);
+            double answer = Tone(scheme);
 
-            if (background == null)
+            if (Background == null)
             {
                 return answer; // No adjustment for colors with no background.
             }
 
-            double bgTone = background(scheme).GetTone(scheme);
+            double bgTone = Background(scheme).GetTone(scheme);
 
-            double desiredRatio = contrastCurve!.Get(scheme.ContrastLevel);
+            double desiredRatio = ContrastCurve!.Get(scheme.ContrastLevel);
 
             if (Contrast.Contrast.RatioOfTones(bgTone, answer) >= desiredRatio)
             {
@@ -454,7 +463,7 @@ public sealed class DynamicColor
                 answer = ForegroundTone(bgTone, desiredRatio);
             }
 
-            if (isBackground && 50 <= answer && answer < 60)
+            if (IsBackground && 50 <= answer && answer < 60)
             {
                 // Must adjust
                 if (Contrast.Contrast.RatioOfTones(49, bgTone) >= desiredRatio)
@@ -467,12 +476,12 @@ public sealed class DynamicColor
                 }
             }
 
-            if (secondBackground != null)
+            if (SecondBackground != null)
             {
                 // Case 3: Adjust for dual backgrounds.
 
-                double bgTone1 = background(scheme).GetTone(scheme);
-                double bgTone2 = secondBackground(scheme).GetTone(scheme);
+                double bgTone1 = Background(scheme).GetTone(scheme);
+                double bgTone2 = SecondBackground(scheme).GetTone(scheme);
 
                 double upper = Math.Max(bgTone1, bgTone2);
                 double lower = Math.Min(bgTone1, bgTone2);

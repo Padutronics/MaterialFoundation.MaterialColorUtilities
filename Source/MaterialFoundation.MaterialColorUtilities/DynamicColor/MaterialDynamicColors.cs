@@ -489,7 +489,7 @@ public sealed class MaterialDynamicColors
             {
                 if (IsFidelity(s))
                 {
-                    return DynamicColor.ForegroundTone(PrimaryContainer().tone(s), 4.5);
+                    return DynamicColor.ForegroundTone(PrimaryContainer().Tone(s), 4.5);
                 }
                 if (IsMonochrome(s))
                 {
@@ -594,7 +594,7 @@ public sealed class MaterialDynamicColors
                 {
                     return s.IsDark ? 90.0 : 10.0;
                 }
-                return DynamicColor.ForegroundTone(SecondaryContainer().tone(s), 4.5);
+                return DynamicColor.ForegroundTone(SecondaryContainer().Tone(s), 4.5);
             },
             isBackground: false,
             background: s => SecondaryContainer(),
@@ -687,7 +687,7 @@ public sealed class MaterialDynamicColors
                 {
                     return s.IsDark ? 90.0 : 10.0;
                 }
-                return DynamicColor.ForegroundTone(TertiaryContainer().tone(s), 4.5);
+                return DynamicColor.ForegroundTone(TertiaryContainer().Tone(s), 4.5);
             },
             isBackground: false,
             background: s => TertiaryContainer(),
