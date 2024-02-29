@@ -22,7 +22,7 @@ namespace MaterialFoundation.MaterialColorUtilities.Hct;
 /// <summary>A class that solves the HCT equation.</summary>
 public static class HctSolver
 {
-    private static readonly double[][] ScaledDiscountFfromLinRgb = [
+    private static readonly double[][] ScaledDiscountFromLinRgb = [
         [0.001200833568784504, 0.002389694492170889, 0.0002795742885861124],
         [0.0005891086651375999, 0.0029785502573438758, 0.0003270666104008398],
         [0.00010146692491640572, 0.0005364214359186694, 0.0032979401770712076]
@@ -328,7 +328,7 @@ public static class HctSolver
     /// <returns>The hue of the color in CAM16, in radians.</returns>
     private static double HueOf(double[] linrgb)
     {
-        double[] scaledDiscount = MathUtils.MatrixMultiply(linrgb, ScaledDiscountFfromLinRgb);
+        double[] scaledDiscount = MathUtils.MatrixMultiply(linrgb, ScaledDiscountFromLinRgb);
         double rA = ChromaticAdaptation(scaledDiscount[0]);
         double gA = ChromaticAdaptation(scaledDiscount[1]);
         double bA = ChromaticAdaptation(scaledDiscount[2]);
