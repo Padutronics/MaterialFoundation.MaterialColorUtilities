@@ -22,11 +22,10 @@ namespace MaterialFoundation.MaterialColorUtilities.Palettes;
 /// <summary>A convenience class for retrieving colors that are constant in hue and chroma, but vary in tone.</summary>
 public sealed class TonalPalette
 {
-    private readonly IDictionary<int, int> cache;
+    private readonly IDictionary<int, int> cache = new Dictionary<int, int>();
 
     private TonalPalette(double hue, double chroma, Hct.Hct keyColor)
     {
-        cache = new Dictionary<int, int>();
         Hue = hue;
         Chroma = chroma;
         KeyColor = keyColor;
