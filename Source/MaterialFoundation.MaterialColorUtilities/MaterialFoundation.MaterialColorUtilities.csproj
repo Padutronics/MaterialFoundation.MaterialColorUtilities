@@ -3,5 +3,14 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <Version>1.0.0</Version>
+        <Authors>Pavel Dubsky</Authors>
+        <Company>Padutronics</Company>
+        <Product>Material Color Utilities</Product>
+        <Description>Algorithms and utilities that power the Material Design 3 (M3) color system.</Description>
+        <Copyright>Copyright © Padutronics 2024</Copyright>
+        <PackageProjectUrl>https://github.com/Padutronics/MaterialFoundation.MaterialColorUtilities</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Padutronics/MaterialFoundation.MaterialColorUtilities</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
     </PropertyGroup>
 </Project>
